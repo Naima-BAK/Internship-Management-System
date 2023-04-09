@@ -14,6 +14,9 @@ import ProfileT from "./components/teacher/ProfileT";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import TeacherPrivateRoute from "./TeacherPrivateRoute";
 
+import PageNotFound from './components/errors/PageNotFound';
+import Page_403 from './components/errors/Page_403';
+
 import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
@@ -37,6 +40,9 @@ function App() {
       {/* nested routes */}
       <Router>
         <Routes>
+          <Route path="*" element={<PageNotFound />} />
+          <Route path="/403" element={<Page_403 />} />
+
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />

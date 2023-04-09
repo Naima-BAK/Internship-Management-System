@@ -24,7 +24,7 @@ function TeacherPrivateRoute({ children }) {
     axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
         if (err.response.status === 401) {
             Swal.fire("Non autorisé !", err.response.data.message, "warning");
-            navigate('/');
+            navigate('/login');
         }
         return Promise.reject(err);
     });
