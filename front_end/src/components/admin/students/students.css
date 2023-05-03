@@ -1,0 +1,45 @@
+.trash {
+    -webkit-transition: opacity 200ms;
+    height: 30px;
+    width: 30px;
+    opacity: 0.8;
+    position: absolute;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.trash>.can,
+.trash>.lid {
+    background: url('//i.imgur.com/HY8AJMJ.png') 0 0 no-repeat;
+    left: 8px;
+    position: absolute;
+    right: 8px;
+    top: 6px;
+}
+
+.trash:hover>.lid {
+    -webkit-transition: -webkit-transform 250ms;
+}
+
+.trash:hover>.lid.lift {
+    -webkit-transform: translateY(-3px);
+}
+
+.trash:hover>.lid.rotate {
+    -webkit-transform: rotate(-45deg);
+}
+
+
+.trash>.lid {
+    -webkit-transform-origin: -7% 100%;
+    -webkit-transition: -webkit-transform 250ms;
+    height: 6px;
+    width: 14px;
+}
+
+.trash>.can {
+    background-position: 0px -4px;
+    height: 16px;
+    width: 13px;
+    margin-top: 5px;
+}

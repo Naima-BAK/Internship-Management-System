@@ -1,22 +1,29 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+
+// admin :
 import MasterLayout from "./layouts/admin/MasterLayout";
 import Dashboard from "./components/admin/Dashboard";
 import Profile from "./components/admin/Profile";
+import ListStudent from "./components/admin/students/ListStudents";
+import AddStudent from "./components/admin/students/AddStudent";
+import EditStudent from "./components/admin/students/EditStudent";
+import ShowStudent from "./components/admin/students/ShowStudent";
+import AdminPrivateRoute from "./AdminPrivateRoute";
+// ****************
 
 import MasterLayoutS from "./layouts/student/MasterLayoutS";
 import DashboardS from "./components/student/DashboardS";
 import ProfileS from "./components/student/ProfileS";
-
+// ----------------------------------------
 import MasterLayoutT from "./layouts/teacher/MasterLayoutT";
 import DashboardT from "./components/teacher/DashboardT";
 import ProfileT from "./components/teacher/ProfileT";
-import AdminPrivateRoute from "./AdminPrivateRoute";
 import TeacherPrivateRoute from "./TeacherPrivateRoute";
-
+// ------------------------------------
 import PageNotFound from './components/errors/PageNotFound';
 import Page_403 from './components/errors/Page_403';
-
+// -------------------------------------
 import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
@@ -47,10 +54,15 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
 
-
+          {/* Admin routes */}
           <Route path="/admin" element={<AdminPrivateRoute><MasterLayout /></AdminPrivateRoute>} >
             <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path='/admin/profile' element={<Profile />} />
+            <Route path='/admin/ListStudent' element={<ListStudent />} />
+            <Route path='/admin/AddStudent' element={<AddStudent />} />
+            <Route path='/admin/ShowStudent' element={<ShowStudent />} />
+            <Route path='/admin/EditStudent/:id' element={<EditStudent />} />
+
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
 

@@ -25,7 +25,7 @@ class ApiTeacherMiddleware
             else
             {
                 return response()->json([
-                    'message'=>'Accès refusé ! .'
+                    'message'=>'Accès refusé ! vous n\'étes pas un enseignant.'
                 ],403);
             }
         }

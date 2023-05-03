@@ -39,26 +39,19 @@ function Sidebar() {
 
 
                     {/* Gestion etudiants------------------------------- */}
-                    <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <Link className="nav-link collapsed" to="/admin/ListStudent" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
                         Etudiants
                         <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                     </Link>
                     <div className="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                         <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Liste
+                            <Link className="nav-link collapsed" to="/admin/ListStudent">
+                                Liste Etudiants
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                             </Link>
-                            <div className="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav className="sb-sidenav-menu-nested nav">
-                                    <Link className="nav-link" to="login.html">Etudiants stagiaires</Link>
-                                    <Link className="nav-link" to="register.html">Etudiants sans stage</Link>
-                                    <Link className="nav-link" to="register.html">Etudiants avec projet</Link>
 
-                                </nav>
-                            </div>
-                            <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                            <Link className="nav-link collapsed" to="/admin/AddStudent">
                                 Add etudiants
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                             </Link>

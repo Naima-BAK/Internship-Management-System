@@ -22,14 +22,10 @@ class ApiAdminMiddleware
             if(auth()->user()->tokenCan('server:admin')){
                 return $next($request);
             }
-            else if (auth()->user()->tokenCan('server:teacher')){
-                return $next($request);
-
-            }
             else 
             {
                 return response()->json([
-                    'message'=>'Accès refusé ! .'
+                    'message'=>'Accès refusé ! vous n\'étes pas un admin .'
                 ],403);
             }
         }
