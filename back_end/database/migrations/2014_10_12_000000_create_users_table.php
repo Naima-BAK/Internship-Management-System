@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role_as')->default(0);
+            $table->integer('role_as')->default('1');
             $table->string('job')->default('');
             $table->string('sector')->default('');
             $table->string('level')->default('');

@@ -1,0 +1,70 @@
+<div class="card-body">
+    <form action="editCategorie.php" method="POST">
+        <input type="hidden" name="idc" value="<?php echo $category['id']; ?>">
+
+        <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-fullname">id </label>
+            <div class="input-group input-group-merge">
+                <span style="background-color: #e8fadf" id="basic-icon-default-fullname2" class="input-group-text"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        style="fill:#71dd37;transform: ;msFilter:;">
+                        <path
+                            d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z">
+                        </path>
+                    </svg></span>
+                <input type="text" class="form-control" id="id" value="<?php echo $category['id']; ?>" name="id" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-fullname">Nom </label>
+            <div class="input-group input-group-merge">
+                <span style="background-color: #e8fadf" id="basic-icon-default-fullname2" class="input-group-text"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        style="fill:#71dd37;transform: ;msFilter:;">
+                        <path
+                            d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z">
+                        </path>
+                    </svg></span>
+                <input type="text" class="form-control" id="nom" value="<?php echo $category['nom']; ?>" name="nom" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="basic-icon-default-company">Description</label>
+            <div class="input-group input-group-merge">
+                <span style="background-color: #e8fadf" id="basic-icon-default-company2" class="input-group-text"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        style="fill:#71dd37;transform: ;msFilter:;">
+                        <path
+                            d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z">
+                        </path>
+                    </svg></i></span>
+                <input type="text" id="description" class="form-control" value="<?php echo $category['description']; ?>"
+                    name="description" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="image">Image</label>
+            <div class="input-group input-group-merge">
+                <span style="background-color: #e8fadf" class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" style="fill:#71dd37;transform: ;msFilter:;">
+                        <path
+                            d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z">
+                        </path>
+                    </svg></span>
+                <input type="file" id="imageCat" class="form-control" value="<?php echo $category['image']; ?>"
+                    name="imageCat" />
+            </div>
+
+        </div>
+        <center>
+            <button style="background-color:#71dd37;border:0;width:200px;height:40px" type="submit" name="btn-edit"
+                class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    style="fill: #e8fadf;transform: ;msFilter:;">
+                    <path
+                        d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm4.799-2.013H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 11l1.799 1.799-1.372 1.371zM5 7h14v2H5V7z">
+                    </path>
+                </svg>&emsp;Mettre à jour</button>
+        </center>
+    </form>
+</div>

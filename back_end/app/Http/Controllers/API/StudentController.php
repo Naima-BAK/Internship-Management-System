@@ -12,12 +12,15 @@ class StudentController extends Controller
      public function index()
      {
       // all() : get all from students from users
-      $student = DB::table('users')->where('role_as', 0)->get();
+      $student = DB::table('users')->where('role_as', 1)->get();
          return response()->json([
              'status'=>200,
              'student'=>$student,
          ]);
      }
+
+
+     
 
 
 
