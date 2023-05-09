@@ -5,48 +5,29 @@ import Swal from 'sweetalert2';
 import del from '../../../assets/admin/assets/img/crud_images/trash.gif';
 import pencil from '../../../assets/admin/assets/img/crud_images/pencil.gif';
 import view from '../../../assets/admin/assets/img/crud_images/view.gif';
-
-function ListStudents() {
-
+function ListTeachers() {
     const [loading, setLoading] = useState(true);
-    const [student_list, setStudent_list] = useState([]);
+    const [teacher_list, setTeacher_list] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/view_student').then(res => {
+        axios.get('/api/view_teacher').then(res => {
             if (res.data.status === 200) {
-                setStudent_list(res.data.student);
+                setTeacher_list(res.data.teacher);
             }
             setLoading(false);
         })
 
     }, []);
 
-    // -------------------Function delete : delete student from database ----------------------------------------
-    const deleteStudent = (e, id) => {
+    // -------------------Function delete : delete teacher from database ----------------------------------------
+    const deleteTeacher = (e, id) => {
 
         e.preventDefault();
 
-        const thisClicked = e.currentTarget;
-        thisClicked.innerText = "Deleting";
 
-        axios.delete(`/api/delete_student/${id}`).then(res => {
-
-            if (res.data.status === 200) {
-
-                const items = student_list.filter(itemS => itemS.id !== id);
-                setStudent_list(items);
-                Swal.fire("Success", res.data.message, "success");
-
-            }
-            else if (res.data.status === 404) {
-                Swal.fire("Erreur", res.data.message, "error")
-                thisClicked.innerText = "Delete";
-            }
-
-        })
     }
-    // ---------------viewStudent_HTMLTABLE : The HTML element represents students data----------------------------------------------
-    var viewStudent_HTMLTABLE = [];
+    // ---------------viewteacher_HTMLTABLE : The HTML element represents teachers data----------------------------------------------
+    var viewTeacher_HTMLTABLE = [];
 
     if (loading) {
         return (
@@ -54,36 +35,34 @@ function ListStudents() {
         )
     }
     else {
-        // viewStudent_HTMLTABLE : The HTML element represents students data
-        viewStudent_HTMLTABLE =
+        // viewteacher_HTMLTABLE : The HTML element represents teachers data
+        viewTeacher_HTMLTABLE =
             // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
-            student_list.map((item) => {
+            teacher_list.map((item) => {
                 return (
 
                     <div key={item.id} className="mx-0 row border-bottom border-200 text-center">
                         <div className='py-3 col-1 text-start'>{item.id}</div>
                         <div className='py-3 col-2'>{item.name}</div>
                         <div className='py-3 col-2'>{item.email}</div>
-                        <div className='py-3 col-3'>{item.stage_status}</div>
-                        <div className='py-3 col-2'>{item.sector}</div>
-                        {/* <div className='py-3 col-3'>{item.level}</div> */}
+                        <div className='py-3 col-2'>{item.job}</div>
                         <div className='py-3 col-2 text-center'>
                             <div className='row'>
 
                                 <div className='col-2 ms-5'>
-                                    <Link to={`/admin/ShowStudent/${item.id}`}>
+                                    <Link to={`/admin/ShowTeacher/${item.id}`}>
                                         <img width={24} height={24} src={view} alt="view" />
                                     </Link>
                                 </div>
 
                                 <div className='col-2'>
-                                    <Link to={`/admin/EditStudent/${item.id}`}>
+                                    <Link to={`/admin/EditTeacher/${item.id}`}>
                                         <img width={24} height={24} src={pencil} alt="pencil" />
                                     </Link>
                                 </div>
 
                                 <div className='col-2'>
-                                    <a onClick={(e) => deleteStudent(e, item.id)}>
+                                    <a onClick={(e) => deleteTeacher(e, item.id)}>
                                         <img width={24} height={24} src={del} alt="del" />
                                     </a>
                                 </div>
@@ -100,8 +79,8 @@ function ListStudents() {
             <div className='card shadow'>
                 <div className="card-header">
 
-                    <h5 className='mb-3 mb-md-0'>La liste des étudiants
-                        <Link to="/admin/AddStudent" className='btn btn-primary btn-sm float-end'>Ajouter un étudiant</Link>
+                    <h5 className='mb-3 mb-md-0'>La liste des enseignant
+                        <Link to="/admin/AddTeacher" className='btn btn-primary btn-sm float-end'>Ajouter un enseaignant</Link>
                     </h5>
 
                 </div>
@@ -111,17 +90,15 @@ function ListStudents() {
                         <div className='col-1 text-start'>ID</div>
                         <div className='col-2'>Nom</div>
                         <div className='col-2'>Email</div>
-                        <div className='col-2'>statut de stage</div>
-                        <div className='col-3'>Filiere</div>
-                        {/* <div className='col-2'>Niveau</div> */}
+                        <div className='col-3'>profession</div>
                         <div className='col-2'>Actions</div>
                     </div>
 
-                    {viewStudent_HTMLTABLE}
+                    {viewTeacher_HTMLTABLE}
 
                 </div>
             </div>
         </div>
     )
 }
-export default ListStudents;
+export default ListTeachers;

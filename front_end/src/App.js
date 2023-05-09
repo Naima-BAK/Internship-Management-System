@@ -9,6 +9,7 @@ import ListStudent from "./components/admin/students/ListStudents";
 import AddStudent from "./components/admin/students/AddStudent";
 import EditStudent from "./components/admin/students/EditStudent";
 import ShowStudent from "./components/admin/students/ShowStudent";
+import ListTeachers from "./components/admin/teachers/ListTeachers";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 // ****************
 
@@ -28,6 +29,7 @@ import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import axios from "axios";
+import AddTeacher from "./components/admin/teachers/AddTeacher";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -62,16 +64,23 @@ function App() {
             <Route path='/admin/AddStudent' element={<AddStudent />} />
             <Route path='/admin/ShowStudent' element={<ShowStudent />} />
             <Route path='/admin/EditStudent/:id' element={<EditStudent />} />
+            <Route path='/admin/ListTeacher' element={<ListTeachers />} />
+            <Route path='/admin/AddTeacher' element={<AddTeacher />} />
+            {/*<Route path='/admin/ShowTeacher' element={<ShowTeacher />} />
+            <Route path='/admin/EditTeacher/:id' element={<EditTeacher />} /> */}
+
+
 
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
-
+          {/* ---------------student routes----------------------- */}
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>
 
+          {/* -------------------teacher routes----------------- */}
           <Route path="/teacher" element={<TeacherPrivateRoute><MasterLayoutT /> </TeacherPrivateRoute>} >
             <Route path='/teacher/dashboard' element={<DashboardT />} />
             <Route path='/teacher/profile' element={<ProfileT />} />

@@ -22,20 +22,31 @@ function Sidebar() {
                     </Link>
                     {/* ----------------------------- */}
 
+
+
+
+
                     {/* Ensiegnants----------------------- */}
-                    <div className="sb-sidenav-menu-heading">Interface</div>
-                    <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
+                    <Link className="nav-link collapsed" to="/admin/ListTeacher" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
                         Ensiegnants
                         <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                     </Link>
-                    <div className="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav className="sb-sidenav-menu-nested nav">
-                            <Link className="nav-link" to="layout-static.html">Liste Ensiegnants</Link>
-                            <Link className="nav-link" to="layout-sidenav-light.html">Add Ensiegnant</Link>
+                    <div className="collapse" id="collapseLayouts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <Link className="nav-link collapsed" to="/admin/ListTeacher">
+                                Liste des Ensiegnants
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
+
+                            <Link className="nav-link collapsed" to="/admin/AddTeacher">
+                                Ajouter un Ensiegnant
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
+
                         </nav>
                     </div>
-                    {/* -------------------------------------- */}
+                    {/* ------------------- */}
 
 
                     {/* Gestion etudiants------------------------------- */}

@@ -111,7 +111,7 @@ class AuthController extends Controller
 
 
 
-    public function store(Request $req)
+    public function store_student(Request $req)
     {
         $validator = Validator::make($req->all(),[
            'name'=> 'required',
@@ -153,24 +153,24 @@ class AuthController extends Controller
                  'role_as' => $req->role_as,
                  'stage_status' => $req->stage_status,
                ]);
-// ----------------
-$user_name = $req->name;//name of receiver
-$email = $req->email;//mail of receiver
+        // ----------------
+        $user_name = $req->name;//name of receiver
+        $email = $req->email;//mail of receiver
 
-$data = array(
-  "name"=>$user_name,
-  "body"=>"here is your password for the trainee management platform",
-  "your_pass" => $req->password
-);
+        $data = array(
+        "name"=>$user_name,
+        "body"=>"here is your password for the trainee management platform",
+        "your_pass" => $req->password
+        );
 
-//data : information to (send name of receiver and the body of email).
-//'mail' : name of view
-  Mail::send(['text' => 'mail'], $data, 
-  function($msg) use($email, $user_name){
-    $msg->to($email, $user_name)->subject('Internship-Management-System app password');
-    $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-});
-// -----------------
+        //data : information to (send name of receiver and the body of email).
+        //'mail' : name of view
+        Mail::send(['text' => 'mail'], $data, 
+        function($msg) use($email, $user_name){
+            $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+            $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+        });
+        // -----------------
                $token = $user->createToken($user->email.'_token')->plainTextToken;
                return response()->json([
                 'status' => 200,
@@ -179,6 +179,75 @@ $data = array(
                 'message' => 'l\'étudiant est ajouter avec succès',
                ]);
                
+            }
+    }
+
+
+    public function store_teacher(Request $req)
+    {
+        $validator = Validator::make($req->all(),[
+           'name'=> 'required',
+           //email doit etre unique de max=190 et obligatoire et de type email
+           'email'=> 'required|email|max:190|unique:users,email',
+           'password' => 'required|min:8',
+           'job' => 'required',
+           'role_as' => 'required',
+        ],
+        [
+            'name.required'=>'Le champ nom est obligatoire.',
+            'password.required'=>'Le champ password est obligatoire.',
+            'email.required'=>'Le champ email est obligatoire.',
+            'job.required'=>'Le champ filiere est obligatoire.',
+            'role_as.required'=>'Le champ role est obligatoire.',
+            'password.min'=>'La longueur minimale est de 8.',
+            'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
+        ]
+    
+    );
+
+    if($validator->fails()){
+        return response()->json([
+            'status'=>400,
+            // getMessageBag() : Obtenez tous les messages d'erreur de validation.
+            'errors'=>$validator->getMessageBag(),
+        ]);
+    
+        }else{
+               $user = User::create([
+                 'name' => $req->name,
+                 'email' => $req->email,
+                 'password' => Hash::make($req->password),
+                 'job' => $req->job,
+                 'role_as' => $req->role_as,
+               ]);
+// ----------------
+        $user_name = $req->name;//name of receiver
+        $email = $req->email;//mail of receiver
+
+        $data = array(
+             "name"=>$user_name,
+             "body"=>"here is your password for the trainee management platform",
+             "your_pass" => $req->password
+        );
+
+       //data : information to (send name of receiver and the body of email).
+       //'mail' : name of view
+
+       Mail::send(['text' => 'mail'], $data, 
+
+       function($msg) use($email, $user_name){
+             $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+             $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+        });
+       // -----------------
+              
+               $token = $user->createToken('_TeacherToken',['server:teacher'])->plainTextToken;
+               return response()->json([
+                'status' => 200,
+                'username' => $user->name,
+                'token' =>$token,
+                'message' => 'l\enseignant est ajouter avec succès',
+               ]);              
             }
     }
 }
