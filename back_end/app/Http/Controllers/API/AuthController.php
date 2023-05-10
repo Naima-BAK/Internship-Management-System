@@ -119,7 +119,7 @@ class AuthController extends Controller
            'password' => 'required|min:8',
            'level' => 'required',
            'sector' => 'required',
-           'role_as' => 'required',
+          
            'stage_status' => 'required',
         ],
         [
@@ -128,14 +128,14 @@ class AuthController extends Controller
             'email.required'=>'Le champ email est obligatoire.',
             'level.required'=>'Le champ niveau est obligatoire.',
             'sector.required'=>'Le champ filiere est obligatoire.',
-            'role_as.required'=>'Le champ role est obligatoire.',
+            
             'password.min'=>'La longueur minimale est de 8.',
             'stage_status.required'=>'Le champ stage_status est obligatoire.',
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
         ]
     
     );
-
+    $role_as = 1;
     if($validator->fails()){
         return response()->json([
             'status'=>400,
@@ -150,7 +150,7 @@ class AuthController extends Controller
                  'password' => Hash::make($req->password),
                  'level' => $req->level,
                  'sector' => $req->sector,
-                 'role_as' => $req->role_as,
+                 'role_as' => $role_as,
                  'stage_status' => $req->stage_status,
                ]);
         // ----------------
@@ -187,24 +187,21 @@ class AuthController extends Controller
     {
         $validator = Validator::make($req->all(),[
            'name'=> 'required',
-           //email doit etre unique de max=190 et obligatoire et de type email
            'email'=> 'required|email|max:190|unique:users,email',
            'password' => 'required|min:8',
            'job' => 'required',
-           'role_as' => 'required',
         ],
         [
             'name.required'=>'Le champ nom est obligatoire.',
             'password.required'=>'Le champ password est obligatoire.',
             'email.required'=>'Le champ email est obligatoire.',
             'job.required'=>'Le champ filiere est obligatoire.',
-            'role_as.required'=>'Le champ role est obligatoire.',
             'password.min'=>'La longueur minimale est de 8.',
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
         ]
     
     );
-
+    $roleas = 3;
     if($validator->fails()){
         return response()->json([
             'status'=>400,
@@ -218,7 +215,7 @@ class AuthController extends Controller
                  'email' => $req->email,
                  'password' => Hash::make($req->password),
                  'job' => $req->job,
-                 'role_as' => $req->role_as,
+                 'role_as' => $roleas,
                ]);
 // ----------------
         $user_name = $req->name;//name of receiver

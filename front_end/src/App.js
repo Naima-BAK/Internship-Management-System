@@ -8,7 +8,6 @@ import Profile from "./components/admin/Profile";
 import ListStudent from "./components/admin/students/ListStudents";
 import AddStudent from "./components/admin/students/AddStudent";
 import EditStudent from "./components/admin/students/EditStudent";
-import ShowStudent from "./components/admin/students/ShowStudent";
 import ListTeachers from "./components/admin/teachers/ListTeachers";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 // ****************
@@ -62,7 +61,6 @@ function App() {
             <Route path='/admin/profile' element={<Profile />} />
             <Route path='/admin/ListStudent' element={<ListStudent />} />
             <Route path='/admin/AddStudent' element={<AddStudent />} />
-            <Route path='/admin/ShowStudent' element={<ShowStudent />} />
             <Route path='/admin/EditStudent/:id' element={<EditStudent />} />
             <Route path='/admin/ListTeacher' element={<ListTeachers />} />
             <Route path='/admin/AddTeacher' element={<AddTeacher />} />

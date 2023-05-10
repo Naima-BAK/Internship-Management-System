@@ -24,7 +24,8 @@ class User extends Authenticatable
         'level',
         'sector',
         'role_as',
-        'stage_status'
+        'stage_status',
+        'job'
     ];
 
     /**
