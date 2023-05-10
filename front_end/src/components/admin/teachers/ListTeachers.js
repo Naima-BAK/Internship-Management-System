@@ -90,7 +90,7 @@ function ListTeachers() {
                         <div className='col-1 text-start'>ID</div>
                         <div className='col-2'>Nom</div>
                         <div className='col-2'>Email</div>
-                        <div className='col-3'>profession</div>
+                        <div className='col-2'>Filière</div>
                         <div className='col-2'>Actions</div>
                     </div>
 

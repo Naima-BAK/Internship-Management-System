@@ -6,7 +6,7 @@ function Sidebar() {
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div className="sb-sidenav-menu">
                 <div className="nav">
-                    <div className="sb-sidenav-menu-heading">Core</div>
+                    {/* <div className="sb-sidenav-menu-heading">Core</div> */}
 
                     {/* Dashboard---------------- */}
                     <Link className="nav-link" to="/admin/dashboard">
@@ -73,7 +73,7 @@ function Sidebar() {
 
 
 
-                    <div className="sb-sidenav-menu-heading">Addons</div>
+                    {/* <div className="sb-sidenav-menu-heading">Addons</div>
                     <Link className="nav-link" to="charts.html">
                         <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
                         Charts
@@ -81,13 +81,10 @@ function Sidebar() {
                     <Link className="nav-link" to="tables.html">
                         <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
                         Tables
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
-            <div className="sb-sidenav-footer">
-                <div className="small">Logged in as:</div>
-                Start Bootstrap
-            </div>
+
         </nav>
     )
 }

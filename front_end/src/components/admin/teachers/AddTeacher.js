@@ -114,7 +114,7 @@ function AddTeacher() {
                                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                     </svg>
                                 </span>
-                                <input type="text" onChange={handlInput} className="form-control" id="name" name="name" value={teacherInput.name} placeholder="entrez le nom de l'enseignant" />
+                                <input type="text" onChange={handlInput} className="form-control" id="name" name="name" value={teacherInput.name} placeholder="Entrez le nom de l'enseignant" />
                                 {/* ******** */}
 
                                 &nbsp;
@@ -126,7 +126,7 @@ function AddTeacher() {
                                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
                                     </svg>
                                 </span>
-                                <input type="email" value={teacherInput.email} onChange={handlInput} className="form-control" id="email" name="email" placeholder="entrez l'email de l'enseignant" />
+                                <input type="email" value={teacherInput.email} onChange={handlInput} className="form-control" id="email" name="email" placeholder="Entrez l'email de l'enseignant" />
 
                                 {/* ******** */}
 
@@ -176,7 +176,7 @@ function AddTeacher() {
                                     </svg>
                                 </span>
 
-                                <input style={{ flex: '0 1 880px' }} type="text" value={teacherInput.job} onChange={handlInput} className="form-control" id="job" name="job" placeholder="entrez la profession" />
+                                <input style={{ flex: '0 1 880px' }} type="text" value={teacherInput.job} onChange={handlInput} className="form-control" id="job" name="job" placeholder="Entrez la filière" />
 
                                 {/* -------------------------------- */}
 
