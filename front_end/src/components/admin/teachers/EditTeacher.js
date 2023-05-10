@@ -17,13 +17,6 @@ function EditTeacher() {
         setTeacher({ ...teacherInput, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {
-        axios.get('/api/stage_status').then(res => {
-            if (res.data.status === 200) {
-                setStage_Status(res.data.stageSts);
-            }
-        });
-    }, []);
 
 
 
@@ -94,7 +87,7 @@ function EditTeacher() {
                             <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
                         </svg>
                         <br />
-                        <b style={mystyle}> Modifier un étudiant</b>
+                        <b style={mystyle}> Modifier l'enseignant {teacherInput.name}</b>
                     </center>
                 </h5>
 
@@ -158,7 +151,7 @@ function EditTeacher() {
 
                             <div className="input-group input-group-merge">
 
-
+                                <button type="submit" style={{ width: '200px', marginLeft: '1050px' }} className="btn btn-block btn-primary">Mettre à  jour</button>
 
                             </div>
 

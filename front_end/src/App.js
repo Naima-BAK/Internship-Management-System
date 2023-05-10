@@ -9,6 +9,7 @@ import ListStudent from "./components/admin/students/ListStudents";
 import AddStudent from "./components/admin/students/AddStudent";
 import EditStudent from "./components/admin/students/EditStudent";
 import ListTeachers from "./components/admin/teachers/ListTeachers";
+import EditTeacher from "./components/admin/teachers/EditTeacher";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 // ****************
 
