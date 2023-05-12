@@ -39,23 +39,19 @@ Route::get('stage_status',[StageStatusController::class,'index']);
 Route::get('role_user',[RoleController::class,'index']);
 
 // Gestion des étudiants :
-
-// index : pour afficher les données de la table users (where role  is student)
 Route::get('view_student',[StudentController::class,'index']);
+Route::get('show_student/{id}',[StudentController::class,'show']);
 Route::get('edit_student/{id}',[StudentController::class,'edit']);
 Route::put('update_student/{id}',[StudentController::class,'update']);
 Route::DELETE('delete_student/{id}',[StudentController::class,'destroy']);
-//la fonction store_student pour ajouter les données de l'etudiant à la base de données
 Route::post('add_Student',[AuthController::class,'store_student']);
 
 // gestion des enseignant :
-
-// index : pour afficher les données de la table users (where role  is teacher)
 Route::get('view_teacher',[TeacherController::class,'index']);
+Route::get('show_teacher/{id}',[TeacherController::class,'show']);
 Route::get('edit_teacher/{id}',[TeacherController::class,'edit']);
 Route::put('update_teacher/{id}',[TeacherController::class,'update']);
 Route::DELETE('delete_teacher/{id}',[TeacherController::class,'destroy']);
-//la fonction store_student pour ajouter les données de l'enseignant à la base de données
 Route::post('add_teacher',[AuthController::class,'store_teacher']);
 
 });

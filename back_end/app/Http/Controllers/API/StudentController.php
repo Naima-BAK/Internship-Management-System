@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
+
+
 // index : pour afficher les données de la table users (where role  is student)
     public function index()
      {
@@ -21,6 +23,35 @@ class StudentController extends Controller
          ]);
      }
 
+
+    
+    
+    
+    // 
+     public function show($id)
+     {
+         $student = User::find($id);
+         if($student)
+         {
+             return response()->json([
+                 'status'=>200,
+                 'student'=>$student
+             ]);
+         }
+         else
+         {
+             return response()->json([
+                 'status'=>404,
+                 'message'=>'étudiant non trouvé!'
+             ]);
+         }
+     }
+
+
+
+
+
+    //  
      public function edit($id)
      {
          $student = User::find($id);
@@ -91,6 +122,10 @@ class StudentController extends Controller
             }
         }
     }
+
+
+
+    
      
 
 

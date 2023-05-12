@@ -23,6 +23,31 @@ class TeacherController extends Controller
      }
 
     
+
+
+    // 
+     public function show($id)
+     {
+         $teacher = User::find($id);
+         if($teacher)
+         {
+             return response()->json([
+                 'status'=>200,
+                 'teacher'=>$teacher
+             ]);
+         }
+         else
+         {
+             return response()->json([
+                 'status'=>404,
+                 'message'=>'Enseignant non trouvé!'
+             ]);
+         }
+     }
+
+
+
+
      public function edit($id)
      {
          $teacher = User::find($id);

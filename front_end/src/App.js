@@ -30,6 +30,8 @@ import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import axios from "axios";
 import AddTeacher from "./components/admin/teachers/AddTeacher";
+import ShowStudent from "./components/admin/students/ShowStudent";
+import ShowTeacher from "./components/admin/teachers/ShowTeacher";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -51,40 +53,49 @@ function App() {
         <Routes>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/403" element={<Page_403 />} />
-
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
 
-          {/* Admin routes */}
+          {/* ------------Admin routes --------------------------------------------------------*/}
           <Route path="/admin" element={<AdminPrivateRoute><MasterLayout /></AdminPrivateRoute>} >
             <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path='/admin/profile' element={<Profile />} />
+            {/* student management */}
             <Route path='/admin/ListStudent' element={<ListStudent />} />
             <Route path='/admin/AddStudent' element={<AddStudent />} />
             <Route path='/admin/EditStudent/:id' element={<EditStudent />} />
+            <Route path='/admin/ShowStudent/:id' element={<ShowStudent />} />
+            {/* Teacher management */}
             <Route path='/admin/ListTeacher' element={<ListTeachers />} />
             <Route path='/admin/AddTeacher' element={<AddTeacher />} />
-            {/*<Route path='/admin/ShowTeacher' element={<ShowTeacher />} />*/}
+            <Route path='/admin/ShowTeacher/:id' element={<ShowTeacher />} />
             <Route path='/admin/EditTeacher/:id' element={<EditTeacher />} />
-
-
-
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
-          {/* ---------------student routes----------------------- */}
+          {/* --------------------------------------------------------------------------------------- */}
+
+
+
+          {/* ---------------student routes---------------------------------------------------- */}
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>
+          {/* ------------------------------------------------------------------------------------- */}
 
-          {/* -------------------teacher routes----------------- */}
+
+
+          {/* -------------------teacher routes--------------------------------------------------- */}
           <Route path="/teacher" element={<TeacherPrivateRoute><MasterLayoutT /> </TeacherPrivateRoute>} >
             <Route path='/teacher/dashboard' element={<DashboardT />} />
             <Route path='/teacher/profile' element={<ProfileT />} />
             <Route index element={<Navigate to="/teacher/dashboard" />} />
           </Route>
+          {/* ------------------------------------------------------------------------------------------ */}
+
+
         </Routes>
       </Router>
 

@@ -1,32 +1,29 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import '../../../assets/admin/css/show.css';
 
-export default function ShowStudent() {
+export default function ShowTeacher() {
 
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const [studentInput, setStudent] = useState([]);
+    const [teacherInput, setTeacher] = useState([]);
 
 
-    const handlInput = (e) => {
-        e.persist();
-        setStudent({ ...studentInput, [e.target.name]: e.target.value })
-    }
+
 
 
     useEffect(() => {
 
-        axios.get(`/api/show_student/${id}`).then(res => {
+        axios.get(`/api/show_teacher/${id}`).then(res => {
 
             if (res.data.status === 200) {
-                setStudent(res.data.student);
+                setTeacher(res.data.teacher);
             } else if (res.data.status === 404) {
                 Swal.fire("Error", res.data.message, "error");
-                navigate('/admin/ListStudent');
+                navigate('/admin/ListTeacher');
             }
         });
     }, [id, navigate]);
@@ -41,7 +38,7 @@ export default function ShowStudent() {
                                     <div className="user-avatar">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" />
                                     </div>
-                                    <h5 className="user-name">{studentInput.name}</h5>
+                                    <h5 className="user-name">{teacherInput.name}</h5>
                                 </div>
                                 <div className="about">
                                     <h5>About</h5>
@@ -59,36 +56,31 @@ export default function ShowStudent() {
                             <div className="row gutters" style={{ marginTop: '50px' }}>
 
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
-                                    <h6 className="mb-2 text-primary">Données de l'étudiant</h6>
+                                    <h6 className="mb-2 text-primary">Données de l'enseignant</h6>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
                                         <label >Nom et prénom</label>
-                                        <input type="text" className="form-control" id="fullName" value={studentInput.name} readOnly />
+                                        <input type="text" className="form-control" id="fullName" value={teacherInput.name} readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
                                         <label >Email</label>
-                                        <input type="email" className="form-control" id="eMail" value={studentInput.email} readOnly />
+                                        <input type="email" className="form-control" id="eMail" value={teacherInput.email} readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
                                         <label>Filière</label>
-                                        <input type="text" className="form-control" id="phone" value={studentInput.sector} readOnly />
+                                        <input type="text" className="form-control" id="phone" value={teacherInput.job} readOnly />
                                     </div>
                                 </div>
 
-                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div className="form-group">
-                                        <label >niveau</label>
-                                        <input type="url" className="form-control" id="website" value={studentInput.level} readOnly />
-                                    </div>
-                                </div>
+
 
                             </div>
 
@@ -98,7 +90,7 @@ export default function ShowStudent() {
                             <div className="row gutters">
 
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 className="mt-3 mb-2 text-primary">Addresse de l'étudiant</h6>
+                                    <h6 className="mt-3 mb-2 text-primary">Addresse de l'enseignant</h6>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -122,20 +114,13 @@ export default function ShowStudent() {
 
                             </div>
 
-                            <div className="row gutters" >
 
-                                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 className="mb-2 text-primary" style={{ marginTop: '15px' }}>statut de stage</h6>
-                                </div>
-                                <div className="form-group">
-                                    <label >{studentInput.stage_status} </label>
-                                </div>
-                            </div>
 
 
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     )
