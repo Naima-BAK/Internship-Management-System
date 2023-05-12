@@ -12,10 +12,6 @@ export default function ShowStudent() {
     const [studentInput, setStudent] = useState([]);
 
 
-    const handlInput = (e) => {
-        e.persist();
-        setStudent({ ...studentInput, [e.target.name]: e.target.value })
-    }
 
 
     useEffect(() => {

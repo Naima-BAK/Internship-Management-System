@@ -21,9 +21,21 @@ function ListTeachers() {
 
     // -------------------Function delete : delete teacher from database ----------------------------------------
     const deleteTeacher = (e, id) => {
-
         e.preventDefault();
 
+        axios.delete(`/api/delete_teacher/${id}`).then(res => {
+            if (res.data.status === 200) {
+                const items = teacher_list.filter(itemC => itemC.id !== id);
+                setTeacher_list(items)
+                Swal.fire("Success", res.data.message, "success");
+            }
+            else if (res.data.status === 404) {
+                Swal.fire("Erreur", res.data.message, "error")
+            }
+            else if (res.data.status === 401) {
+                Swal.fire("Error", res.data.message, "error");
+            }
+        })
 
     }
     // ---------------viewteacher_HTMLTABLE : The HTML element represents teachers data----------------------------------------------

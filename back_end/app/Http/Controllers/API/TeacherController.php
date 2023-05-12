@@ -113,6 +113,30 @@ class TeacherController extends Controller
             }
         }
     }
+
+    // la fontion destroy pour supprimer un Ensegnant dans la base de donnes
+    public function destroy($id)
+    {
+        
+        $teacher = User::find($id);
+        
+        if($teacher)
+        {
+            $teacher->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Ensegnant supprimée avec succès',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Ensegnant non trouvé!',
+            ]);
+        }
+        
+    }
      
 
 }

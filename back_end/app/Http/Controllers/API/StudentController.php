@@ -125,59 +125,6 @@ class StudentController extends Controller
 
 
 
-    
-     
-
-
-
-     
-
-
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
      // la fontion destroy pour supprimer un étudiant dans la base de donnes
