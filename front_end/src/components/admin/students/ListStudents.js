@@ -22,28 +22,49 @@ function ListStudents() {
     }, []);
 
     // -------------------Function delete : delete student from database ----------------------------------------
-    const deleteStudent = (e, id) => {
+    // const deleteStudent = (e, id) => {
 
+    //     e.preventDefault();
+
+    //     const thisClicked = e.currentTarget;
+    //     thisClicked.innerText = "Deleting";
+
+    //     axios.delete(`/api/delete_student/${id}`).then(res => {
+
+    //         if (res.data.status === 200) {
+
+    //             const items = student_list.filter(itemS => itemS.id !== id);
+    //             setStudent_list(items);
+    //             Swal.fire("Success", res.data.message, "success");
+
+    //         }
+    //         else if (res.data.status === 404) {
+    //             Swal.fire("Erreur", res.data.message, "error")
+    //             thisClicked.innerText = "Delete";
+    //         }
+
+    //     })
+    // }
+
+
+
+    const deleteStudent = (e, id) => {
         e.preventDefault();
 
-        const thisClicked = e.currentTarget;
-        thisClicked.innerText = "Deleting";
-
         axios.delete(`/api/delete_student/${id}`).then(res => {
-
             if (res.data.status === 200) {
-
-                const items = student_list.filter(itemS => itemS.id !== id);
-                setStudent_list(items);
+                const items = student_list.filter(itemC => itemC.id !== id);
+                setStudent_list(items)
                 Swal.fire("Success", res.data.message, "success");
-
             }
             else if (res.data.status === 404) {
                 Swal.fire("Erreur", res.data.message, "error")
-                thisClicked.innerText = "Delete";
             }
-
+            else if (res.data.status === 401) {
+                Swal.fire("Error", res.data.message, "error");
+            }
         })
+
     }
     // ---------------viewStudent_HTMLTABLE : The HTML element represents students data----------------------------------------------
     var viewStudent_HTMLTABLE = [];
