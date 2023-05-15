@@ -73,6 +73,28 @@ function Sidebar() {
 
 
 
+                    {/* Companies----------------------- */}
+                    <Link className="nav-link collapsed" to="/admin/ListCompanies" data-bs-toggle="collapse" data-bs-target="#company" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
+                        Entreprises
+                        <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                    </Link>
+                    <div className="collapse" id="company" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <Link className="nav-link collapsed" to="/admin/ListCompanies">
+                                Liste des Entreprises
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
+
+                            <Link className="nav-link collapsed" to="/admin/AddCompany">
+                                Ajouter une Entreprise
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
+
+                        </nav>
+                    </div>
+                    {/* ------------------- */}
+
                     {/* <div className="sb-sidenav-menu-heading">Addons</div>
                     <Link className="nav-link" to="charts.html">
                         <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>

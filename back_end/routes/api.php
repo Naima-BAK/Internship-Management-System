@@ -6,7 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\TeacherController;
 use App\Http\Controllers\API\StageStatusController;
-
+use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\RoleController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -53,6 +53,15 @@ Route::get('edit_teacher/{id}',[TeacherController::class,'edit']);
 Route::put('update_teacher/{id}',[TeacherController::class,'update']);
 Route::DELETE('delete_teacher/{id}',[TeacherController::class,'destroy']);
 Route::post('add_teacher',[AuthController::class,'store_teacher']);
+
+// gestion des entreprises :
+Route::get('view_company',[CompanyController::class,'index']);
+Route::get('show_company/{id}',[CompanyController::class,'show']);
+Route::get('edit_company/{id}',[CompanyController::class,'edit']);
+Route::put('update_company/{id}',[CompanyController::class,'update']);
+Route::DELETE('delete_company/{id}',[CompanyController::class,'destroy']);
+Route::post('add_company',[CompanyController::class,'store']);
+
 
 });
 

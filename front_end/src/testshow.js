@@ -1,120 +1,25 @@
+import React from 'react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import del from '../../../assets/admin/assets/img/crud_images/trash.gif';
-import pencil from '../../../assets/admin/assets/img/crud_images/pencil.gif';
-import view from '../../../assets/admin/assets/img/crud_images/view.gif';
-import DeleteStudent from './DeleteSudent';
 
-function ListStudents() {
+export default function testshow() {
 
-    const [loading, setLoading] = useState(true);
-    const [student_list, setStudent_list] = useState([]);
-    var id_to_delete;
+    const options = {
+        method: 'GET',
+        url: 'https://restcountries-v1.p.rapidapi.com/name/norge',
+        headers: {
+            'X-RapidAPI-Key': '3facbc1b40msha35145a6fe13453p184301jsnd7e6e32b6fd8',
+            'X-RapidAPI-Host': 'restcountries-v1.p.rapidapi.com'
+        }
+    };
 
-    useEffect(() => {
-        axios.get('/api/view_student').then(res => {
-            if (res.data.status === 200) {
-                setStudent_list(res.data.student);
-            }
-            setLoading(false);
-        })
-
-    }, []);
-
-
-
-
-    // ---------------viewStudent_HTMLTABLE : The HTML element represents students data----------------------------------------------
-    var viewStudent_HTMLTABLE = [];
-
-    if (loading) {
-        return (
-            <h2>Loading ... </h2>
-        )
+    try {
+        const response = axios.request(options);
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
     }
-    else {
-        // viewStudent_HTMLTABLE : The HTML element represents students data
-        viewStudent_HTMLTABLE =
-            // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
-            student_list.map((item) => {
-                { id_to_delete = item.id }
-                return (
-
-                    <div key={item.id} className="mx-0 row border-bottom border-200 text-center">
-                        <div className='py-3 col-1 text-start'>{item.id}</div>
-                        <div className='py-3 col-2'>{item.name}</div>
-                        <div className='py-3 col-2'>{item.email}</div>
-                        <div className='py-3 col-3'>{item.stage_status}</div>
-                        <div className='py-3 col-2'>{item.sector}</div>
-                        {/* <div className='py-3 col-3'>{item.level}</div> */}
-                        <div className='py-3 col-2 text-center'>
-                            <div className='row'>
-
-                                <div className='col-2 ms-5'>
-                                    <Link to={`/admin/ShowStudent/${item.id}`}>
-                                        <img width={24} height={24} src={view} alt="view" />
-                                    </Link>
-                                </div>
-
-                                <div className='col-2'>
-                                    <Link to={`/admin/EditStudent/${item.id}`}>
-                                        <img width={24} height={24} src={pencil} alt="pencil" />
-                                    </Link>
-                                </div>
-
-                                <div className='col-2'>
-                                    href="../functions/categories/deleteCategory.php?id='.$category['id'].'"
-                                    <a onClick="/admin/DeleteStudent/`${item.id}`" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        <img width={24} height={24} src={del} alt="del" />
-
-
-                                    </a>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div >
-                )
-            })
-    }
-
     return (
-        <div className="container p-5">
-            <div className='card shadow'>
-                <div className="card-header">
-
-                    <h5 className='mb-3 mb-md-0'>La liste des étudiants
-                        <Link to="/admin/AddStudent" className='btn btn-primary btn-sm float-end'>Ajouter un étudiant</Link>
-                    </h5>
-
-                </div>
-                <div className="p-0 card-body">
-
-                    <div className='mx-0 row text-center'>
-                        <div className='col-1 text-start'>ID</div>
-                        <div className='col-2'>Nom</div>
-                        <div className='col-2'>Email</div>
-                        <div className='col-2'>statut de stage</div>
-                        <div className='col-3'>Filiere</div>
-                        {/* <div className='col-2'>Niveau</div> */}
-                        <div className='col-2'>Actions</div>
-                    </div>
-
-                    {viewStudent_HTMLTABLE}
-
-                </div>
-            </div>
-
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <DeleteStudent />
-                {/* {console.log(id_to_delete)} */}
-            </div>
+        <div>
         </div>
     )
 }
-export default ListStudents;
