@@ -28,7 +28,7 @@ class CompanyController extends Controller
            'email'=> 'required|email|max:190|unique:users,email',
            'activity' => 'required',
            'phone' => 'required',
-           'website' => 'required',
+        //    'website' => 'required',
            'address' => 'required',
            'city' => 'required',
            'country' => 'required',
@@ -38,7 +38,7 @@ class CompanyController extends Controller
             'activity.required'=>'Le champ activity est obligatoire.',
             'email.required'=>'Le champ email est obligatoire.',
             'phone.required'=>'Le champ filiere est obligatoire.',
-            'website.required'=>'Le champ email est obligatoire.',
+            // 'website.required'=>'Le champ email est obligatoire.',
             'city.required'=>'Le champ filiere est obligatoire.',
             'address.required'=>'Le champ email est obligatoire.',
             'country.required'=>'Le champ filiere est obligatoire.',
@@ -69,4 +69,34 @@ class CompanyController extends Controller
                 ]);            
             }
     }
+
+
+
+
+
+
+
+       // la fontion destroy pour supprimer un Ensegnant dans la base de donnes
+       public function destroy($id)
+       {
+           
+           $company = Company::find($id);
+           
+           if($company)
+           {
+               $company->delete();
+               return response()->json([
+                   'status'=>200,
+                   'message'=>'Entreprise supprimée avec succès',
+               ]);
+           }
+           else
+           {
+               return response()->json([
+                   'status'=>404,
+                   'message'=>'Entreprise non trouvé!',
+               ]);
+           }
+           
+       }
 }

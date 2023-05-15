@@ -8,6 +8,7 @@ import view from '../../../assets/admin/assets/img/crud_images/view.gif';
 
 function ListCompanies() {
 
+    const [company_list, setCompany_list] = useState([]);
     const [companyInput, setCompany] = useState({
         name: '',
         email: '',
@@ -19,7 +20,7 @@ function ListCompanies() {
         country: '',
         errorsList: [],
     });
-    const [company_list, setCompany_list] = useState([]);
+
     const handlInput = (e) => {
         e.persist();
         setCompany({ ...companyInput, [e.target.name]: e.target.value })
@@ -65,30 +66,26 @@ function ListCompanies() {
     // -------------------Function delete : delete company from database ----------------------------------------
     const deleteCompany = (e, id) => {
         e.preventDefault();
+
+
+        axios.delete(`/api/delete_company/${id}`).then(res => {
+            if (res.data.status === 200) {
+                const items = company_list.filter(itemC => itemC.id !== id);
+                setCompany_list(items)
+                Swal.fire("Success", res.data.message, "success");
+            }
+            else if (res.data.status === 404) {
+                Swal.fire("Erreur", res.data.message, "error")
+            }
+            else if (res.data.status === 401) {
+                Swal.fire("Error", res.data.message, "error");
+            }
+        })
+
     }
-
-    //     axios.delete(`/api/delete_company/${id}`).then(res => {
-    //         if (res.data.status === 200) {
-    //             const items = company_list.filter(itemC => itemC.id !== id);
-    //             setCompany_list(items)
-    //             Swal.fire("Success", res.data.message, "success");
-    //         }
-    //         else if (res.data.status === 404) {
-    //             Swal.fire("Erreur", res.data.message, "error")
-    //         }
-    //         else if (res.data.status === 401) {
-    //             Swal.fire("Error", res.data.message, "error");
-    //         }
-    //     })
-
-    // }
-
-
-
     // ---------------viewCompany_HTMLTABLE : The HTML element represents companies data----------------------------------------------
-    var viewCompany_HTMLTABLE = [];
-
     // viewCompany_HTMLTABLE : The HTML element represents companies data
+    var viewCompany_HTMLTABLE = [];
     viewCompany_HTMLTABLE =
         // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
         company_list.map((item) => {
@@ -125,7 +122,6 @@ function ListCompanies() {
                 </div >
             )
         });
-
 
     return (
         <div>
@@ -166,41 +162,49 @@ function ListCompanies() {
                                 <div className="mb-3">
                                     <label className="col-form-label">Nom de l'entreprise</label>
                                     <input type="text" className="form-control" onChange={handlInput} value={companyInput.name} name="name" id="name" placeholder="Entrer le nom" />
+                                    <small className='text-danger'>{companyInput.errorsList.name}</small>
                                 </div>
                                 <div className="mb-3">
                                     <label className="col-form-label">Email de l'entreprise</label>
                                     <input type="email" className="form-control" onChange={handlInput} value={companyInput.email} name="email" id="email" placeholder="Entrer le l'email" />
+                                    <small className='text-danger'>{companyInput.errorsList.email}</small>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="col-form-label">activité de l'entreprise</label>
                                     <input type="text" className="form-control" onChange={handlInput} value={companyInput.activity} name="activity" id="activity" placeholder="Entrer le l'activité" />
+                                    <small className='text-danger'>{companyInput.errorsList.activity}</small>
                                 </div>
                                 <div className="mb-3">
                                     <label className="col-form-label">site web </label>
                                     <input type="text" className="form-control" onChange={handlInput} value={companyInput.website} name="website" id="website" placeholder="Entrer le site web " />
+                                    {/* <small className='text-danger'>{companyInput.errorsList.website}</small> */}
                                 </div>
 
                                 <label className="col-form-label">Contact :</label>
                                 <div className="input-group input-group-merge">
                                     <div className="mb-3">
                                         <input type="text" className="form-control" onChange={handlInput} value={companyInput.phone} name="phone" id="phone" placeholder="Entrer le numero de telephone" />
+                                        <small className='text-danger'>{companyInput.errorsList.phone}</small>
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
 
 
                                     <div className="mb-3">
                                         <input type="text" className="form-control" onChange={handlInput} value={companyInput.address} name="address" id="address" placeholder="Entrer le l'adresse" />
+                                        <small className='text-danger'>{companyInput.errorsList.address}</small>
                                     </div>
                                 </div>
                                 <div className="input-group input-group-merge">
                                     <div className="mb-3">
                                         <input type="text" className="form-control" onChange={handlInput} value={companyInput.city} name="city" id="city" placeholder="Entrer la ville" />
+                                        <small className='text-danger'>{companyInput.errorsList.city}</small>
                                     </div>
                                     &nbsp;&nbsp;&nbsp;
                                     &nbsp;
 
                                     <div className="mb-3">
                                         <input type="text" className="form-control" onChange={handlInput} value={companyInput.country} name="country" id="country" placeholder="Entrer le pays" />
+                                        <small className='text-danger'>{companyInput.errorsList.country}</small>
                                     </div>
                                 </div>
 
