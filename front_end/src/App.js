@@ -34,6 +34,7 @@ import ShowStudent from "./components/admin/students/ShowStudent";
 import ShowTeacher from "./components/admin/teachers/ShowTeacher";
 import ListCompanies from "./components/admin/company/ListCompanies";
 import EditCompany from "./components/admin/company/EditCompany";
+import ShowCompany from "./components/admin/company/ShowCompany";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -75,7 +76,7 @@ function App() {
             <Route path='/admin/EditTeacher/:id' element={<EditTeacher />} />
             {/* company management */}
             <Route path='/admin/ListCompanies' element={<ListCompanies />} />
-            <Route path='/admin/ShowCompany/:id' element={<ShowTeacher />} />
+            <Route path='/admin/ShowCompany/:id' element={<ShowCompany />} />
             <Route path='/admin/EditCompany/:id' element={<EditCompany />} />
 
             <Route index element={<Navigate to="/admin/dashboard" />} />
@@ -84,7 +85,7 @@ function App() {
 
 
 
-          {/* ---------------student routes---------------------------------------------------- */}
+          {/* ---------------student part : routes---------------------------------------------------- */}
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />

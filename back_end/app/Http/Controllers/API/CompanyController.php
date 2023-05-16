@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
-    // index : pour afficher les données de la table companies (where role  is student)
+    // index : pour afficher les données de la table companies (where role  is company)
     public function index()
      {
      // get() : select * from companies.
@@ -18,6 +18,28 @@ class CompanyController extends Controller
              'company'=>$company,
          ]);
      }
+
+
+
+      // 
+      public function show($id)
+      {
+          $company = Company::find($id);
+          if($company)
+          {
+              return response()->json([
+                  'status'=>200,
+                  'company'=>$company
+              ]);
+          }
+          else
+          {
+              return response()->json([
+                  'status'=>404,
+                  'message'=>'Company non trouvé!'
+              ]);
+          }
+      }
 
 
 
