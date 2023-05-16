@@ -7,6 +7,7 @@ use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\TeacherController;
 use App\Http\Controllers\API\StageStatusController;
 use App\Http\Controllers\API\CompanyController;
+use App\Http\Controllers\API\InternshipController;
 use App\Http\Controllers\API\RoleController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -61,6 +62,14 @@ Route::get('edit_company/{id}',[CompanyController::class,'edit']);
 Route::put('update_company/{id}',[CompanyController::class,'update']);
 Route::DELETE('delete_company/{id}',[CompanyController::class,'destroy']);
 Route::post('add_company',[CompanyController::class,'store']);
+
+// gestion des stages :
+Route::get('view_internship',[InternshipController::class,'index']);
+Route::get('show_internship/{id}',[InternshipController::class,'show']);
+Route::get('edit_internship/{id}',[InternshipController::class,'edit']);
+Route::put('update_internship/{id}',[InternshipController::class,'update']);
+Route::DELETE('delete_internship/{id}',[InternshipController::class,'destroy']);
+Route::post('add_internship',[InternshipController::class,'store']);
 
 
 });

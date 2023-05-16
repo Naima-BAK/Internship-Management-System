@@ -14,15 +14,13 @@ class TeacherController extends Controller
 // index : pour afficher les données de la table users (where role  is teacher)
     public function index()
      {
-      
+      // get() : select * from users  where role_as = 3;
       $teacher = DB::table('users')->where('role_as', 3)->get();
          return response()->json([
              'status'=>200,
              'teacher'=>$teacher,
          ]);
      }
-
-    
 
 
     // 
@@ -46,8 +44,6 @@ class TeacherController extends Controller
      }
 
 
-
-
      public function edit($id)
      {
          $teacher = User::find($id);
@@ -66,7 +62,6 @@ class TeacherController extends Controller
              ]);
          }
      }
-
 
 
      public function update(Request $request, $id){
@@ -113,6 +108,7 @@ class TeacherController extends Controller
             }
         }
     }
+
 
     // la fontion destroy pour supprimer un Ensegnant dans la base de donnes
     public function destroy($id)

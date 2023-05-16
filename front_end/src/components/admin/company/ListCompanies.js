@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import del from '../../../assets/admin/assets/img/crud_images/trash.gif';
 import pencil from '../../../assets/admin/assets/img/crud_images/pencil.gif';
 import view from '../../../assets/admin/assets/img/crud_images/view.gif';
+import data from '../../../data_country.json';
+import data_city from '../../../data_city.json';
 
 function ListCompanies() {
 
@@ -196,14 +198,32 @@ function ListCompanies() {
                                 </div>
                                 <div className="input-group input-group-merge">
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" onChange={handlInput} value={companyInput.city} name="city" id="city" placeholder="Entrer la ville" />
+                                        <select style={{ width: "", backgroundColor: 'white' }} onChange={handlInput} value={companyInput.city} name="city" id="city" placeholder="Entrer la ville" className='form-control'>
+                                            <option >Ville</option>
+                                            {
+                                                data_city.map((data_city) => {
+                                                    return (
+                                                        <option value={data_city.name} key={data_city.id}>{data_city.name}</option>
+                                                    )
+                                                })
+                                            }
+
+                                        </select>
                                         <small className='text-danger'>{companyInput.errorsList.city}</small>
                                     </div>
-                                    &nbsp;&nbsp;&nbsp;
-                                    &nbsp;
+
 
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" onChange={handlInput} value={companyInput.country} name="country" id="country" placeholder="Entrer le pays" />
+                                        <select style={{ width: "", backgroundColor: 'white' }} onChange={handlInput} value={companyInput.country} name="country" id="country" placeholder="Entrer le pays" className='form-control'>
+                                            <option >pays</option>
+                                            {
+                                                data.map((data) => {
+                                                    return (
+                                                        <option value={data.name} key={data.id}>{data.name}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
                                         <small className='text-danger'>{companyInput.errorsList.country}</small>
                                     </div>
                                 </div>

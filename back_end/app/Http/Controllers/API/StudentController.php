@@ -15,7 +15,7 @@ class StudentController extends Controller
 // index : pour afficher les données de la table users (where role  is student)
     public function index()
      {
-      // all() : get all from students from users
+      // get() : select * from users where role_as = 1.
       $student = DB::table('users')->where('role_as', 1)->get();
          return response()->json([
              'status'=>200,

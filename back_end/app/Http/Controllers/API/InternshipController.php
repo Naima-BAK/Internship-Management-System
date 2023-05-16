@@ -1,21 +1,23 @@
 <?php
+
 namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Company;
+use App\Models\Internship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CompanyController extends Controller
+
+class InternshipController extends Controller
 {
-    // index : pour afficher les données de la table companies (where role  is student)
+    // index : pour afficher les données de la table internships.
     public function index()
      {
-     // get() : select * from companies.
-      $company = DB::table('companies')->get();
-         return response()->json([
+      // get() : select * from internships.
+      $internship = DB::table('internships')->get();
+      return response()->json([
              'status'=>200,
-             'company'=>$company,
+             'internship'=>$internship,
          ]);
      }
 
@@ -52,20 +54,20 @@ class CompanyController extends Controller
         ]);
     
         }else{
-               $companys = new Company;
-                  $companys->name = $req->name;
-                 $companys->email = $req->email;
-                 $companys->activity = $req->activity;
-                 $companys->phone = $req->phone;
-                 $companys->website = $req->website;
-                 $companys->city = $req->city;
-                 $companys->country = $req->country;
-                 $companys->address = $req->address;
-                 $companys->save();
+               $internship = new Internship;
+                $internship->name = $req->name;
+                 $internship->email = $req->email;
+                 $internship->activity = $req->activity;
+                 $internship->phone = $req->phone;
+                 $internship->website = $req->website;
+                 $internship->city = $req->city;
+                 $internship->country = $req->country;
+                 $internship->address = $req->address;
+                 $internship->save();
 
                  return response()->json([
                     'status'=>200,
-                    'message'=>'Entreprise ajoutée avec succès',
+                    'message'=>'stage ajoutée avec succès',
                 ]);            
             }
     }
@@ -76,19 +78,19 @@ class CompanyController extends Controller
 
     public function edit($id)
     {
-        $company = Company::find($id);
-        if($company)
+        $internship = Internship::find($id);
+        if($internship)
         {
             return response()->json([
                 'status'=>200,
-                'company'=>$company
+                'internship'=>$internship
             ]);
         }
         else
         {
             return response()->json([
                 'status'=>404,
-                'message'=>'Enseignant non trouvé!'
+                'message'=>'stage non trouvé!'
             ]);
         }
     }
@@ -128,28 +130,28 @@ class CompanyController extends Controller
        }
        else
        {
-           $companys = Company::find($id);
-           if($companys)
+           $internship = Internship::find($id);
+           if($internship)
            {
-               $companys->name = $request->input('name');
-               $companys->email = $request->input('email');
-               $companys->activity = $request->activity;
-               $companys->phone = $request->phone;
-               $companys->website = $request->website;
-               $companys->city = $request->city;
-               $companys->country = $request->country;
-               $companys->address = $request->address;
-               $companys->save();
+               $internship->name = $request->name;
+               $internship->email = $request->email;
+               $internship->activity = $request->activity;
+               $internship->phone = $request->phone;
+               $internship->website = $request->website;
+               $internship->city = $request->city;
+               $internship->country = $request->country;
+               $internship->address = $request->address;
+               $internship->save();
                return response()->json([
                    'status'=>200,
-                   'message'=>"Entreprise mise à jour avec succès",
+                   'message'=>"stage mise à jour avec succès",
                ]);
            }
            else
            {
                return response()->json([
                    'status'=>404,
-                   'message'=>'Entreprise non trouvé!'
+                   'message'=>'stage non trouvé!'
                ]);
            }
        }
@@ -160,21 +162,21 @@ class CompanyController extends Controller
        public function destroy($id)
        {
            
-           $company = Company::find($id);
+           $internship = Internship::find($id);
            
-           if($company)
+           if($internship)
            {
-               $company->delete();
+               $internship->delete();
                return response()->json([
                    'status'=>200,
-                   'message'=>'Entreprise supprimée avec succès',
+                   'message'=>'stage supprimé avec succès',
                ]);
            }
            else
            {
                return response()->json([
                    'status'=>404,
-                   'message'=>'Entreprise non trouvé!',
+                   'message'=>'stage non trouvé!',
                ]);
            }
            
