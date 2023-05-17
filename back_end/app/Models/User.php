@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Http\Models\Internship;
+
 
 class User extends Authenticatable
 {
@@ -27,6 +29,10 @@ class User extends Authenticatable
         'stage_status',
         'job'
     ];
+    public function internship()
+    {
+        return $this->hasOne(Internship::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

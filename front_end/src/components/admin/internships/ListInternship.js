@@ -9,14 +9,14 @@ import view from '../../../assets/admin/assets/img/crud_images/view.gif';
 function ListInternship() {
 
 
-    const [intership_list, setIntership_list] = useState([]);
+    const [internship_list, setInternship_list] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/view_intership').then(res => {
+        axios.get('/api/view_internship').then(res => {
             if (res.data.status === 200) {
-                setIntership_list(res.data.intership);
+                setInternship_list(res.data.internship);
             }
-            setLoading(false);
+
         })
 
     }, []);
@@ -24,36 +24,39 @@ function ListInternship() {
 
     const deleteIntership = (e, id) => {
         e.preventDefault();
-
-        axios.delete(`/api/delete_intership/${id}`).then(res => {
-            if (res.data.status === 200) {
-                const items = intership_list.filter(itemC => itemC.id !== id);
-                setIntership_list(items)
-                Swal.fire("Success", res.data.message, "success");
-            }
-            else if (res.data.status === 404) {
-                Swal.fire("Erreur", res.data.message, "error")
-            }
-            else if (res.data.status === 401) {
-                Swal.fire("Error", res.data.message, "error");
-            }
-        })
-
     }
+    //     axios.delete(`/api/delete_intership/${id}`).then(res => {
+    //         if (res.data.status === 200) {
+    //             const items = intership_list.filter(itemC => itemC.id !== id);
+    //             setIntership_list(items)
+    //             Swal.fire("Success", res.data.message, "success");
+    //         }
+    //         else if (res.data.status === 404) {
+    //             Swal.fire("Erreur", res.data.message, "error")
+    //         }
+    //         else if (res.data.status === 401) {
+    //             Swal.fire("Error", res.data.message, "error");
+    //         }
+    //     })
+
+    // }
     // ---------------viewintership_HTMLTABLE : The HTML element represents interships data----------------------------------------------
-    var viewIntership_HTMLTABLE = [];
+    var viewInternship_HTMLTABLE = [];
     // viewintership_HTMLTABLE : The HTML element represents interships data
-    viewIntership_HTMLTABLE =
+    viewInternship_HTMLTABLE =
         // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
-        intership_list.map((item) => {
+        internship_list.map((item) => {
             return (
 
                 <div key={item.id} className="mx-0 row border-bottom border-200 text-center">
                     <div className='py-3 col-1 text-start'>{item.id}</div>
-                    <div className='py-3 col-2'>{item.name}</div>
-                    <div className='py-3 col-2'>{item.email}</div>
-                    <div className='py-3 col-3'>{item.stage_status}</div>
-                    <div className='py-3 col-2'>{item.sector}</div>
+                    <div className='py-3 col-2'>{item.theme}</div>
+                    <div className='py-3 col-2'>{item.student_id}</div>
+                    <div className='py-3 col-3'>{item.company_id}</div>
+                    <div className='py-3 col-2'>{item.start_date}</div>
+                    <div className='py-3 col-2'>{item.end_date}</div>
+                    <div className='py-3 col-2'>{item.internship_supervisor}</div>
+                    <div className='py-3 col-2'>{item.university_supervisor}</div>
                     {/* <div className='py-3 col-3'>{item.level}</div> */}
                     <div className='py-3 col-2 text-center'>
                         <div className='row'>
@@ -83,6 +86,11 @@ function ListInternship() {
         });
 
 
+
+
+
+
+
     return (
         <div className="container p-5">
             <div className='card shadow'>
@@ -105,7 +113,7 @@ function ListInternship() {
                         <div className='col-2'>Actions</div>
                     </div>
 
-                    {viewIntership_HTMLTABLE}
+                    {viewInternship_HTMLTABLE}
 
                 </div>
             </div>

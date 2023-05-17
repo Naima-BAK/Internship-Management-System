@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Internship;
 
 class Company extends Model
 {
@@ -14,10 +15,16 @@ class Company extends Model
         'email',
         'activity',
         'city',
+        'logo',
         'country',
         'website',
         'address',
         'phone'
         
     ];
+    public function internship()
+    {
+        return $this->hasMany(Internship::class);
+    }
+    
 }

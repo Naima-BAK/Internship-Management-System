@@ -23,6 +23,29 @@ class InternshipController extends Controller
 
 
 
+      // 
+      public function show($id)
+      {
+          $internship = Internship::find($id);
+          if($internship)
+          {
+              return response()->json([
+                  'status'=>200,
+                  'internship'=>$internship
+              ]);
+          }
+          else
+          {
+              return response()->json([
+                  'status'=>404,
+                  'message'=>'stage non trouvé!'
+              ]);
+          }
+      }
+
+
+
+
      public function store(Request $req)
     {
         $validator = Validator::make($req->all(),[

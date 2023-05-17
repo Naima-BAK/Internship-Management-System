@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('country');
             $table->string('website');
-            $table->string('logo');
+            $table->string('logo')->default('company.png');
             $table->timestamps();
         });
     }

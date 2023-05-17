@@ -22,8 +22,27 @@ function Sidebar() {
                     </Link>
                     {/* ----------------------------- */}
 
+                    {/* STAGES----------------------- */}
+                    <Link className="nav-link collapsed" to="/admin/ListInternship" data-bs-toggle="collapse" data-bs-target="#stage" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
+                        Stages
+                        <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                    </Link>
+                    <div className="collapse" id="stage" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <Link className="nav-link collapsed" to="/admin/ListInternship">
+                                Liste des stages
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
 
+                            <Link className="nav-link collapsed" to="/admin/AddInternship">
+                                Ajouter un stage
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
 
+                        </nav>
+                    </div>
+                    {/* ------------------- */}
 
 
                     {/* Ensiegnants----------------------- */}

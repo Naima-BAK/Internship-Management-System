@@ -11,12 +11,36 @@ import EditStudent from "./components/admin/students/EditStudent";
 import ListTeachers from "./components/admin/teachers/ListTeachers";
 import EditTeacher from "./components/admin/teachers/EditTeacher";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+
+import AddTeacher from "./components/admin/teachers/AddTeacher";
+import ShowStudent from "./components/admin/students/ShowStudent";
+import ShowTeacher from "./components/admin/teachers/ShowTeacher";
+
+import ListCompanies from "./components/admin/company/ListCompanies";
+import EditCompany from "./components/admin/company/EditCompany";
+import ShowCompany from "./components/admin/company/ShowCompany";
+
+import ListInternship from './components/admin/internships/ListInternship';
+import AddInternship from './components/admin/internships/AddInternship';
+import ShowInternship from './components/admin/internships/ShowInternship';
+import EditInternship from './components/admin/internships/EditInternship';
+
+
+
+
 // ****************
 
+
+
+
+// ---------student***------------------------------
 import MasterLayoutS from "./layouts/student/MasterLayoutS";
 import DashboardS from "./components/student/DashboardS";
 import ProfileS from "./components/student/ProfileS";
-// ----------------------------------------
+// ----------------------------------------------------
+
+
+// ------------teacher----------------------------
 import MasterLayoutT from "./layouts/teacher/MasterLayoutT";
 import DashboardT from "./components/teacher/DashboardT";
 import ProfileT from "./components/teacher/ProfileT";
@@ -29,12 +53,7 @@ import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import axios from "axios";
-import AddTeacher from "./components/admin/teachers/AddTeacher";
-import ShowStudent from "./components/admin/students/ShowStudent";
-import ShowTeacher from "./components/admin/teachers/ShowTeacher";
-import ListCompanies from "./components/admin/company/ListCompanies";
-import EditCompany from "./components/admin/company/EditCompany";
-import ShowCompany from "./components/admin/company/ShowCompany";
+
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -79,6 +98,11 @@ function App() {
             <Route path='/admin/ShowCompany/:id' element={<ShowCompany />} />
             <Route path='/admin/EditCompany/:id' element={<EditCompany />} />
 
+            {/* Internship management */}
+            <Route path='/admin/ListInternship' element={<ListInternship />} />
+            <Route path='/admin/AddInternship' element={<AddInternship />} />
+            <Route path='/admin/ShowInternship/:id' element={<ShowInternship />} />
+            <Route path='/admin/EditInternship/:id' element={<EditInternship />} />
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
           {/* --------------------------------------------------------------------------------------- */}
