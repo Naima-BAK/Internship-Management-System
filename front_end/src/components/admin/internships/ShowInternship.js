@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import '../../../assets/admin/css/show.css';
+import view from '../../../assets/admin/assets/img/crud_images/view.gif';
 
 export default function ShowInternship() {
 
@@ -14,12 +15,14 @@ export default function ShowInternship() {
 
 
 
+
     useEffect(() => {
 
         axios.get(`/api/show_internship/${id}`).then(res => {
 
             if (res.data.status === 200) {
                 setInternship(res.data.internship);
+
             } else if (res.data.status === 404) {
                 Swal.fire("Error", res.data.message, "error");
                 navigate('/admin/ListInternship');
@@ -36,16 +39,30 @@ export default function ShowInternship() {
 
                                 <div className="user-profile" style={{ marginTop: '70px' }}>
                                     <div className="user-avatar">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" />
+                                        <img width={100} src={`../../../../images/${internshipInput.company_logo}`} alt="Maxwell Admin" />
                                     </div>
-                                    <h5 className="user-name">{internshipInput.student_id.name}</h5>
+                                    <h5 className="user-name">{internshipInput.company_name}</h5>
+                                    {/* <div className='col-2 ms-5'>
+                                        <Link style={{ marginLeft: '70px' }} to={`/admin/ShowCompany/${internshipInput.company_id}`}>
+                                            <img width={30} height={30} src={view} alt="view" />
+                                        </Link>
+                                    </div> */}
+                                    <a href={`/admin/ShowStudent/${internshipInput.company_id}`} >plus d'informations à propos de l'entreprise</a>
 
-                                    <br /><br />
+
+                                    <br />
 
                                     <div className="user-avatar">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" />
                                     </div>
-                                    <h5 className="user-name">{internshipInput.company_id.name}</h5>
+                                    <h5 className="user-name">{internshipInput.student_name}   </h5>
+                                    {/* <div className='col-2 ms-5'>
+                                        <Link style={{ marginLeft: '70px' }} to={`/admin/ShowStudent/${internshipInput.user_id}`}>
+                                            <img width={30} height={30} src={view} alt="view" />
+                                        </Link>
+                                    </div> */}
+                                    <a href={`/admin/ShowStudent/${internshipInput.user_id}`} >plus d'informations à propos de l'étudiant</a>
+
 
                                 </div>
 
@@ -54,33 +71,32 @@ export default function ShowInternship() {
                     </div>
                 </div>
 
-
                 <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                     <div className="card h-100">
                         <div className="card-body">
                             <div className="row gutters" style={{ marginTop: '50px' }}>
 
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
-                                    <h6 className="mb-2 text-primary" style={{ marginTop: '15px', color: 'blue', fontSize: '25px' }}>information du stage</h6>
+                                    <h6 className="mb-2 text-primary" style={{ marginTop: '15px', color: 'blue', fontSize: '25px' }}>informations du stage</h6>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label >Nom </label>
+                                        <label >Thème de stage </label>
                                         <input type="text" className="form-control" id="fullName" value={internshipInput.theme} readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label >l'activité</label>
+                                        <label >la date de début de stage</label>
                                         <input type="email" className="form-control" id="eMail" value={internshipInput.start_date} readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label>site web </label>
+                                        <label>La date fin de stage</label>
                                         <input type="text" className="form-control" id="phone" value={internshipInput.end_date} readOnly />
                                     </div>
                                 </div>
@@ -95,29 +111,31 @@ export default function ShowInternship() {
                             <div className="row gutters">
 
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 className="mt-3 mb-2 text-primary" style={{ color: 'blue', fontSize: '25px' }}>Encadrement</h6>
+                                    <h6 className="mt-3 mb-2 text-primary" style={{ color: 'blue', fontSize: '25px' }}>Encadrement
+
+                                    </h6>
+
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label>Rue</label>
-                                        <input type="name" className="form-control" id="Street" value={internshipInput.encadrant_society} readOnly placeholder="Enter Street" />
+                                        <label>L'encadrant de la part de l'university</label>
+                                        <input type="name" className="form-control" id="Street" value={internshipInput.university_supervisor} readOnly placeholder="Pas d'enacadrant" />
                                     </div>
                                 </div>
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label >Ville</label>
-                                        <input type="name" className="form-control" id="ciTy" value={internshipInput.encadrant_université} readOnly placeholder="Enter City" />
+                                        <label >L'encadrant de l'entreprise</label>
+                                        <input type="name" className="form-control" id="ciTy" value={internshipInput.internship_supervisor} readOnly placeholder="Pas d'enacadrant" />
                                     </div>
                                 </div>
-
-
                             </div>
-
-
-
+                            <div className="row gutters">
+                                &nbsp; <h5 className='mb-3 mb-md-0'> <Link to="/admin/AddIntership" className='btn btn-info btn-sm'>Affecter un encadrant</Link>
+                                </h5></div>
 
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -13,9 +13,9 @@ class Internship extends Model
     protected $fillable =
     [
         'theme',
-        'student_id',
+        'user_id',
         'company_id',
-        'university_supervisor_id',
+        'university_supervisor',
         'internship_supervisor',
         'start_date',
         'end_date'

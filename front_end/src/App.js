@@ -19,6 +19,7 @@ import ShowTeacher from "./components/admin/teachers/ShowTeacher";
 import ListCompanies from "./components/admin/company/ListCompanies";
 import EditCompany from "./components/admin/company/EditCompany";
 import ShowCompany from "./components/admin/company/ShowCompany";
+import EditLogo from "./components/admin/company/EditLogo";
 
 import ListInternship from './components/admin/internships/ListInternship';
 import AddInternship from './components/admin/internships/AddInternship';
@@ -97,6 +98,7 @@ function App() {
             <Route path='/admin/ListCompanies' element={<ListCompanies />} />
             <Route path='/admin/ShowCompany/:id' element={<ShowCompany />} />
             <Route path='/admin/EditCompany/:id' element={<EditCompany />} />
+            <Route path='/admin/EditLogo/:id' element={<EditLogo />} />
 
             {/* Internship management */}
             <Route path='/admin/ListInternship' element={<ListInternship />} />

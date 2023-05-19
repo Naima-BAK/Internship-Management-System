@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Internship;
+use App\Models\User;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,12 +17,15 @@ class InternshipController extends Controller
      {
       // get() : select * from internships.
       $internship = DB::table('internships')->get();
+      $user = User::get();
+      $company = Company::get();
       return response()->json([
              'status'=>200,
              'internship'=>$internship,
+             'user'=>$user,
+             'company'=>$company,
          ]);
      }
-
 
 
       // 
@@ -29,9 +34,15 @@ class InternshipController extends Controller
           $internship = Internship::find($id);
           if($internship)
           {
+
+            $user = User::find($internship->user_id);
+            $company = Company::find($internship->company_id);
+            $internship->student_name = $user->name;
+            $internship->company_name = $company->name;
+            $internship->company_logo = $company->logo;
               return response()->json([
                   'status'=>200,
-                  'internship'=>$internship
+                  'internship'=>$internship,
               ]);
           }
           else
@@ -44,32 +55,29 @@ class InternshipController extends Controller
       }
 
 
-
-
-     public function store(Request $req)
+     public function store(Request $request)
     {
-        $validator = Validator::make($req->all(),[
-           'name'=> 'required',
-           'email'=> 'required|email|max:190|unique:users,email',
-           'activity' => 'required',
-           'phone' => 'required',
-        //    'website' => 'required',
-           'address' => 'required',
-           'city' => 'required',
-           'country' => 'required',
-        ],
-        [
-            'name.required'=>'Le champ nom est obligatoire.',
-            'activity.required'=>'Le champ activity est obligatoire.',
-            'email.required'=>'Le champ email est obligatoire.',
-            'phone.required'=>'Le champ filiere est obligatoire.',
-            // 'website.required'=>'Le champ email est obligatoire.',
-            'city.required'=>'Le champ filiere est obligatoire.',
-            'address.required'=>'Le champ email est obligatoire.',
-            'country.required'=>'Le champ filiere est obligatoire.',
-         ]
-    );
-    if($validator->fails()){
+        $validator = Validator::make(
+            $request->all(),[
+                'theme'=> 'required',
+                'user_id'=> 'required',
+                'company_id' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'university_supervisor' => 'required',
+                'internship_supervisor' => 'required',
+             ],
+             [
+                 'theme.required'=>'Le champ thème est obligatoire.',
+                 'user_id.required'=>'Le champ etudiant est obligatoire.',
+                 'company_id.required'=>'Le champ entreprise est obligatoire.',
+                 'start_date.required'=>'Le champ date debut est obligatoire.',
+                 'end_date.required'=>'Le champ date fin est obligatoire.',
+                 'university_supervisor.required'=>'Le champ encadrant université est obligatoire.',
+                 'internship_supervisor.required'=>"Le champ encadrant de la part de l'entreprise est obligatoire.",
+              ]
+        );
+       if($validator->fails()){
         return response()->json([
             'status'=>400,
             // getMessageBag() : Obtenez tous les messages d'erreur de validation.
@@ -78,16 +86,14 @@ class InternshipController extends Controller
     
         }else{
                $internship = new Internship;
-                $internship->name = $req->name;
-                 $internship->email = $req->email;
-                 $internship->activity = $req->activity;
-                 $internship->phone = $req->phone;
-                 $internship->website = $req->website;
-                 $internship->city = $req->city;
-                 $internship->country = $req->country;
-                 $internship->address = $req->address;
-                 $internship->save();
-
+               $internship->theme = $request->theme;
+               $internship->user_id = $request->user_id;
+               $internship->company_id = $request->company_id;
+               $internship->start_date = $request->start_date;
+               $internship->end_date = $request->end_date;
+               $internship->university_supervisor = $request->university_supervisor;
+               $internship->internship_supervisor = $request->internship_supervisor;
+               $internship->save();
                  return response()->json([
                     'status'=>200,
                     'message'=>'stage ajoutée avec succès',
@@ -96,14 +102,15 @@ class InternshipController extends Controller
     }
 
 
-
-
-
     public function edit($id)
     {
         $internship = Internship::find($id);
         if($internship)
         {
+            $user = User::find($internship->user_id);
+            $company = Company::find($internship->company_id);
+            $internship->student_name = $user->name;
+            $internship->company_name = $company->name;
             return response()->json([
                 'status'=>200,
                 'internship'=>$internship
@@ -120,27 +127,26 @@ class InternshipController extends Controller
 
 
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
-       $validator = Validator::make($request->all(),[
-        'name'=> 'required',
-        'email'=> 'required|email|max:190|unique:users,email',
-        'activity' => 'required',
-        'phone' => 'required',
-     //    'website' => 'required',
-        'address' => 'required',
-        'city' => 'required',
-        'country' => 'required',
+        $validator = Validator::make($request->all(),[
+        'theme'=> 'required',
+        'user_id'=> 'required',
+        'company_id' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'university_supervisor' => 'required',
+        'internship_supervisor' => 'required',
      ],
      [
-         'name.required'=>'Le champ nom est obligatoire.',
-         'activity.required'=>'Le champ activity est obligatoire.',
-         'email.required'=>'Le champ email est obligatoire.',
-         'phone.required'=>'Le champ filiere est obligatoire.',
-         // 'website.required'=>'Le champ email est obligatoire.',
-         'city.required'=>'Le champ filiere est obligatoire.',
-         'address.required'=>'Le champ email est obligatoire.',
-         'country.required'=>'Le champ filiere est obligatoire.',
+         'theme.required'=>'Le champ thème est obligatoire.',
+         'user_id.required'=>'Le champ etudiant est obligatoire.',
+         'company_id.required'=>'Le champ entreprise est obligatoire.',
+         'start_date.required'=>'Le champ date debut est obligatoire.',
+         'end_date.required'=>'Le champ date fin est obligatoire.',
+         'university_supervisor.required'=>'Le champ encadrant université est obligatoire.',
+         'internship_supervisor.required'=>"Le champ encadrant de la part de l'entreprise est obligatoire.",
       ]
      );
    
@@ -156,14 +162,13 @@ class InternshipController extends Controller
            $internship = Internship::find($id);
            if($internship)
            {
-               $internship->name = $request->name;
-               $internship->email = $request->email;
-               $internship->activity = $request->activity;
-               $internship->phone = $request->phone;
-               $internship->website = $request->website;
-               $internship->city = $request->city;
-               $internship->country = $request->country;
-               $internship->address = $request->address;
+               $internship->theme = $request->theme;
+               $internship->user_id = $request->user_id;
+               $internship->company_id = $request->company_id;
+               $internship->start_date = $request->start_date;
+               $internship->end_date = $request->end_date;
+               $internship->university_supervisor = $request->university_supervisor;
+               $internship->internship_supervisor = $request->internship_supervisor;
                $internship->save();
                return response()->json([
                    'status'=>200,
