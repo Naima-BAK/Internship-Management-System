@@ -131,7 +131,7 @@ export default function ShowInternship() {
                                 </div>
                             </div>
                             <div className="row gutters">
-                                &nbsp; <h5 className='mb-3 mb-md-0'> <Link to="/admin/AddIntership" className='btn btn-info btn-sm'>Affecter un encadrant</Link>
+                                &nbsp; <h5 className='mb-3 mb-md-0'> <Link to={`/admin/AffectSupervisor/${internshipInput.id}`} className='btn btn-info btn-sm'>Affecter un encadrant</Link>
                                 </h5></div>
 
                         </div>

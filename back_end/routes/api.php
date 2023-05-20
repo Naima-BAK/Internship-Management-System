@@ -70,6 +70,8 @@ Route::get('edit_internship/{id}',[InternshipController::class,'edit']);
 Route::put('update_internship/{id}',[InternshipController::class,'update']);
 Route::DELETE('delete_internship/{id}',[InternshipController::class,'destroy']);
 Route::post('add_internship',[InternshipController::class,'store']);
+Route::get('affect_supervisor/{id}',[InternshipController::class,'affect']);
+Route::put('affect_teacher/{id}',[InternshipController::class,'affect_teacher']);
 
 
 });

@@ -25,6 +25,7 @@ import ListInternship from './components/admin/internships/ListInternship';
 import AddInternship from './components/admin/internships/AddInternship';
 import ShowInternship from './components/admin/internships/ShowInternship';
 import EditInternship from './components/admin/internships/EditInternship';
+import AffectSupervisor from "./components/admin/internships/AffectSupervisor";
 
 
 
@@ -105,6 +106,7 @@ function App() {
             <Route path='/admin/AddInternship' element={<AddInternship />} />
             <Route path='/admin/ShowInternship/:id' element={<ShowInternship />} />
             <Route path='/admin/EditInternship/:id' element={<EditInternship />} />
+            <Route path='/admin/AffectSupervisor/:id' element={<AffectSupervisor />} />
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
           {/* --------------------------------------------------------------------------------------- */}
