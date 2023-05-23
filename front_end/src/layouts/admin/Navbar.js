@@ -1,6 +1,35 @@
+import axios from 'axios';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 function Navbar() {
+
+    const navigate = useNavigate();
+    const logoutSubmit = (e) => {
+        e.preventDefault();
+
+        axios.post('/api/logout').then(res => {
+            if (res.data.status === 200) {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('auth_name');
+                swal("Success", res.data.message, "success");
+                navigate('/');
+            }
+        });
+
+    }
+    var AuthButtons = '';
+
+    if (!localStorage.getItem('auth_token')) {
+        // navigate(/)
+        <Navigate to="/Login" />
+    } else {
+        AuthButtons = (
+            <li className="nav-item">
+                <button type="button" onClick={logoutSubmit} className="dropdown-item">Logout</button>
+            </li>
+        );
+    }
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <Link className="navbar-brand ps-3" to="/admin">logo pic</Link>
@@ -24,7 +53,7 @@ function Navbar() {
                         <li><Link className="dropdown-item" to="#!">Settings</Link></li>
                         <li><Link className="dropdown-item" to="#!">Activity Log</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link className="dropdown-item" to="#!">Logout</Link></li>
+                        {AuthButtons}
                     </ul>
                 </li>
             </ul>

@@ -108,6 +108,7 @@ function AffectSupervisor() {
                                     <optgroup label="IT">
                                         {
                                             teacher_it.map((it) => {
+
                                                 return (
                                                     <option value={it.name} key={it.id}>{it.name}</option>
                                                 )
@@ -120,6 +121,7 @@ function AffectSupervisor() {
                                     <optgroup label="Journalisme">
                                         {
                                             teacher_agro.map((agro) => {
+
                                                 return (
                                                     <option value={agro.name} key={agro.id}>{agro.name}</option>
                                                 )
@@ -129,8 +131,12 @@ function AffectSupervisor() {
                                     <optgroup label="Agro-al">
                                         {
                                             teacher_jr.map((jr) => {
+
                                                 return (
-                                                    <option value={jr.name} key={jr.id}>{jr.name}</option>
+                                                    <option value={jr.name} key={jr.id}>{jr.name}
+
+                                                    </option>
+
                                                 )
                                             })
                                         }

@@ -276,48 +276,30 @@ class InternshipController extends Controller
               if($internship)
               {
                 $user = User::find($internship->user_id);
-                $teacher = DB::table('users')->where('role_as', 3)->where('job', 'like','%'.$request->university_supervisor.'%')->get();
-                $internship->university_supervisor = $request->university_supervisor;
+
+                $internship->university_supervisor = $request->university_supervisor; 
                 $internship->save();
+
+        // ----------------
+        $user_name = $user->name;//name of receiver
+        $email = $user->email;//mail of receiver
+
+        $data = array(
+        "name"=>$user_name,
+        "body"=>"Vous pouvez contactez votre encadrant ",
+        "your_pass" =>$request->university_supervisor
+        );
+
+        Mail::send(['text' => 'mail2'], $data, 
+        function($msg) use($email, $user_name){
+            $msg->to($email, $user_name)->subject('Encadrant de stage');
+            $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+        });
+        
                   return response()->json([
                       'status'=>200,
                       'message'=>"l'encadrant est affecté avec succès",
                   ]);
-
-
-                  $teacher_name = $request->university_supervisor;//name of receiver
-                  $teacher_email = $teacher->email;//mail of receiver
-   
-                  $student_name = $user->name;//name of receiver
-                  $student_email = $user->email;//mail of receiver
-          
-                  $data_student = array(
-                       "name"=>$student_name,
-                       "body"=>"Vous pouvez contactez votre encadrant ",
-                       "encadrant" => $teacher_name
-                  );
-                  $data_teacher = array(
-                    "name"=>$teacher_name,
-                    "body"=>"Vous pouvez encadrez l'étudiant(e) ",
-                    "student" => $student_name
-               );
-          
-                 //data : information to (send name of receiver and the body of email).
-                 //'mail' : name of view
-          
-                 Mail::send(['text' => 'encadrant_student'], $data_student, 
-          
-                 function($msg) use($student_email, $student_name){
-                       $msg->to($student_email, $student_name)->subject('Votre encadrant de stage');
-                       $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-                  });
-
-                  Mail::send(['text' => 'encadrant_teacher'], $data_teacher, 
-          
-                  function($msg) use($teacher_email, $teacher_name){
-                        $msg->to($teacher_email, $teacher_name)->subject('Votre encadrant de stage');
-                        $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-                   });
               }
               else
               {

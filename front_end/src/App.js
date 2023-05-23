@@ -79,7 +79,7 @@ function App() {
           <Route path="/403" element={<Page_403 />} />
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
+          {/* <Route exact path="/register" element={<Register />} /> */}
 
           {/* ------------Admin routes --------------------------------------------------------*/}
           <Route path="/admin" element={<AdminPrivateRoute><MasterLayout /></AdminPrivateRoute>} >

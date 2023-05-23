@@ -3,7 +3,7 @@ import React from 'react'
 export default function EditLogo() {
     return (
         <div>
-            edit logo
+            logo company
         </div>
     )
 }

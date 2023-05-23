@@ -62,6 +62,7 @@ Route::get('edit_company/{id}',[CompanyController::class,'edit']);
 Route::put('update_company/{id}',[CompanyController::class,'update']);
 Route::DELETE('delete_company/{id}',[CompanyController::class,'destroy']);
 Route::post('add_company',[CompanyController::class,'store']);
+Route::put('edit_logo_company/{id}',[CompanyController::class,'edit_logo']);
 
 // gestion des stages :
 Route::get('view_internship',[InternshipController::class,'index']);

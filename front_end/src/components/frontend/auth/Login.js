@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
+import '../style.css';
+import logo from '../logo.png';
 function Login() {
 
     const navigate = useNavigate();
@@ -61,32 +63,42 @@ function Login() {
     return (
         <div>
             <Navbar />
-            <div className="container py-5">
-                <div className="row justify-content-center">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Login</h4>
-                            </div>
-                            <div className="card-body">
-                                <form onSubmit={loginSubmit}>
+            <div class="limiter">
+                <div class="container-login100">
+                    <div class="wrap-login100">
+                        <form onSubmit={loginSubmit} class="login100-form validate-form">
+                            <span class="login100-form-logo">
+                                <i class="zmdi zmdi-landscape">
+                                    <img className='img' width={120} src={logo} alt="logo" />
+                                </i>
+                            </span>
+                            <span class="login100-form-title p-b-34 p-t-27">
 
-                                    <div className="form-group mb-3">
-                                        <label>Email ID</label>
-                                        <input type="text" name="email" onChange={handlInput} value={loginInput.name} className="form-control" />
-                                        <span>{loginInput.error_list.email}</span>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <label>Password</label>
-                                        <input type="password" name="password" onChange={handlInput} value={loginInput.password} className="form-control" />
-                                        <span>{loginInput.error_list.password}</span>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <button type="submit" className="btn btn-primary">Login</button>
-                                    </div>
-                                </form>
+                                Se connecter
+                            </span>
+
+
+                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                                <br />
+                                <input type="text" className="input100" name="email" onChange={handlInput} value={loginInput.name} placeholder='Entrez votre email' />
+                                <span>{loginInput.error_list.email}</span>
                             </div>
-                        </div>
+
+                            <div className="wrap-input100 validate-input" data-validate="Enter password">
+                                <input type="password" name="password" onChange={handlInput} value={loginInput.password} className="input100" />
+                                <span>{loginInput.error_list.password}</span>
+                            </div>
+
+                            <div class="container-login100-form-btn">
+                                <button type="submit" class="login100-form-btn">Login</button>
+                            </div>
+
+                            <div class="text-center p-t-90">
+                                <a class="txt1" href="#">
+                                    Forgot Password?
+                                </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
