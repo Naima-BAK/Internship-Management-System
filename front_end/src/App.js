@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
+import Register from './components/frontend/auth/Register';
 // admin :
 import MasterLayout from "./layouts/admin/MasterLayout";
 import Dashboard from "./components/admin/Dashboard";
@@ -26,6 +26,9 @@ import AddInternship from './components/admin/internships/AddInternship';
 import ShowInternship from './components/admin/internships/ShowInternship';
 import EditInternship from './components/admin/internships/EditInternship';
 import AffectSupervisor from "./components/admin/internships/AffectSupervisor";
+
+import ListDocument from "./components/admin/documents/ListDocument";
+import AddDocument from "./components/admin/documents/AddDocument";
 
 
 
@@ -53,13 +56,15 @@ import Page_403 from './components/errors/Page_403';
 // -------------------------------------
 import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
-import Register from "./components/frontend/auth/Register";
 import axios from "axios";
+import Convention from "./components/admin/documents/Convention";
+import DemandeStage from "./components/admin/documents/DemandeStage";
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(function (config) {
@@ -75,11 +80,15 @@ function App() {
       {/* nested routes */}
       <Router>
         <Routes>
+
           <Route path="*" element={<PageNotFound />} />
           <Route path="/403" element={<Page_403 />} />
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-          {/* <Route exact path="/register" element={<Register />} /> */}
+          {/* <Route exact path="/login" element={<Login />} /> */}
+          <Route exact path="/register" element={<Register />} />
+
+          <Route exact path="/login" element={localStorage.getItem('auth_token') ?
+            <Navigate to='/' replace /> : <Login />} />
 
           {/* ------------Admin routes --------------------------------------------------------*/}
           <Route path="/admin" element={<AdminPrivateRoute><MasterLayout /></AdminPrivateRoute>} >
@@ -107,6 +116,15 @@ function App() {
             <Route path='/admin/ShowInternship/:id' element={<ShowInternship />} />
             <Route path='/admin/EditInternship/:id' element={<EditInternship />} />
             <Route path='/admin/AffectSupervisor/:id' element={<AffectSupervisor />} />
+
+            {/* Documents management */}
+            <Route path='/admin/ListDocument' element={<ListDocument />} />
+            <Route path='/admin/AddDocument/' element={<AddDocument />} />
+            <Route path='/admin/DemandeStage/:id' element={<DemandeStage />} />
+            <Route path='/admin/Convention/:id' element={<Convention />} />
+
+
+
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
           {/* --------------------------------------------------------------------------------------- */}

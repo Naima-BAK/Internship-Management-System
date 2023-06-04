@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('job')->default('');
             $table->string('sector')->default('');
             $table->string('level')->default('');
-            //$table->date('date_of_birth')->default('');
+            $table->string('image')->default('user.png');
             $table->string('stage_status')->default('');//si il est stagiaire ou non.
             $table->rememberToken();
             $table->timestamps();

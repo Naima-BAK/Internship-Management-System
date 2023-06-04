@@ -34,6 +34,11 @@ function Login() {
                 if (res.data.status === 200) {
                     localStorage.setItem('auth_token', res.data.token);
                     localStorage.setItem('auth_name', res.data.username);
+                    localStorage.setItem('auth_id', res.data.id);
+                    localStorage.setItem('auth_email', res.data.email);
+                    localStorage.setItem('auth_image', res.data.image);
+
+
                     swal("Success", res.data.message, "success");
                     if (res.data.role === 'admin') {
                         navigate('/admin/dashboard');

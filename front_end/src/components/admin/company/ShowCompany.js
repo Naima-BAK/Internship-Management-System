@@ -36,7 +36,7 @@ export default function ShowCompany() {
 
                                 <div className="user-profile" style={{ marginTop: '70px' }}>
                                     <div className="user-avatar">
-                                        <img width={100} src={`../../../../images/${companyInput.logo}`} alt="Maxwell Admin" />
+                                        <img width={100} src={`../../../../companies_logo/${companyInput.logo}`} alt="Maxwell Admin" />
                                     </div>
                                     <h5 className="user-name">{companyInput.name}</h5>
                                     <a href="{companyInput.website}">site web</a>

@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+
+
+
+.title {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #999;
+    text-align: center;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: 300;
+    color: #666;
+}
+
+
+
+.upload-icon {
+    margin: 25px 2px 2px 2px;
+}
+
+.upload-input {
+    position: relative;
+    top: -62px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.btnx {
+    display: block;
+    width: 140px;
+    height: 40px;
+    background: rgb(45, 167, 197);
+    color: #fff;
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 0 3px 0 0 rgb(6, 24, 189);
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+.btnx:hover {
+    background: rgb(6, 24, 189);
+    color: #fff;
+    box-shadow: 0 3px 0 0 rgb(45, 167, 197);
+}

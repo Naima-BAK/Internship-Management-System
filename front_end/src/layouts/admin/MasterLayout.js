@@ -8,7 +8,7 @@ import Sidebar from './Sidebar';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 export default function MasterLayout() {
     return (
-        <div className="sb-nav-fixed">
+        <div className="sb-nav-fixed" style={{ overflow: 'hidden' }}>
             <Navbar />
             <div id="layoutSidenav">
 
@@ -17,33 +17,10 @@ export default function MasterLayout() {
                 </div>
                 <div id="layoutSidenav_content">
                     <main>
-                        {/* <Routes>
-                            {routes.map((route, idx) => {
-                                return (
-                                    route.element && (
-                                        <Route
-                                            key={idx}
-                                            path={route.path}
-                                            exact={route.exact}
-                                            name={route.name}
-                                            render={(props) => (
-                                                <route.element {...props} />
-                                            )}
-                                        />
-                                    )
-                                )
-                            })}
-                            <Navigate to="/admin/dashboard" />
-                        </Routes> */
-
-                        }
-
                         <Outlet />
                     </main>
                     <Footer />
                 </div>
-
-
             </div>
         </div>
     )

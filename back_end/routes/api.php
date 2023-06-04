@@ -9,6 +9,9 @@ use App\Http\Controllers\API\StageStatusController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\InternshipController;
 use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\DocumentController;
+use App\Http\Controllers\API\ImageController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -38,6 +41,8 @@ Route::get('checkingAuthenticated', function(){
 
 Route::get('stage_status',[StageStatusController::class,'index']);
 Route::get('role_user',[RoleController::class,'index']);
+//admin profile :
+Route::post('upload_profile_image',[AuthController::class,'upload_profile_image']);
 
 // Gestion des étudiants :
 Route::get('view_student',[StudentController::class,'index']);
@@ -73,9 +78,21 @@ Route::DELETE('delete_internship/{id}',[InternshipController::class,'destroy']);
 Route::post('add_internship',[InternshipController::class,'store']);
 Route::get('affect_supervisor/{id}',[InternshipController::class,'affect']);
 Route::put('affect_teacher/{id}',[InternshipController::class,'affect_teacher']);
+//test docu
+Route::post('upload',[DocumentController::class,'upload']);
+Route::get('get_images',[DocumentController::class,'getDocs']);
+//document management :
+Route::get('view_document',[DocumentController::class,'index']);
+Route::post('upload_confirmation_all',[DocumentController::class,'upload_confirmation_all']);
+Route::post('upload_confirmation_one',[DocumentController::class,'upload_confirmation_one']);
 
 
 });
+
+//test img
+Route::post('upload_logo',[ImageController::class,'upload']);
+
+
 
 // ---------------------------------------------------------------------------------------
 

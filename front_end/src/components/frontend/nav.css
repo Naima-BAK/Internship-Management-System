@@ -12,12 +12,12 @@ body {
 }
 
 .title {
-    margin-top: 5rem;
-    font-size: 18em;
+    margin-top: 3rem;
+    font-size: 15em;
     color: rgb(63, 141, 231);
     /* #f8f9fa;*/
     overflow: hidden;
-    margin-left: 100px;
+    margin-left: 60px;
     font-family: 'Raiderfont';
 }
 

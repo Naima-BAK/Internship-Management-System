@@ -164,7 +164,7 @@ function EditCompany() {
                         <br />
 
                         <Link to={`/admin/EditLogo/${companyInput.id}`}>
-                            <button style={{ marginLeft: '950px' }} type="button" className="btn btn-block btn-primary">Modifier le logo</ button>
+                            <button style={{ marginLeft: '800px' }} type="button" className="btn btn-block btn-primary">Modifier le logo</ button>
                         </Link>
                         <button type="submit" className="btn btn-block btn-primary float-end"> Mettre à jour </ button>
 

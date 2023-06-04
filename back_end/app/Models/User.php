@@ -27,7 +27,8 @@ class User extends Authenticatable
         'sector',
         'role_as',
         'stage_status',
-        'job'
+        'job',
+        'image'
     ];
     public function internship()
     {

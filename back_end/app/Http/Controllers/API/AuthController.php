@@ -90,6 +90,9 @@ class AuthController extends Controller
                 return response()->json([
                     'status'=>200,
                     'username'=>$user->name,
+                    'id'=> $user->id,
+                    'email'=> $user->email,
+                    'image'=> $user->image,
                     'token'=>$token,
                     'message'=>'Connecté avec succès',
                     'role'=>$role,
@@ -134,9 +137,9 @@ class AuthController extends Controller
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
         ]
     
-    );
-    $role_as = 1;
-    if($validator->fails()){
+        );
+        $role_as = 1;
+        if($validator->fails()){
         return response()->json([
             'status'=>400,
             // getMessageBag() : Obtenez tous les messages d'erreur de validation.
@@ -200,9 +203,9 @@ class AuthController extends Controller
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
         ]
     
-    );
-    $roleas = 3;
-    if($validator->fails()){
+        );
+        $roleas = 3;
+        if($validator->fails()){
         return response()->json([
             'status'=>400,
             // getMessageBag() : Obtenez tous les messages d'erreur de validation.
@@ -217,9 +220,9 @@ class AuthController extends Controller
                  'job' => $req->job,
                  'role_as' => $roleas,
                ]);
-// ----------------
-        $user_name = $req->name;//name of receiver
-        $email = $req->email;//mail of receiver
+       // ----------------
+               $user_name = $req->name;//name of receiver
+               $email = $req->email;//mail of receiver
 
         $data = array(
              "name"=>$user_name,
@@ -246,5 +249,36 @@ class AuthController extends Controller
                 'message' => 'l\enseignant est ajouter avec succès',
                ]);              
             }
+    }
+
+
+
+    public function upload_profile_image(Request $request)
+    {      
+            $image = $request->file('selectedFile');
+            $id = $request->input('profile_id');
+            $user =  User::find($id);
+            if($user)
+            {
+                if ($image->isValid()) {
+                     $path = "C:/xampp/htdocs/Internship-Management-System/front_end/public/profile";
+                     //  image :
+                     $extensionFile = $image->getClientOriginalExtension();
+                     $filename = time() . '.' . $extensionFile;
+                     $image->move($path, $filename);
+              
+                     $user->image = $filename;
+                     $user->save();
+                     return response()->json([
+                         'status'=>200,
+                         'message'=>"profile mise à jour avec succès",
+                     ]);
+                }
+            }          
+                return response()->json([
+                    'status'=>404,
+                    'message'=>"error",
+                ]);
+        
     }
 }
