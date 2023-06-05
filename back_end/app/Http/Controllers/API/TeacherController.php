@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class TeacherController extends Controller
 {
     
-// index : pour afficher les données de la table users (where role  is teacher)
+    // index : pour afficher les données de la table users (where role  is teacher)
     public function index()
      {
       // get() : select * from users  where role_as = 3;
@@ -21,8 +21,6 @@ class TeacherController extends Controller
              'teacher'=>$teacher,
          ]);
      }
-
-
 
     // 
      public function show($id)
@@ -44,7 +42,6 @@ class TeacherController extends Controller
          }
      }
 
-
      public function edit($id)
      {
          $teacher = User::find($id);
@@ -63,7 +60,6 @@ class TeacherController extends Controller
              ]);
          }
      }
-
 
      public function update(Request $request, $id){
 
@@ -110,7 +106,6 @@ class TeacherController extends Controller
         }
     }
 
-
     // la fontion destroy pour supprimer un Ensegnant dans la base de donnes
     public function destroy($id)
     {
@@ -135,5 +130,34 @@ class TeacherController extends Controller
         
     }
      
-
+     //not used 00:48 05/06/2023
+     public function upload_profile_image_teacher(Request $request)
+    {      
+            $image = $request->file('selectedFile');
+            $id = $request->input('profile_id');
+            $user =  User::find($id);
+            if($user)
+            {
+                if ($image->isValid()) {
+                     $path = "C:/xampp/htdocs/Internship-Management-System/front_end/public/profile";
+                     //  image :
+                     $extensionFile = $image->getClientOriginalExtension();
+                     $filename = time() . '.' . $extensionFile;
+                     $image->move($path, $filename);
+              
+                     $user->image = $filename;
+                     $user->save();
+                     return response()->json([
+                         'status'=>200,
+                         'message'=>"profile mise à jour avec succès",
+                     ]);
+                }
+            }          
+                return response()->json([
+                    'status'=>404,
+                    'message'=>"error",
+                ]);
+        
+    }
 }
+

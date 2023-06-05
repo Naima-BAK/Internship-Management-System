@@ -42,8 +42,9 @@ Route::get('checkingAuthenticated', function(){
 Route::get('stage_status',[StageStatusController::class,'index']);
 Route::get('role_user',[RoleController::class,'index']);
 //admin profile :
-Route::post('upload_profile_image',[AuthController::class,'upload_profile_image']);
-
+Route::post('upload_profile_image_admin',[AuthController::class,'upload_profile_image']);
+Route::put('update_admin_data/{id}',[AuthController::class,'update_admin_data']);
+Route::get('edit_admin_data/{id}',[AuthController::class,'edit_admin_data']);
 // Gestion des étudiants :
 Route::get('view_student',[StudentController::class,'index']);
 Route::get('show_student/{id}',[StudentController::class,'show']);

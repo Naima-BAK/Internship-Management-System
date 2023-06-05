@@ -152,7 +152,7 @@ function AddTeacher() {
                                     </svg>
                                 </span>
 
-                                <input style={{ flex: '0 1 880px' }} type="password" readOnly value={pass} onChange={handlInput} className="form-control" id="password" name="password" placeholder="génerez le mot de passe de l'enseignant" />
+                                <input type="password" readOnly value={pass} onChange={handlInput} className="form-control" id="password" name="password" placeholder="génerez le mot de passe de l'enseignant" />
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -176,7 +176,7 @@ function AddTeacher() {
                                     </svg>
                                 </span>
 
-                                <input style={{ flex: '0 1 880px' }} type="text" value={teacherInput.job} onChange={handlInput} className="form-control" id="job" name="job" placeholder="Entrez la filière" />
+                                <input type="text" value={teacherInput.job} onChange={handlInput} className="form-control" id="job" name="job" placeholder="Entrez la filière" />
 
                                 {/* -------------------------------- */}
 

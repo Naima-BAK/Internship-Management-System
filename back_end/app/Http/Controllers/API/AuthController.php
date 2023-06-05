@@ -253,7 +253,7 @@ class AuthController extends Controller
 
 
 
-    public function upload_profile_image(Request $request)
+    public function upload_profile_image_admin(Request $request)
     {      
             $image = $request->file('selectedFile');
             $id = $request->input('profile_id');
@@ -281,4 +281,72 @@ class AuthController extends Controller
                 ]);
         
     }
+
+
+   
+
+     // this function used to update data of admin user :
+     public function update_admin_data(Request $request, $id)
+     {
+ 
+        $validator = Validator::make($request->all(),[
+            'name'=> 'required',
+            'email'=> 'required|email|max:190,email',
+            
+         ],
+         [
+             'name.required'=>'Le champ nom est obligatoire.',
+             'email.required'=>'Le champ email est obligatoire.',
+             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
+         ]);
+    
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>422,
+                'errors'=>$validator->getMessageBag(),
+            ]);
+        }
+        else
+        {
+            $admin = User::find($id);
+            if($admin)
+            {
+                $admin->name = $request->input('name');
+                $admin->email = $request->input('email');            
+                $admin->save();
+                return response()->json([
+                    'status'=>200,
+                    'message'=>"Vos données sont mises à jour avec succès",
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'utilisateur non trouvé!'
+                ]);
+            }
+        }
+     }
+
+     //get admin data  by id
+     public function edit_admin_data($id)
+     {
+         $admin = User::find($id);
+         if($admin)
+         {
+             return response()->json([
+                 'status'=>200,
+                 'admin'=>$admin
+             ]);
+         }
+         else
+         {
+             return response()->json([
+                 'status'=>404,
+                 'message'=>'user non trouvé!'
+             ]);
+         }
+     }
 }

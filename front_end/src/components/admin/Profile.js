@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import '../../assets/admin/css/show.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Profile() {
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const navigate = useNavigate();
     const [error, setError] = useState([]);
+    const [admin, setAdmin] = useState([]);
 
+    // update profile pic :
+    const [selectedFile, setSelectedFile] = useState(null);
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
     }
-
     const updateProfile = async (event) => {
         event.preventDefault()
         const formData = new FormData();
@@ -28,6 +30,7 @@ export default function Profile() {
 
                 if (res.data.status === 200) {
                     Swal.fire("Success", res.data.message, "success");
+                    // resetForm();
                 }
             });
 
@@ -39,9 +42,51 @@ export default function Profile() {
     //     });
     //     document.getElementById('IMAGE_FORM').reset();
     // }
+    // ------------------
+    const handlInputAdmin = (e) => {
+        e.persist();
+        setAdmin({ ...admin, [e.target.name]: e.target.value })
+    }
+
+    //get admin sata by id :
+    useEffect(() => {
+        axios.get(`/api/edit_admin_data/${localStorage.getItem('auth_id')}`).then(res => {
+
+            if (res.data.status === 200) {
+                setAdmin(res.data.admin);
+            } else if (res.data.status === 404) {
+                Swal.fire("Error", res.data.message, "error");
+                navigate('/admin/profile');
+            }
+        });
+    }, [localStorage.getItem('auth_id'), navigate]);
+
+
+    const updateAdminData = (e) => {
+        e.preventDefault();
+
+        const data = admin;
+        console.log(admin.email);
+        axios.put(`/api/update_admin_data/${localStorage.getItem('auth_id')}`, data).then(res => {
+            if (res.data.status === 200) {
+                Swal.fire("Success", res.data.message, "success");
+                setError([]);
+            }
+            else if (res.data.status === 422) {
+                Swal.fire("Tous les champs sont obligatoires", "", "error");
+                setError(res.data.errors);
+            }
+            else if (res.data.status === 404) {
+                Swal.fire("Error", res.data.message, "error");
+
+            }
+        });
+    }
+
     const spanStyle = {
         backgroundColor: "#d7f5fc ",
     }
+
     return (
         <div className="container" style={{ marginTop: '40px' }}>
             <div className="row gutters">
@@ -100,8 +145,8 @@ export default function Profile() {
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
 
             {/* model image */}
             <div className="modal fade" id="image" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +166,7 @@ export default function Profile() {
                                 <br />
                                 <input type="file" onChange={handleFileSelect} style={{ marginLeft: '100px' }} />
                                 <br />
-                                <small className='text-danger'>{error.image}</ small>
+                                {/* <small className='text-danger'>{error.image}</ small> */}
                             </div>
 
                             <div className="modal-footer">
@@ -142,7 +187,7 @@ export default function Profile() {
                 <div className="modal-dialog">
 
                     <div className="modal-content">
-                        <form id='Company_FORM'>
+                        <form onSubmit={updateAdminData} id='DATA_FORM'>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Modifier vos informations</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -150,40 +195,40 @@ export default function Profile() {
 
                             <div className="modal-body">
                                 <div className="card-body" id='test2'>
-                                    <form id='Student_FORM'>
 
 
-                                        <div className="mb-3">
 
-                                            <div className="input-group input-group-merge">
-                                                <input type='hidden' value={localStorage.getItem('auth_id')} />
-                                                {/* name of student */}
-                                                <span id="basic-icon-default-fullname2" className="input-group-text" style={spanStyle}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" className="bi bi-person-fill" viewBox="0 0 16 16">
-                                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                                                    </svg>
-                                                </span>
-                                                <input type="text" className="form-control" id="name" name="name" value={localStorage.getItem('auth_name')} />
-                                                {/* <small className='text-danger'>{studentInput.errorsList.name}</small> */}
-                                                {/* ******** */}
+                                    <div className="mb-3">
 
-                                            </div>
-                                            <br />
-                                            <div className="input-group input-group-merge">
+                                        <div className="input-group input-group-merge">
+                                            <input type='hidden' value={localStorage.getItem('auth_id')} />
+                                            {/* name of student */}
+                                            <span id="basic-icon-default-fullname2" className="input-group-text" style={spanStyle}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" className="bi bi-person-fill" viewBox="0 0 16 16">
+                                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                </svg>
+                                            </span>
+                                            <input onChange={handlInputAdmin} type="text" className="form-control" id="name" name="name" value={admin.name} />
+                                            <small className='text-danger'>{error.name}</small>
+                                            {/* ******** */}
 
-                                                {/* name of student */}
-                                                <span id="basic-icon-default-fullname2" className="input-group-text" style={spanStyle}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" className="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
-                                                    </svg>
-                                                </span>
-                                                <input type="email" className="form-control" id="email" name="email" value={localStorage.getItem('auth_email')} />
-                                                {/* <small className='text-danger'>{studentInput.errorsList.name}</small> */}
-                                                {/* ******** */}
-
-                                            </div>
                                         </div>
-                                    </form>
+                                        <br />
+                                        <div className="input-group input-group-merge">
+
+                                            {/* name of student */}
+                                            <span id="basic-icon-default-fullname2" className="input-group-text" style={spanStyle}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" className="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+                                                </svg>
+                                            </span>
+                                            <input onChange={handlInputAdmin} type="email" className="form-control" id="email" name="email" value={admin.email} />
+                                            <small className='text-danger'>{error.email}</small>
+                                            {/* ******** */}
+
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>

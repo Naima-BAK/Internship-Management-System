@@ -12,11 +12,12 @@ function ListInternship() {
     const [internship_list, setInternship_list] = useState([]);
     const [user, setUser] = useState([]);
     const [company, setCompany] = useState([]);
-
+    const [search, setSearch] = useState([]);
     useEffect(() => {
         axios.get('/api/view_internship').then(res => {
             if (res.data.status === 200) {
                 setInternship_list(res.data.internship);
+                setSearch(res.data.internship);
                 setUser(res.data.user);
                 setCompany(res.data.company);
             }
@@ -24,7 +25,14 @@ function ListInternship() {
         })
 
     }, []);
-
+    // search by name :
+    // const searchByNameStudent = (e) => {
+    //     setSearch(int.filter(f => f.student_id.toLowerCase().includes(e.target.value)));
+    // }
+    // search by internship status :
+    const searchByNameTeaacher = (e) => {
+        setSearch(internship_list.filter(f => f.university_supervisor.toLowerCase().includes(e.target.value)));
+    }
 
     const deleteIntership = (e, id) => {
         e.preventDefault();
@@ -48,7 +56,7 @@ function ListInternship() {
     // viewintership_HTMLTABLE : The HTML element represents interships data
     viewInternship_HTMLTABLE =
         // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
-        internship_list.map((item) => {
+        search.map((item) => {
 
             return (
 
@@ -187,7 +195,7 @@ function ListInternship() {
 
                                         <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                                             <div className="input-group">
-                                                <input className="form-control" type="text" placeholder="chercher par encadrant" />
+                                                <input className="form-control" onChange={searchByNameTeaacher} type="text" placeholder="chercher par encadrant" />
                                                 <button className="btn btn-black bg-black" type="submit">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-search" viewBox="0 0 16 16">
                                                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
