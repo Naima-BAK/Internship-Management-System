@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Models\Internship;
-
+use App\Http\Models\Message;
 
 class User extends Authenticatable
 {
@@ -35,6 +35,15 @@ class User extends Authenticatable
         return $this->hasOne(Internship::class);
     }
 
+    public function sentMessages()
+{
+    return $this->hasMany(Message::class, 'sender_id');
+}
+
+public function receivedMessages()
+{
+    return $this->hasMany(Message::class, 'receiver_id');
+}
     /**
      * The attributes that should be hidden for serialization.
      *

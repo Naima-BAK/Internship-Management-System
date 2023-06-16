@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
 import teacher from '../../../assets/admin/assets/img/crud_images/teach.gif';
 function AddTeacher() {
 
@@ -24,7 +23,7 @@ function AddTeacher() {
     const generatePwd = () => {
         let pass = '';
         let i = 1;
-        let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "azertyuiopqsdfghjklmwcxvbn1234567890#&@";
+        let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZazertyuiopqsdfghjklmwcxvbn1234567890#&@";
 
         for (i = 1; i <= 8; i++) {
             let char = Math.floor(Math.random() * str.length + 1);
@@ -75,12 +74,7 @@ function AddTeacher() {
     const spanStyle = {
         backgroundColor: "#d7f5fc ",
     }
-    const styleButton = {
-        width: "260px"
-    }
-    const styleinp = {
-        width: "200px !important"
-    }
+
 
     return (
         <div className="container-xxl flex-grow-1 container-p-y" style={{ marginTop: "200px !important" }} id='test'>

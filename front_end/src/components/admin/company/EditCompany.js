@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
@@ -59,15 +59,7 @@ function EditCompany() {
         padding: "20",
         fontFamily: "Arial",
     };
-    const spanStyle = {
-        backgroundColor: "#d7f5fc ",
-    };
-    const styleButton = {
-        width: "260px",
-    };
-    const styleinp = {
-        width: "200px !important"
-    };
+
 
     return (
         <div className="container-xxl flex-grow-1 container-p-y" style={{ marginTop: "200px !important" }} id='test'>

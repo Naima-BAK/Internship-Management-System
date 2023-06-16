@@ -74,9 +74,9 @@ function ListTeachers() {
                                 </div>
 
                                 <div className='col-2'>
-                                    <a onClick={(e) => deleteTeacher(e, item.id)}>
+                                    <span onClick={(e) => deleteTeacher(e, item.id)}>
                                         <img width={24} height={24} src={del} alt="del" />
-                                    </a>
+                                    </span>
                                 </div>
 
                             </div>

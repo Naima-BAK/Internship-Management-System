@@ -52,13 +52,15 @@ import ProfileT from "./components/teacher/ProfileT";
 import TeacherPrivateRoute from "./TeacherPrivateRoute";
 // ------------------------------------
 import PageNotFound from './components/errors/PageNotFound';
-import Page_403 from './components/errors/Page_403';
+import Page403 from './components/errors/Page_403';
 // -------------------------------------
 import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import axios from "axios";
 import Convention from "./components/admin/documents/Convention";
 import DemandeStage from "./components/admin/documents/DemandeStage";
+import SendMessage from "./components/student/SendMessage";
+import Chat from "./components/Chat_part/Chat";
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -82,9 +84,9 @@ function App() {
         <Routes>
 
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/403" element={<Page_403 />} />
+          <Route path="/403" element={<Page403 />} />
           <Route exact path="/" element={<Home />} />
-          {/* <Route exact path="/login" element={<Login />} /> */}
+          {/* <Route exact path="/Chat" element={<Chat />} /> */}
           <Route exact path="/register" element={<Register />} />
 
           <Route exact path="/login" element={localStorage.getItem('auth_token') ?
@@ -122,6 +124,7 @@ function App() {
             <Route path='/admin/AddDocument/' element={<AddDocument />} />
             <Route path='/admin/DemandeStage/:id' element={<DemandeStage />} />
             <Route path='/admin/Convention/:id' element={<Convention />} />
+            <Route exact path="/admin/Chat" element={<Chat />} />
 
 
 
@@ -135,6 +138,9 @@ function App() {
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />
+            <Route path='/student/SendMessage/:id' element={<SendMessage />} />
+            <Route exact path="/student/Chat" element={<Chat />} />
+
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>
           {/* ------------------------------------------------------------------------------------- */}
@@ -145,6 +151,8 @@ function App() {
           <Route path="/teacher" element={<TeacherPrivateRoute><MasterLayoutT /> </TeacherPrivateRoute>} >
             <Route path='/teacher/dashboard' element={<DashboardT />} />
             <Route path='/teacher/profile' element={<ProfileT />} />
+            <Route exact path="/teacher/Chat" element={<Chat />} />
+
             <Route index element={<Navigate to="/teacher/dashboard" />} />
           </Route>
           {/* ------------------------------------------------------------------------------------------ */}

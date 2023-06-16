@@ -4,14 +4,24 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use Mail;
 
 class AuthController extends Controller
 {
+
+    public function index()
+    {
+        $users = DB::table('users')->get();
+        return response()->json($users);
+    }
+
     public function register(Request $req)
     {
         $validator = Validator::make($req->all(),[
@@ -40,8 +50,6 @@ class AuthController extends Controller
                
             }
     }
-
-
 
     public function login(Request $request){
         $validator = Validator::make($request->all(),[
@@ -99,9 +107,7 @@ class AuthController extends Controller
                 ]);
             }
         }
-    }
-
-    
+    } 
 
     public function logout(){
         auth()->user()->tokens()->delete();
@@ -110,9 +116,6 @@ class AuthController extends Controller
             'message' => 'logged out Sucessfully',
            ]);
     }
-
-
-
 
     public function store_student(Request $req)
     {
@@ -252,8 +255,7 @@ class AuthController extends Controller
     }
 
 
-
-    public function upload_profile_image_admin(Request $request)
+    public function upload_profile_image(Request $request)
     {      
             $image = $request->file('selectedFile');
             $id = $request->input('profile_id');
@@ -282,8 +284,6 @@ class AuthController extends Controller
         
     }
 
-
-   
 
      // this function used to update data of admin user :
      public function update_admin_data(Request $request, $id)
@@ -349,4 +349,61 @@ class AuthController extends Controller
              ]);
          }
      }
+
+
+      // this function used to update data of admin user :
+    //   public function update_admin_password(Request $request, $id)
+    //   {
+  
+       
+    //         $pass = $request->input('password');
+    //         $cpass = $request->input('confirmPassword');
+    //         if($pass == $cpass)
+    //         {
+    //             $admin = User::find($id);
+    //             if($admin)
+    //             {
+   
+    //                 $admin->password = Hash::make($pass);
+    //                 $admin->save();
+    //                 return response()->json([
+    //                     'status'=>200,
+    //                     'message'=>"votre mot de passe est  mise à jour avec succès",
+    //                 ]);
+    //             }
+    //             else
+    //             {
+    //                 return response()->json([
+    //                     'status'=>404,
+    //                     'message'=>'utilisateur non trouvé!'
+    //                 ]);
+    //             }
+    //         }
+    //         else
+    //         {
+    //             return response()->json([
+    //                 'status'=>400,
+    //                 'message'=>'Les mots de passe ne correspondent pas!'
+    //             ]);
+    //         }
+            
+         
+    //   }
+
+    // public function updatePassword(Request $request,$id)
+    // {
+    
+    
+    //     $user = User::find($id); // Find user with ID 9
+
+    //     $user->password = $request->password; // Hash the new password
+    //     $user->save(); // Save the updated user record
+    
+    //     // Return a JSON response with status 200
+    //     return response()->json([
+    //         'message' => 'Password updated successfully',
+    //         'status' => 200
+    //     ]);
+    // }
+ 
 }

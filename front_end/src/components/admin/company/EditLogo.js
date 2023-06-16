@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import swal from 'sweetalert';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../../../assets/admin/css/st.css';
 
 export default function EditLogo() {
@@ -21,7 +20,7 @@ export default function EditLogo() {
         formData.append("idCompany", id);
         console.log(selectedFile);
         try {
-            const response = await axios({
+            await axios({
                 method: "post",
                 url: "/api/upload_logo",
                 data: formData,
@@ -35,12 +34,6 @@ export default function EditLogo() {
     }
 
 
-    // style css :
-    const mystyle = {
-        color: "#03c3ec",
-        padding: "20",
-        fontFamily: "Arial",
-    };
     return (
 
         <form onSubmit={updateLogo} id='Company_FORM'>
@@ -54,7 +47,7 @@ export default function EditLogo() {
 
                     <div class="dropzone">
                         <input type='hidden' value={id} name='idCompany' />
-                        <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                        <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" alt="img" />
                         <input type="file" class="upload-input" onChange={handleFileSelect} />
                     </div>
 

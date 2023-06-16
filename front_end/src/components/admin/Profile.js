@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../../assets/admin/css/show.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
 
@@ -36,13 +36,7 @@ export default function Profile() {
 
         }
     }
-    // function resetForm() {
-    //     setSelectedFile({
-    //         selectedFile: ''
-    //     });
-    //     document.getElementById('IMAGE_FORM').reset();
-    // }
-    // ------------------
+
     const handlInputAdmin = (e) => {
         e.persist();
         setAdmin({ ...admin, [e.target.name]: e.target.value })
@@ -59,7 +53,7 @@ export default function Profile() {
                 navigate('/admin/profile');
             }
         });
-    }, [localStorage.getItem('auth_id'), navigate]);
+    }, [navigate]);
 
 
     const updateAdminData = (e) => {
@@ -123,14 +117,14 @@ export default function Profile() {
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
                                         <label >Nom et prénom</label>
-                                        <input type="text" className="form-control" id="fullName" value={localStorage.getItem('auth_name')} readOnly />
+                                        <input type="text" className="form-control" id="fullName" value={admin.name} readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
                                         <label >Email</label>
-                                        <input type="email" className="form-control" id="eMail" value={localStorage.getItem('auth_email')} readOnly />
+                                        <input type="email" className="form-control" id="eMail" value={admin.email} readOnly />
                                     </div>
                                 </div>
 

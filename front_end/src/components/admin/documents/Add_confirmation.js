@@ -1,17 +1,15 @@
-import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import '../../../assets/admin/css/addDoc.css';
 
 import { NavDropdown } from 'react-bootstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 export default function Add_confirmation() {
 
     const [student_list, setStudent_list] = useState([]);
     const [selectedDoc, setSelectedDoc] = React.useState(null);
     const [user, setUser] = React.useState(null);
-    const [selectedDoc2, setSelectedDoc2] = React.useState(null);
+    // const [selectedDoc2, setSelectedDoc2] = React.useState(null);
 
     //list of students :
     useEffect(() => {
@@ -58,24 +56,25 @@ export default function Add_confirmation() {
 
 
     const handleSubmit2 = async (event) => {
-        event.preventDefault()
-        const formData = new FormData();
-
-        formData.append("selectedDoc2", selectedDoc2);
-        formData.append("user", user);
-
-        axios.post('api/upload_confirmation_one', formData).then(res => {
-
-            if (res.data.status === 200) {
-                Swal.fire("Success", res.data.message, "success");
-            }
-            else if (res.data.status === 204) {
-                Swal.fire("Error", res.data.message, "error");
-            }
-
-        })
-
     }
+    //     event.preventDefault()
+    //     const formData = new FormData();
+
+    //     formData.append("selectedDoc2", selectedDoc2);
+    //     formData.append("user", user);
+
+    //     axios.post('api/upload_confirmation_one', formData).then(res => {
+
+    //         if (res.data.status === 200) {
+    //             Swal.fire("Success", res.data.message, "success");
+    //         }
+    //         else if (res.data.status === 204) {
+    //             Swal.fire("Error", res.data.message, "error");
+    //         }
+
+    //     })
+
+    // }
 
     return (
 
@@ -85,7 +84,7 @@ export default function Add_confirmation() {
             <h3 class="fs-2 text-body-emphasis">
 
             </h3>
-            <a href="#" class="icon-link">
+            <a href="#test" class="icon-link">
                 <div className='btn btn-sm btn-info' >
 
 
@@ -132,7 +131,7 @@ export default function Add_confirmation() {
                             </div>
                             <div className="modal-body">
 
-                                <img style={{ marginLeft: '200px' }} src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                <img style={{ marginLeft: '200px' }} src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" alt="img" />
                                 <br />
                                 <input type="file" onChange={handleDocSelect} style={{ marginLeft: '100px' }} />
                             </div>
@@ -186,7 +185,7 @@ export default function Add_confirmation() {
 
                                     {/* <small className='text-danger'>{internshipInput.errorsList.user_id}</ small> */}
                                 </div>
-                                <img style={{ marginLeft: '200px' }} src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                <img style={{ marginLeft: '200px' }} src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" alt="img" />
                                 <br />
                                 <input type="file" onChange={handleDocSelect2} style={{ marginLeft: '100px' }} />
                             </div>

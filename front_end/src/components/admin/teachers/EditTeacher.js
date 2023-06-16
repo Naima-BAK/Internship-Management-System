@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 function EditTeacher() {
 
 
@@ -66,12 +66,6 @@ function EditTeacher() {
 
     const spanStyle = {
         backgroundColor: "#d7f5fc ",
-    }
-    const styleButton = {
-        width: "260px"
-    }
-    const styleinp = {
-        width: "200px !important"
     }
 
     return (

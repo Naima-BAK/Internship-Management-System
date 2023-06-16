@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import del from '../../../assets/admin/assets/img/crud_images/trash.gif';
 import pencil from '../../../assets/admin/assets/img/crud_images/pencil.gif';
 import view from '../../../assets/admin/assets/img/crud_images/view.gif';
@@ -9,7 +8,6 @@ import generate from '../../../assets/admin/assets/img/crud_images/generate.gif'
 
 import { Img } from 'react-image';
 import { NavDropdown } from 'react-bootstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 function ListDocument() {
 
@@ -55,9 +53,11 @@ function ListDocument() {
                 <div key={item.id} className="mx-0 row border-bottom border-200 text-center">
                     <div className='py-3 col-1 text-start'>{item.id}</div>
                     <div className='py-3 col-2'>
-                        {user.map((user) => {
-                            if (item.user_id == user.id) {
-                                return user.name;
+                        {user.map((user, index) => {
+                            if (item.user_id === user.id) {
+
+                                return <span key={index}>{user.name}</span>
+
                             }
                         })
                         }
@@ -81,9 +81,9 @@ function ListDocument() {
                             </div>
 
                             <div className='col-2'>
-                                <a onClick={(e) => deleteDocument(e, item.id)}>
+                                <span onClick={(e) => deleteDocument(e, item.id)}>
                                     <img width={24} height={24} src={del} alt="del" />
-                                </a>
+                                </span>
                             </div>
 
                         </div>

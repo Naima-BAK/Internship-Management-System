@@ -15,7 +15,13 @@ function Sidebar() {
                         <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                         profile student
                     </Link>
-                    <div className="sb-sidenav-menu-heading">Interface</div>
+
+                    <div className="sb-sidenav-menu-heading">Contact</div>
+                    <Link className="nav-link" to="/student/chat">
+                        <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
+                        Chat part
+                    </Link>
+                    {/* <div className="sb-sidenav-menu-heading">Interface</div>
                     <Link className="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
                         layouts
@@ -66,7 +72,7 @@ function Sidebar() {
                     <Link className="nav-link" to="tables.html">
                         <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
                         Tables
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             <div className="sb-sidenav-footer">

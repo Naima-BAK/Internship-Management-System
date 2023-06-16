@@ -68,22 +68,22 @@ function Login() {
     return (
         <div>
             <Navbar />
-            <div class="limiter">
-                <div class="container-login100">
-                    <div class="wrap-login100">
-                        <form onSubmit={loginSubmit} class="login100-form validate-form">
-                            <span class="login100-form-logo">
-                                <i class="zmdi zmdi-landscape">
+            <div className="limiter">
+                <div className="container-login100">
+                    <div className="wrap-login100">
+                        <form onSubmit={loginSubmit} className="login100-form validate-form">
+                            <span className="login100-form-logo">
+                                <i className="zmdi zmdi-landscape">
                                     <img className='img' width={120} src={logo} alt="logo" />
                                 </i>
                             </span>
-                            <span class="login100-form-title p-b-34 p-t-27">
+                            <span className="login100-form-title p-b-34 p-t-27">
 
                                 Se connecter
                             </span>
 
 
-                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <div className="wrap-input100 validate-input" data-validate="Enter username">
                                 <br />
                                 <input type="text" className="input100" name="email" onChange={handlInput} value={loginInput.name} placeholder='Entrez votre email' />
                                 <span>{loginInput.error_list.email}</span>
@@ -94,14 +94,14 @@ function Login() {
                                 <span>{loginInput.error_list.password}</span>
                             </div>
 
-                            <div class="container-login100-form-btn">
-                                <button type="submit" class="login100-form-btn">Login</button>
+                            <div className="container-login100-form-btn">
+                                <button type="submit" className="login100-form-btn">Login</button>
                             </div>
 
-                            <div class="text-center p-t-90">
-                                <a class="txt1" href="#">
+                            <div className="text-center p-t-90">
+                                <span className="txt1">
                                     Forgot Password?
-                                </a>
+                                </span>
                             </div>
                         </form>
                     </div>

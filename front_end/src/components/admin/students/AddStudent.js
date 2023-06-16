@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
 
 export default function AddStudent() {
 
@@ -37,7 +36,7 @@ export default function AddStudent() {
     const generatePwd = () => {
         let pass = '';
         let i = 1;
-        let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "azertyuiopqsdfghjklmwcxvbn1234567890#&@";
+        let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZazertyuiopqsdfghjklmwcxvbn1234567890#&@";
         for (i = 1; i <= 8; i++) {
             let char = Math.floor(Math.random() * str.length + 1);
             setPass(

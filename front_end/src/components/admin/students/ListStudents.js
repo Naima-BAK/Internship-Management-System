@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import del from '../../../assets/admin/assets/img/crud_images/trash.gif';
 import pencil from '../../../assets/admin/assets/img/crud_images/pencil.gif';
 import view from '../../../assets/admin/assets/img/crud_images/view.gif';
-import { getValue } from '@testing-library/user-event/dist/utils';
 
 function ListStudents() {
 
@@ -98,9 +97,9 @@ function ListStudents() {
                                 </div>
 
                                 <div className='col-2'>
-                                    <a onClick={(e) => deleteStudent(e, item.id)}>
+                                    <span onClick={(e) => deleteStudent(e, item.id)}>
                                         <img width={24} height={24} src={del} alt="del" />
-                                    </a>
+                                    </span>
                                 </div>
 
                             </div>

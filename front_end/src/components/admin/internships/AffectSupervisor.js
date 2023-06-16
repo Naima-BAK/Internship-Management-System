@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import batiment from '../../../assets/admin/assets/img/company/batiment.png';
-import data from '../../../data_country.json';
-import data_city from '../../../data_city.json';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 function AffectSupervisor() {
     const navigate = useNavigate();
@@ -15,7 +13,7 @@ function AffectSupervisor() {
     const [teacher_it, setTeacher_it] = useState([]);
     const [teacher_jr, setTeacher_jr] = useState([]);
     const [teacher_agro, setTeacher_agro] = useState([]);
-    const [teacher_gc, setTeacher_gc] = useState([]);
+    // const [teacher_gc, setTeacher_gc] = useState([]);
 
     const handlInput = (e) => {
         e.persist();
@@ -32,7 +30,7 @@ function AffectSupervisor() {
                 setTeacher_it(res.data.teacher_it);
                 setTeacher_jr(res.data.teacher_jr);
                 setTeacher_agro(res.data.teacher_agro);
-                setTeacher_gc(res.data.teacher_gc);
+                // setTeacher_gc(res.data.teacher_gc);
 
             } else if (res.data.status === 404) {
                 Swal.fire("Error", res.data.message, "error");

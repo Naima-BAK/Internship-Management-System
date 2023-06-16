@@ -65,18 +65,22 @@ function ListInternship() {
                     <div className='py-3 col-2'>{item.theme}</div>
 
                     <div className='py-3 col-2'>
-                        {user.map((user) => {
-                            if (item.user_id == user.id) {
-                                return user.name;
+                        {user.map((user, index) => {
+                            if (item.user_id === user.id) {
+                                return (<span key={index}>{user.name}</span>
+                                );
                             }
                         })
                         }
                     </div>
 
                     <div className='py-3 col-2'>
-                        {company.map((company) => {
-                            if (item.company_id == company.id) {
-                                return company.name;
+                        {company.map((company, index) => {
+                            if (item.company_id === company.id) {
+                                return (
+                                    <span key={index}>{company.name}</span>
+                                );
+
                             }
                         })
                         }
@@ -99,9 +103,9 @@ function ListInternship() {
                             </div>
 
                             <div className='col-2'>
-                                <a onClick={(e) => deleteIntership(e, item.id)}>
+                                <span onClick={(e) => deleteIntership(e, item.id)}>
                                     <img width={24} height={24} src={del} alt="del" />
-                                </a>
+                                </span>
                             </div>
 
                         </div>

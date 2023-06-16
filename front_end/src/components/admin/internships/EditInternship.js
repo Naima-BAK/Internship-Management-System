@@ -1,11 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import batiment from '../../../assets/admin/assets/img/company/batiment.png';
-import data from '../../../data_country.json';
-import data_city from '../../../data_city.json';
+
 
 function EditInternship() {
     const [error, setError] = useState([]);

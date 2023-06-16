@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts.js';
-import FooterS from './FooterS';
-import NavbarS from './NavbarS';
+import FooterS from '../admin/Footer';
+import NavbarS from '../admin/Navbar';
 import SidebarS from './SidebarS';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 export default function MasterLayoutS() {
     return (
         <div className="sb-nav-fixed">
