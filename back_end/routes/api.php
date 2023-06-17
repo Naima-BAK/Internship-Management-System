@@ -43,8 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-//  Route::post('/add_user_to_list_conversations', [MessageController::class,'conversations']); 
-
+Route::post('/user/update-password', [ImageController::class,'updatePassword'])->middleware('auth:sanctum');
 
 
 

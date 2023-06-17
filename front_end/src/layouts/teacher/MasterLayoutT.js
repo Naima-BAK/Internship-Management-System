@@ -2,7 +2,7 @@ import React from 'react';
 import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts.js';
 import FooterT from '../admin/Footer';
-import NavbarT from '../admin/Navbar';
+import NavbarT from './NavbarT';
 import SidebarT from './SidebarT';
 import { Outlet } from 'react-router-dom';
 export default function MasterLayoutT() {

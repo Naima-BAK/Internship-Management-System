@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../../layouts/frontend/Navbar'
+import Nav from './Nav'
 
 // import './nav.css';
 export default function Home() {
@@ -11,8 +12,6 @@ export default function Home() {
                 Bonjour...
             </p> */}
             {/* <AddDocument /> */}
-
-
 
 
 

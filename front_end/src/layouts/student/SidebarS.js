@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-
 function Sidebar() {
     return (
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -8,7 +7,7 @@ function Sidebar() {
                 <div className="nav">
                     <div className="sb-sidenav-menu-heading">Core</div>
                     <Link className="nav-link" to="/student/dashboard">
-                        <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                        <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt" style={{ color: '#58D3F7' }}></i></div>
                         Dashboard student
                     </Link>
                     <Link className="nav-link" to="/student/profile">
@@ -18,7 +17,7 @@ function Sidebar() {
 
                     <div className="sb-sidenav-menu-heading">Contact</div>
                     <Link className="nav-link" to="/student/chat">
-                        <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
+                        <div className="sb-nav-link-icon">--</div>
                         Chat part
                     </Link>
                     {/* <div className="sb-sidenav-menu-heading">Interface</div>

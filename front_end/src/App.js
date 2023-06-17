@@ -59,8 +59,12 @@ import Login from "./components/frontend/auth/Login";
 import axios from "axios";
 import Convention from "./components/admin/documents/Convention";
 import DemandeStage from "./components/admin/documents/DemandeStage";
-import SendMessage from "./components/student/SendMessage";
 import Chat from "./components/Chat_part/Chat";
+import Setting from './components/admin/Setting';
+import UpdatePasswordAdmin from "./components/admin/UpdatePasswordAdmin";
+import UpdatePasswordStudent from "./components/student/UpdatePasswordStudent";
+import UpdatePasswordTeacher from "./components/teacher/UpdatePasswordTeacher";
+
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -125,6 +129,7 @@ function App() {
             <Route path='/admin/DemandeStage/:id' element={<DemandeStage />} />
             <Route path='/admin/Convention/:id' element={<Convention />} />
             <Route exact path="/admin/Chat" element={<Chat />} />
+            <Route exact path="/admin/UpdatePassword" element={<UpdatePasswordAdmin />} />
 
 
 
@@ -138,8 +143,9 @@ function App() {
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />
-            <Route path='/student/SendMessage/:id' element={<SendMessage />} />
             <Route exact path="/student/Chat" element={<Chat />} />
+            <Route exact path="/student/UpdatePassword" element={<UpdatePasswordStudent />} />
+            <Route exact path="/student/setting" element={<Setting />} />
 
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>
@@ -152,6 +158,8 @@ function App() {
             <Route path='/teacher/dashboard' element={<DashboardT />} />
             <Route path='/teacher/profile' element={<ProfileT />} />
             <Route exact path="/teacher/Chat" element={<Chat />} />
+            <Route exact path="/teacher/UpdatePassword" element={<UpdatePasswordTeacher />} />
+
 
             <Route index element={<Navigate to="/teacher/dashboard" />} />
           </Route>

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import logo from '../../components/frontend/logo.png'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { Dropdown } from "react-bootstrap";
+
 function Navbar() {
 
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Navbar() {
     }
     var AuthButtons = '';
 
+
     if (!localStorage.getItem('auth_token')) {
         <Navigate to="/Login" />
     } else {
@@ -38,12 +40,14 @@ function Navbar() {
 
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey=""></Dropdown.Item>
-                            <Dropdown.Item eventKey="option1">Paramétres</Dropdown.Item>
+                            <Link to="/admin/setting"> <Dropdown.Item eventKey="option1">
+                                Paramètres
+
+                            </Dropdown.Item></Link>
                             <Dropdown.Item eventKey="option2">Profile</Dropdown.Item>
 
                             <Dropdown.Divider />
-                            <Dropdown.Item eventKey="option3">
-                                <Link>Modifier le mot de passe</Link></Dropdown.Item>
+
                         </Dropdown.Menu>
 
                     </Dropdown>
@@ -58,12 +62,11 @@ function Navbar() {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey=""></Dropdown.Item>
-                            <Dropdown.Item eventKey="option1">Paramétres</Dropdown.Item>
-                            <Dropdown.Item eventKey="option2">Profile</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/admin/setting" eventKey="option1">Paramétres</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/admin/profile" eventKey="option2"> Profile </Dropdown.Item>
 
                             <Dropdown.Divider />
-                            <Dropdown.Item eventKey="option3">
-                                <Link>Modifier le mot de passe</Link></Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/admin/UpdatePassword" eventKey="option3">Modifier le mot de passe</Dropdown.Item>
                             <Dropdown.Item className="nav-item" onClick={logoutSubmit}>Se déconnecter</Dropdown.Item >
                         </Dropdown.Menu>
 
@@ -110,4 +113,4 @@ function Navbar() {
         </nav>
     )
 }
-export default Navbar
+export default Navbar;

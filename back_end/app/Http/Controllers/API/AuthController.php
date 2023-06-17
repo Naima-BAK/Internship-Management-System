@@ -139,8 +139,8 @@ class AuthController extends Controller
             'stage_status.required'=>'Le champ stage_status est obligatoire.',
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
         ]
-    
         );
+
         $role_as = 1;
         if($validator->fails()){
         return response()->json([
@@ -236,7 +236,7 @@ class AuthController extends Controller
        //data : information to (send name of receiver and the body of email).
        //'mail' : name of view
 
-       Mail::send(['text' => 'mail'], $data, 
+       Mail::send(['text' => 'mail_password'], $data, 
 
        function($msg) use($email, $user_name){
              $msg->to($email, $user_name)->subject('Internship-Management-System app password');

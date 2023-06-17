@@ -4,4 +4,4 @@ Hi {{ $name }}
 {{ $body }}
 {{$your_pass}}
 reset your password
-http://localhost:3000/student/UpdatePassword
+http://localhost:3000/teacher/UpdatePassword

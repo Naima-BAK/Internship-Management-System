@@ -2,7 +2,7 @@ import React from 'react';
 import '../../assets/admin/css/styles.css';
 import '../../assets/admin/js/scripts.js';
 import FooterS from '../admin/Footer';
-import NavbarS from '../admin/Navbar';
+import NavbarS from './NavbarS';
 import SidebarS from './SidebarS';
 import { Outlet } from 'react-router-dom';
 export default function MasterLayoutS() {
