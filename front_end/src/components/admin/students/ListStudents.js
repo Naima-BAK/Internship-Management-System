@@ -11,7 +11,6 @@ function ListStudents() {
     const [loading, setLoading] = useState(true);
     const [student_list, setStudent_list] = useState([]);
     const [search, setSearch] = useState([]);
-
     //liste of student ------------------------------------
     useEffect(() => {
         axios.get('/api/view_student').then(res => {

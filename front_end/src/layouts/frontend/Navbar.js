@@ -4,6 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import logo from '../../components/frontend/logo.png';
 import { Dropdown } from "react-bootstrap";
+import Logo from '../../components/admin/settings/Logo';
 
 
 function Navbar() {
@@ -86,7 +87,7 @@ function Navbar() {
         <nav style={{ backgroundColor: '#f8f9fa !important' }} className="navbar navbar-expand-lg ">
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <Link className="navbar-brand" to="#">
-                <img className='img' width={120} src={logo} alt="logo" />
+                <Logo />
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>

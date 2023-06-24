@@ -12,15 +12,13 @@ use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\DocumentController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\API\SettingController;
+use App\Http\Controllers\API\ColorController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-
-
 
 // -----------------------------Authentification-----------------------------
 // register & login route :
@@ -39,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
  Route::post('upload_profile_image',[AuthController::class,'upload_profile_image']);
  Route::put('update_admin_data/{id}',[AuthController::class,'update_admin_data']);
  Route::get('edit_admin_data/{id}',[AuthController::class,'edit_admin_data']);
+ Route::DELETE('delete_User/{id}',[AuthController::class,'destroy']);
 
 });
 
@@ -93,6 +92,7 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function ()
     Route::DELETE('delete_company/{id}',[CompanyController::class,'destroy']);
     Route::post('add_company',[CompanyController::class,'store']);
     Route::put('edit_logo_company/{id}',[CompanyController::class,'edit_logo']);
+    Route::post('upload_logo',[ImageController::class,'upload']);
 
     // gestion des stages :
     Route::get('view_internship',[InternshipController::class,'index']);
@@ -110,13 +110,22 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function ()
     Route::get('view_document',[DocumentController::class,'index']);
     Route::post('upload_confirmation_all',[DocumentController::class,'upload_confirmation_all']);
     Route::post('upload_confirmation_one',[DocumentController::class,'upload_confirmation_one']);
+    
+    //settings :
+    Route::get('view_setting/{id}',[SettingController::class,'index']);
+    Route::put('update_website_name',[SettingController::class,'update_website_name']);
+    Route::put('update_contactData',[SettingController::class,'update_contactData']);
+    Route::put('update_SocialNetworksLinks',[SettingController::class,'update_SocialNetworksLinks']);
+    Route::post('upload_website_logo',[SettingController::class,'upload_website_logo']);
+    Route::post('upload_website_favicon',[SettingController::class,'upload_website_favicon']);
+    Route::get('view_emails',[AuthController::class,'getEmails']);
+    Route::get('view_colors/{id}',[ColorController::class,'index']);
+    Route::post('update_colors',[ColorController::class,'update_colors']);
 
 
 });
 
 //test img
-Route::post('upload_logo',[ImageController::class,'upload']);
-
 
 
 // ---------------------------------------------------------------------------------------

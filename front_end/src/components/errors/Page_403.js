@@ -7,20 +7,20 @@ function Page_403() {
 
         <div className='bodyy'>
 
-            <div class="scene">
-                <div class="overlay"></div>
-                <div class="overlay"></div>
-                <div class="overlay"></div>
-                <div class="overlay"></div>
-                <span class="bg-403">403</span>
-                <div class="text">
-                    <span class="hero-text"></span>
-                    <span class="msg">Accès refusé !  <span>vous n'êtes pas</span> un administrateur.</span>
-                    <span class="support">
+            <div className="scene">
+                <div className="overlay"></div>
+                <div className="overlay"></div>
+                <div className="overlay"></div>
+                <div className="overlay"></div>
+                <span className="bg-403">403</span>
+                <div className="text">
+                    <span className="hero-text"></span>
+                    <span className="msg">Accès refusé !  <span>vous n'êtes pas</span> un administrateur.</span>
+                    <span className="support">
                         <a href="/login" >Go Home</a>
                     </span>
                 </div>
-                <div class="lock"></div>
+                <div className="lock"></div>
             </div>
         </div>
     );

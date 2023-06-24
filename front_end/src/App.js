@@ -60,11 +60,12 @@ import axios from "axios";
 import Convention from "./components/admin/documents/Convention";
 import DemandeStage from "./components/admin/documents/DemandeStage";
 import Chat from "./components/Chat_part/Chat";
-import Setting from './components/admin/Setting';
 import UpdatePasswordAdmin from "./components/admin/UpdatePasswordAdmin";
 import UpdatePasswordStudent from "./components/student/UpdatePasswordStudent";
 import UpdatePasswordTeacher from "./components/teacher/UpdatePasswordTeacher";
-
+import Setting from "./components/admin/settings/Setting";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -81,7 +82,38 @@ axios.interceptors.request.use(function (config) {
 
 
 function App() {
+
+  const [setting, setSetting] = useState([]);
+  const id = 1;
+
+  // Get setting data from database
+  useEffect(() => {
+    axios.get(`/api/view_setting/${id}`)
+      .then(res => {
+        if (res.data.status === 200) {
+          setSetting(res.data.setting);
+        } else if (res.data.status === 404) {
+          Swal.fire("Error", res.data.message, "error");
+        }
+      });
+  }, [id]);
+
+  // Update the title 
+  useEffect(() => {
+    if (setting.website_name) {
+      document.title = setting.website_name;
+    }
+  }, [setting]);
+
+  // Update the href of the favicon
+  useEffect(() => {
+    const favicon = document.getElementById('favicon');
+    favicon.href = `./website_favicon/${setting.website_favicon}`;
+  }, []);
   return (
+
+
+
     <div className="App">
       {/* nested routes */}
       <Router>
@@ -130,6 +162,7 @@ function App() {
             <Route path='/admin/Convention/:id' element={<Convention />} />
             <Route exact path="/admin/Chat" element={<Chat />} />
             <Route exact path="/admin/UpdatePassword" element={<UpdatePasswordAdmin />} />
+            <Route exact path="/admin/setting" element={<Setting />} />
 
 
 
@@ -145,7 +178,7 @@ function App() {
             <Route path='/student/profile' element={<ProfileS />} />
             <Route exact path="/student/Chat" element={<Chat />} />
             <Route exact path="/student/UpdatePassword" element={<UpdatePasswordStudent />} />
-            <Route exact path="/student/setting" element={<Setting />} />
+            {/* <Route exact path="/student/setting" element={<Setting />} /> */}
 
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>

@@ -46,20 +46,21 @@ class ImageController extends Controller
     }
 
 
-
-    public function updatePassword(Request $request) {
+    // update user password 
+    public function updatePassword(Request $request)
+     {
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|min:8|confirmed',
-        ],
-        [
+            ],
+            [
             'current_password.required' => 'Le champ mot de passe est obligatoire.',
-    'new_password.min' => 'Le champ mot de passe doit comporter au moins :min caractères.',
-    'new_password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
-    'new_password.required' => 'Le champ nouveau mot de passe est obligatoire.',
-    'new_password.min' => 'Le champ nouveau mot de passe doit comporter au moins :min caractères.',
-]
-    );
+            'new_password.min' => 'Le champ mot de passe doit comporter au moins :min caractères.',
+            'new_password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
+            'new_password.required' => 'Le champ nouveau mot de passe est obligatoire.',
+            'new_password.min' => 'Le champ nouveau mot de passe doit comporter au moins :min caractères.',
+             ]
+            );
 
         $user_id = $request->current_user;
         $user = User::find($user_id);

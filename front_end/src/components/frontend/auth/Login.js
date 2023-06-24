@@ -37,6 +37,8 @@ function Login() {
                     localStorage.setItem('auth_id', res.data.id);
                     localStorage.setItem('auth_email', res.data.email);
                     localStorage.setItem('auth_image', res.data.image);
+                    localStorage.setItem('devices', JSON.stringify(res.data.devices));
+
 
 
                     swal("Success", res.data.message, "success");

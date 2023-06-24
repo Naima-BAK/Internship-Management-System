@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Laravel\Sanctum\Sanctum;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Email;
+
 use Mail;
 
 class AuthController extends Controller
@@ -51,16 +54,17 @@ class AuthController extends Controller
             }
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(),[
             'email'=>'required|max:191',
             'password'=>'required',
-        ],
+           ],
             [
                 'email.required'=>'Le champ Adresse email est obligatoire.',
                 'email.max'=>'La longueur de l\'adresse e-mail est trop longue. La longueur maximale est de 191',
                 'password.required'=>'Le champ Mot de passe est obligatoire.',
-            ]);
+        ]);
 
         if($validator->fails()){
             return response()->json([
@@ -80,6 +84,28 @@ class AuthController extends Controller
             }
             else
             {
+                $credentials = $request->only('email', 'password');
+                $userAgent = $request->header('User-Agent'); // get the user agent string
+                if (Auth::attempt($credentials)) {
+                    $device = DB::table('devices')->insert([
+                        'user_id' => $user->id,
+                        'name' => $userAgent, // store the user agent string as the device name
+                        'connection_date' => Carbon::now(),
+                        'ip_address' => $request->ip(),
+                    ]);
+
+                $devices =  DB::table('devices')->where('user_id',$user->id)->get();
+                
+
+                $devicesjson = [];
+
+                foreach ($devices as $d) {
+                    $devicesjson[] = [
+                        "name" => $d->name,
+                        "connection_date" => $d->connection_date,
+                        "ip_address" => $d->ip_address
+                    ];
+                }
                 if($user->role_as == 2)// 2 = admin
                 {
                     $role = 'admin';
@@ -95,6 +121,8 @@ class AuthController extends Controller
                     $role = '';// 1 = student
                     $token = $user->createToken($user->email.'_Token',[''])->plainTextToken;
                 }
+            }
+ 
                 return response()->json([
                     'status'=>200,
                     'username'=>$user->name,
@@ -104,6 +132,7 @@ class AuthController extends Controller
                     'token'=>$token,
                     'message'=>'Connecté avec succès',
                     'role'=>$role,
+                    'devices'=>$devicesjson
                 ]);
             }
         }
@@ -119,7 +148,8 @@ class AuthController extends Controller
 
     public function store_student(Request $req)
     {
-        $validator = Validator::make($req->all(),[
+        $validator = Validator::make($req->all(),
+            [
            'name'=> 'required',
            'email'=> 'required|email|max:190|unique:users,email',
            'password' => 'required|min:8',
@@ -127,29 +157,31 @@ class AuthController extends Controller
            'sector' => 'required',
           
            'stage_status' => 'required',
-        ],
-        [
-            'name.required'=>'Le champ nom est obligatoire.',
-            'password.required'=>'Le champ password est obligatoire.',
-            'email.required'=>'Le champ email est obligatoire.',
-            'level.required'=>'Le champ niveau est obligatoire.',
-            'sector.required'=>'Le champ filiere est obligatoire.',
-            
-            'password.min'=>'La longueur minimale est de 8.',
-            'stage_status.required'=>'Le champ stage_status est obligatoire.',
-            'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
-        ]
+            ],
+            [
+                'name.required'=>'Le champ nom est obligatoire.',
+                'password.required'=>'Le champ password est obligatoire.',
+                'email.required'=>'Le champ email est obligatoire.',
+                'level.required'=>'Le champ niveau est obligatoire.',
+                'sector.required'=>'Le champ filiere est obligatoire.',
+                
+                'password.min'=>'La longueur minimale est de 8.',
+                'stage_status.required'=>'Le champ stage_status est obligatoire.',
+                'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
+            ]
         );
 
         $role_as = 1;
-        if($validator->fails()){
-        return response()->json([
-            'status'=>400,
-            // getMessageBag() : Obtenez tous les messages d'erreur de validation.
-            'errors'=>$validator->getMessageBag(),
-        ]);
+        if($validator->fails())
+        {
+             return response()->json([
+                 'status'=>400,
+                 // getMessageBag() : Obtenez tous les messages d'erreur de validation.
+                 'errors'=>$validator->getMessageBag(),
+             ]);
     
-        }else{
+        }else
+        {
                $user = User::create([
                  'name' => $req->name,
                  'email' => $req->email,
@@ -159,25 +191,35 @@ class AuthController extends Controller
                  'role_as' => $role_as,
                  'stage_status' => $req->stage_status,
                ]);
-        // ----------------
-        $user_name = $req->name;//name of receiver
-        $email = $req->email;//mail of receiver
+                // ----Send email to student ------------
+                $user_name = $req->name;//name of srudent
+                $email = $req->email;//mail of dustudent
 
-        $data = array(
-        "name"=>$user_name,
-        "body"=>"here is your password for the trainee management platform",
-        "your_pass" => $req->password
-        );
+                $data = array(
+                "name"=>$user_name,
+                "body"=>"here is your password for the trainee management platform",
+                "your_pass" => $req->password
+                );
 
-        //data : information to (send name of receiver and the body of email).
-        //'mail' : name of view
-        Mail::send(['text' => 'mail'], $data, 
-        function($msg) use($email, $user_name){
-            $msg->to($email, $user_name)->subject('Internship-Management-System app password');
-            $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-        });
-        // -----------------
+                //data : information to (send name of receiver and the body of email).
+                //'mail' : name of view
+                Mail::send(['text' => 'mail'], $data, 
+                function($msg) use($email, $user_name){
+                    $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+                    $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+                });
+                // -----------------
                $token = $user->createToken($user->email.'_token')->plainTextToken;
+
+               //add email history :
+               $body = $data['body'];
+               $pass = $data['your_pass'];
+               $emailhistory = Email::create([
+                'user_name' => $user_name,
+                'user_email' =>$email,
+                'body' => $body . ' ' . $pass,
+                'subject' => 'Internship-Management-System app password',        
+              ]);
                return response()->json([
                 'status' => 200,
                 'username' => $user->name,
@@ -196,26 +238,29 @@ class AuthController extends Controller
            'email'=> 'required|email|max:190|unique:users,email',
            'password' => 'required|min:8',
            'job' => 'required',
-        ],
-        [
+            ],
+            [
             'name.required'=>'Le champ nom est obligatoire.',
             'password.required'=>'Le champ password est obligatoire.',
             'email.required'=>'Le champ email est obligatoire.',
             'job.required'=>'Le champ filiere est obligatoire.',
             'password.min'=>'La longueur minimale est de 8.',
             'email.max'=>'La longueur d\'email est trop longue. La longueur maximale est de 190.',
-        ]
+            ]
     
         );
+
+
         $roleas = 3;
         if($validator->fails()){
-        return response()->json([
+             return response()->json([
             'status'=>400,
             // getMessageBag() : Obtenez tous les messages d'erreur de validation.
             'errors'=>$validator->getMessageBag(),
-        ]);
+             ]);
     
-        }else{
+        }else
+        {
                $user = User::create([
                  'name' => $req->name,
                  'email' => $req->email,
@@ -223,28 +268,39 @@ class AuthController extends Controller
                  'job' => $req->job,
                  'role_as' => $roleas,
                ]);
-       // ----------------
+               // ----------------
                $user_name = $req->name;//name of receiver
                $email = $req->email;//mail of receiver
 
-        $data = array(
-             "name"=>$user_name,
-             "body"=>"here is your password for the trainee management platform",
-             "your_pass" => $req->password
-        );
+                $data = array(
+                     "name"=>$user_name,
+                     "body"=>"here is your password for the trainee management platform",
+                     "your_pass" => $req->password
+                );
 
-       //data : information to (send name of receiver and the body of email).
-       //'mail' : name of view
+                 //data : information to (send name of receiver and the body of email).
+                 //'mail' : name of view
+          
+                 Mail::send(['text' => 'mail_password'], $data, 
 
-       Mail::send(['text' => 'mail_password'], $data, 
-
-       function($msg) use($email, $user_name){
-             $msg->to($email, $user_name)->subject('Internship-Management-System app password');
-             $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-        });
-       // -----------------
+                 function($msg) use($email, $user_name){
+                       $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+                       $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+                  });
+                 // -----------------
               
                $token = $user->createToken('_TeacherToken',['server:teacher'])->plainTextToken;
+
+                //add email history :
+                $body = $data['body'];
+                $pass = $data['your_pass'];
+                $emailhistory = Email::create([
+                 'user_name' => $user_name,
+                 'user_email' =>$email,
+                 'body' => $body . ' ' . $pass,
+                 'subject' => 'Internship-Management-System app password',        
+               ]);
+
                return response()->json([
                 'status' => 200,
                 'username' => $user->name,
@@ -350,60 +406,38 @@ class AuthController extends Controller
          }
      }
 
-
-      // this function used to update data of admin user :
-    //   public function update_admin_password(Request $request, $id)
-    //   {
-  
-       
-    //         $pass = $request->input('password');
-    //         $cpass = $request->input('confirmPassword');
-    //         if($pass == $cpass)
-    //         {
-    //             $admin = User::find($id);
-    //             if($admin)
-    //             {
-   
-    //                 $admin->password = Hash::make($pass);
-    //                 $admin->save();
-    //                 return response()->json([
-    //                     'status'=>200,
-    //                     'message'=>"votre mot de passe est  mise à jour avec succès",
-    //                 ]);
-    //             }
-    //             else
-    //             {
-    //                 return response()->json([
-    //                     'status'=>404,
-    //                     'message'=>'utilisateur non trouvé!'
-    //                 ]);
-    //             }
-    //         }
-    //         else
-    //         {
-    //             return response()->json([
-    //                 'status'=>400,
-    //                 'message'=>'Les mots de passe ne correspondent pas!'
-    //             ]);
-    //         }
-            
+     public function destroy($id)
+     {
          
-    //   }
+         $user = User::find($id);
+         
+         if($user)
+         {
+             $user->delete();
+             return response()->json([
+                 'status'=>200,
+                 'message'=>'votre compte est supprimée avec succès',
+             ]);
+         }
+         else
+         {
+             return response()->json([
+                 'status'=>404,
+                 'message'=>'user non trouvé!',
+             ]);
+         }
+         
+     }
+   
+     public function getEmails()
+     {
+         $emails = DB::table('emails')->get();
+         return response()->json([
+             'status'=>200,
+             'emails'=>$emails,
+         ]);
+     }
 
-    // public function updatePassword(Request $request,$id)
-    // {
     
-    
-    //     $user = User::find($id); // Find user with ID 9
-
-    //     $user->password = $request->password; // Hash the new password
-    //     $user->save(); // Save the updated user record
-    
-    //     // Return a JSON response with status 200
-    //     return response()->json([
-    //         'message' => 'Password updated successfully',
-    //         'status' => 200
-    //     ]);
-    // }
  
 }

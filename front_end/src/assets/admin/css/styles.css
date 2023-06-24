@@ -4333,7 +4333,7 @@ fieldset:disabled .btn {
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
   color: var(--bs-nav-pills-link-active-color);
-  background-color: var(--bs-nav-pills-link-active-bg);
+  background-color: var(--sidebar-background-color);
 }
 
 .nav-fill>.nav-link,

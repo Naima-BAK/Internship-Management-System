@@ -4,6 +4,7 @@ import logo from '../../components/frontend/logo.png'
 import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { Dropdown } from "react-bootstrap";
+import Logo from '../../components/admin/settings/Logo';
 
 function NavbarT() {
 
@@ -84,7 +85,7 @@ function NavbarT() {
             </Link>
             &nbsp;&nbsp;&nbsp;
             <Link className="navbar-brand ps-3" to="/teacher">
-                <img className='img' width={100} src={logo} alt="logo" />
+                <Logo />
             </Link>
 
             <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button>

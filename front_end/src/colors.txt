@@ -1,0 +1,25 @@
+Here are some examples of bright blue colors that you can use in your CSS:
+
+Dodger Blue: #1E90FF -
+
+Cyan: #00FFFF - 
+
+Sky Blue: #87CEEB - 
+
+Cornflower Blue: #6495ED -
+Powder Blue: #B0E0E6 - 
+------------------------------------------------------------
+for teachers :   
+Mauve: #E0B0FF - This is a pale, muted shade of purple with a slight pinkish tint.
+
+Lavender: #E6E6FA - This is a light, pale shade of purple with a greyish undertone.
+
+Lilac: #C8A2C8 - This is a light, pastel shade of purple with a pinkish undertone.
+
+Periwinkle: #CCCCFF - This is a light, pale shade of blue with a purple undertone.
+
+Sage: #87AE73 - This is a muted, greyish-green color that is often associated with nature and tranquility.
+
+Olive: #808000 - This is a dark, earthy green color with a yellowish undertone.
+
+Chartreuse: #7FFF00 - This is a bright, vibrant shade of green with yellow undertones.
