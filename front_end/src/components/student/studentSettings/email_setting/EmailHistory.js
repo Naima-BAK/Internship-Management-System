@@ -5,7 +5,8 @@ export default function EmailHistory() {
 
     const [emails, setEmailsHistory] = useState([]);
     useEffect(() => {
-        axios.get('/api/view_emails_admin').then(res => {
+
+        axios.get(`/api/view_emailsStudent?user_email=${localStorage.getItem('auth_email')}`).then(res => {
             if (res.data.status === 200) {
                 setEmailsHistory(res.data.emails);
             }

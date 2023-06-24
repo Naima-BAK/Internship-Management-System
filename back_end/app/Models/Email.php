@@ -13,6 +13,7 @@ class Email extends Model
         'subject',
         'user_name',
         'user_email',
-        'body'
+        'body',
+        'selected_user'
     ];
 }

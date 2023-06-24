@@ -42,6 +42,7 @@ import AddDocument from "./components/admin/documents/AddDocument";
 import MasterLayoutS from "./layouts/student/MasterLayoutS";
 import DashboardS from "./components/student/DashboardS";
 import ProfileS from "./components/student/ProfileS";
+import StudentSetting from "./components/student/studentSettings/StudentSetting";
 // ----------------------------------------------------
 
 
@@ -161,6 +162,7 @@ function App() {
             <Route path='/admin/DemandeStage/:id' element={<DemandeStage />} />
             <Route path='/admin/Convention/:id' element={<Convention />} />
             <Route exact path="/admin/Chat" element={<Chat />} />
+            {/* settings  */}
             <Route exact path="/admin/UpdatePassword" element={<UpdatePasswordAdmin />} />
             <Route exact path="/admin/setting" element={<Setting />} />
 
@@ -178,7 +180,7 @@ function App() {
             <Route path='/student/profile' element={<ProfileS />} />
             <Route exact path="/student/Chat" element={<Chat />} />
             <Route exact path="/student/UpdatePassword" element={<UpdatePasswordStudent />} />
-            {/* <Route exact path="/student/setting" element={<Setting />} /> */}
+            <Route exact path="/student/setting" element={<StudentSetting />} />
 
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>

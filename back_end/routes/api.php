@@ -31,6 +31,8 @@ Route::post('logout',[AuthController::class,'logout']);
 // ---------------------------------------------------------------------------
 //--------------------Student part ---------------------------------------
 Route::middleware('auth:sanctum')->group(function () {
+
+    // for all users
     Route::get('/users',[AuthController::class,'index']);
  Route::post('/messages', [MessageController::class,'store']); 
  Route::get('/messages', [MessageController::class,'index']);
@@ -38,6 +40,19 @@ Route::middleware('auth:sanctum')->group(function () {
  Route::put('update_admin_data/{id}',[AuthController::class,'update_admin_data']);
  Route::get('edit_admin_data/{id}',[AuthController::class,'edit_admin_data']);
  Route::DELETE('delete_User/{id}',[AuthController::class,'destroy']);
+ //  for student :
+    Route::get('view_emailsStudent',[AuthController::class,'getEmailsStudent']);
+    Route::post('update_colors_student',[ColorController::class,'update_colors_student']);
+    Route::get('view_colors_student/{id}',[ColorController::class,'index_student']);
+
+ // for teacher 
+    Route::get('view_emailsTeacher',[AuthController::class,'getEmailsTeacher']);
+    Route::post('update_colors_teacher',[ColorController::class,'update_colors_teacher']);
+    Route::get('view_colors_teacher/{id}',[ColorController::class,'index_teacher']);
+
+
+
+
 
 });
 
@@ -118,7 +133,7 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function ()
     Route::put('update_SocialNetworksLinks',[SettingController::class,'update_SocialNetworksLinks']);
     Route::post('upload_website_logo',[SettingController::class,'upload_website_logo']);
     Route::post('upload_website_favicon',[SettingController::class,'upload_website_favicon']);
-    Route::get('view_emails',[AuthController::class,'getEmails']);
+    Route::get('view_emails_admin',[AuthController::class,'getEmails']);
     Route::get('view_colors/{id}',[ColorController::class,'index']);
     Route::post('update_colors',[ColorController::class,'update_colors']);
 

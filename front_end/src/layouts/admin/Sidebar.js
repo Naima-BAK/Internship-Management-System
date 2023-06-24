@@ -20,9 +20,9 @@ function Sidebar() {
                 }
             });
     }, [id]);
+
     return (
         <nav className={`sb-sidenav accordion sb-sidenav-${colors.sidebarbackground}`} style={{ backgroundColor: colors.sidebarbg }} id="sidenavAccordion">
-            {/* // <nav className='sb-sidenav accordion sb-sidenav-sucess' style={{ backgroundColor: ' rgba(0, 0, 0, 0.5)' }} id="sidenavAccordion"> */}
 
             <div className="sb-sidenav-menu">
                 <div className="nav" >

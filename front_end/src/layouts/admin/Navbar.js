@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import logo from '../../components/frontend/logo.png'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { Dropdown } from "react-bootstrap";
@@ -10,6 +9,7 @@ import Swal from 'sweetalert2';
 function Navbar() {
 
     const navigate = useNavigate();
+
     const logoutSubmit = (e) => {
         e.preventDefault();
 
@@ -23,10 +23,10 @@ function Navbar() {
         });
 
     }
+
     const [colors, setColors] = useState([]);
-    const id = 1;
     useEffect(() => {
-        axios.get(`/api/view_colors/${id}`)
+        axios.get(`/api/view_colors/${1}`)
             .then(res => {
                 if (res.data.status === 200) {
                     setColors(res.data.colors);
@@ -34,10 +34,9 @@ function Navbar() {
                     Swal.fire("Error", res.data.message, "error");
                 }
             });
-    }, [id]);
+    }, [1]);
+
     var AuthButtons = '';
-
-
     if (!localStorage.getItem('auth_token')) {
         <Navigate to="/Login" />
     } else {
@@ -100,10 +99,10 @@ function Navbar() {
             <Link className="navbar-brand ps-3" to="/admin">
                 <Logo />
             </Link>
+            {/* this is the button for hide and show sidebar */}
+            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button>
 
-
-
-
+            {/*search  button */}
             <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div className="input-group">
                     <input className="form-control" type="text" placeholder="Search for..." />
@@ -114,6 +113,7 @@ function Navbar() {
                     </button>
                 </div>
             </form>
+
             &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
             {AuthButtons}
 

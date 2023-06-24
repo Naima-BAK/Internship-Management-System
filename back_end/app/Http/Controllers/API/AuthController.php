@@ -218,7 +218,8 @@ class AuthController extends Controller
                 'user_name' => $user_name,
                 'user_email' =>$email,
                 'body' => $body . ' ' . $pass,
-                'subject' => 'Internship-Management-System app password',        
+                'subject' => 'Internship-Management-System app password',   
+                'selected_user' => $role_as     
               ]);
                return response()->json([
                 'status' => 200,
@@ -298,7 +299,9 @@ class AuthController extends Controller
                  'user_name' => $user_name,
                  'user_email' =>$email,
                  'body' => $body . ' ' . $pass,
-                 'subject' => 'Internship-Management-System app password',        
+                 'subject' => 'Internship-Management-System app password',     
+                 'selected_user' => $role_as     
+   
                ]);
 
                return response()->json([
@@ -437,7 +440,30 @@ class AuthController extends Controller
              'emails'=>$emails,
          ]);
      }
+     public function getEmailsStudent(Request $request)
+     {
+        $user_email = $request->input('user_email');
+         $emails = DB::table('emails')
+         ->where('selected_user',1)
+         ->where('user_email',$user_email)->get();
+         return response()->json([
+             'status'=>200,
+             'emails'=>$emails,
+         ]);
+     }
+     public function getEmailsTeacher(Request $request)
+     {
+        $user_email = $request->input('user_email');
 
+         $emails = DB::table('emails')
+         ->where('selected_user',3)
+         ->where('user_email',$user_email)
+         ->get();
+         return response()->json([
+             'status'=>200,
+             'emails'=>$emails,
+         ]);
+     }
     
  
 }

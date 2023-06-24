@@ -6,9 +6,11 @@ import NavbarS from './NavbarS';
 import SidebarS from './SidebarS';
 import { Outlet } from 'react-router-dom';
 export default function MasterLayoutS() {
+
     return (
         <div className="sb-nav-fixed">
             <NavbarS />
+
             <div id="layoutSidenav">
 
                 <div id="layoutSidenav_nav">
