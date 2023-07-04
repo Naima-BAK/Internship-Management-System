@@ -54,12 +54,23 @@ function AddTeacher() {
 
             if (res.data.status === 200) {
                 Swal.fire("Success", res.data.message, "success");
+                resetForm();
             }
             else if (res.data.status === 400) {
                 setTeacher({ ...teacherInput, errorsList: res.data.errors });
             }
 
         })
+        const resetForm = () => {
+            setTeacher({
+                name: '',
+                email: '',
+                password: '',
+                job: '',
+                errorsList: [],
+            });
+        };
+
 
     }
 

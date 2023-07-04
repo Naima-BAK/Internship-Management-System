@@ -28,7 +28,6 @@ import EditInternship from './components/admin/internships/EditInternship';
 import AffectSupervisor from "./components/admin/internships/AffectSupervisor";
 
 import ListDocument from "./components/admin/documents/ListDocument";
-import AddDocument from "./components/admin/documents/AddDocument";
 
 
 
@@ -55,20 +54,35 @@ import TeacherPrivateRoute from "./TeacherPrivateRoute";
 import PageNotFound from './components/errors/PageNotFound';
 import Page403 from './components/errors/Page_403';
 // -------------------------------------
+import Contact from "./components/frontend/pages/Contact";
+
 import Home from "./components/frontend/Home";
 import Login from "./components/frontend/auth/Login";
 import axios from "axios";
-import Convention from "./components/admin/documents/Convention";
-import DemandeStage from "./components/admin/documents/DemandeStage";
 import Chat from "./components/Chat_part/Chat";
+import ChatST from './components/student/Chat_part/Chat';
+import ChatTeacher from './components/teacher/Chat_part/Chat';
+
 import UpdatePasswordAdmin from "./components/admin/UpdatePasswordAdmin";
 import UpdatePasswordStudent from "./components/student/UpdatePasswordStudent";
 import UpdatePasswordTeacher from "./components/teacher/UpdatePasswordTeacher";
 import Setting from "./components/admin/settings/Setting";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import SendDocTostudent from "./components/admin/documents/SendDocTostudent";
+import SendDoc from "./components/student/documents/SendDoc";
+import PdfViewer from "./components/admin/documents/view_docs/PdfViewer";
+import DocToStudent from "./components/admin/documents/view_docs/DocToStudent";
+import ListDocs from "./components/student/documents/ListDocs";
+import AddRapport from "./components/student/gestionRapport/AddRapport";
+import ListRapports from "./components/student/gestionRapport/ListRapports";
 
-
+import AddRapportT from "./components/teacher/gestionRapport/AddRapport";
+import TeacherSetting from "./components/teacher/studentSettings/TeacherSetting";
+import ListRapportsT from "./components/teacher/gestionRapport/ListRapportsT";
+import NotificationList from "./components/notification/NotificationList";
+import NotificationListS from "./layouts/student/NotificationListS";
+import NotificationListT from "./layouts/teacher/NotificationListT";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
@@ -123,6 +137,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
           <Route path="/403" element={<Page403 />} />
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/Contact" element={<Contact />} />
           {/* <Route exact path="/Chat" element={<Chat />} /> */}
           <Route exact path="/register" element={<Register />} />
 
@@ -158,15 +173,18 @@ function App() {
 
             {/* Documents management */}
             <Route path='/admin/ListDocument' element={<ListDocument />} />
-            <Route path='/admin/AddDocument/' element={<AddDocument />} />
-            <Route path='/admin/DemandeStage/:id' element={<DemandeStage />} />
-            <Route path='/admin/Convention/:id' element={<Convention />} />
+
+            {/* messages */}
             <Route exact path="/admin/Chat" element={<Chat />} />
             {/* settings  */}
             <Route exact path="/admin/UpdatePassword" element={<UpdatePasswordAdmin />} />
             <Route exact path="/admin/setting" element={<Setting />} />
-
-
+            {/* test docs/doc/soccontroller */}
+            <Route exact path="/admin/SendDocTostudent/:id" element={<SendDocTostudent />} />
+            <Route exact path="/admin/pdf-viewer/:file" element={<PdfViewer />} />
+            <Route exact path="/admin/docs_to_student/:id/:name" element={<DocToStudent />} />
+            {/* notification */}
+            <Route exact path="/admin/NotifictationList" element={<NotificationList />} />
 
             <Route index element={<Navigate to="/admin/dashboard" />} />
           </Route>
@@ -178,9 +196,15 @@ function App() {
           <Route path="/student" element={<MasterLayoutS />} >
             <Route path='/student/dashboard' element={<DashboardS />} />
             <Route path='/student/profile' element={<ProfileS />} />
-            <Route exact path="/student/Chat" element={<Chat />} />
+            <Route exact path="/student/Chat" element={<ChatST />} />
             <Route exact path="/student/UpdatePassword" element={<UpdatePasswordStudent />} />
             <Route exact path="/student/setting" element={<StudentSetting />} />
+            <Route exact path="/student/addDocument" element={<SendDoc />} />
+            <Route exact path="/student/ListDocuments" element={<ListDocs />} />
+            <Route exact path="/student/ListRapport/:id" element={<ListRapports />} />
+            <Route exact path="/student/AddRapport/:id" element={<AddRapport />} />
+            <Route exact path="/student/NotifictationList" element={<NotificationListS />} />
+
 
             <Route index element={<Navigate to="/student/dashboard" />} />
           </Route>
@@ -192,9 +216,13 @@ function App() {
           <Route path="/teacher" element={<TeacherPrivateRoute><MasterLayoutT /> </TeacherPrivateRoute>} >
             <Route path='/teacher/dashboard' element={<DashboardT />} />
             <Route path='/teacher/profile' element={<ProfileT />} />
-            <Route exact path="/teacher/Chat" element={<Chat />} />
+            <Route exact path="/teacher/Chat" element={<ChatTeacher />} />
             <Route exact path="/teacher/UpdatePassword" element={<UpdatePasswordTeacher />} />
+            <Route exact path="/teacher/setting" element={<TeacherSetting />} />
+            <Route exact path="/teacher/NotifictationList" element={<NotificationListT />} />
 
+            <Route exact path="/teacher/ListRapport/:id" element={<ListRapportsT />} />
+            <Route exact path="/teacher/AddRapport/:id" element={<AddRapportT />} />
 
             <Route index element={<Navigate to="/teacher/dashboard" />} />
           </Route>

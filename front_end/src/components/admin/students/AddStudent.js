@@ -63,18 +63,24 @@ export default function AddStudent() {
         axios.post('api/add_Student', data).then(res => {
             if (res.data.status === 200) {
                 Swal.fire("Success", res.data.message, "success");
-                // window.location.reload(false);
-                // document.getElementById('Student_FORM').reset();
-
-
+                resetForm();
             }
             else if (res.data.status === 400) {
                 setStudent({ ...studentInput, errorsList: res.data.errors });
             }
 
         })
-
-
+        const resetForm = () => {
+            setStudent({
+                name: '',
+                email: '',
+                password: '',
+                level: '',
+                sector: '',
+                stage_status: '',
+                errorsList: [],
+            });
+        };
     }
 
     // style css :
@@ -201,7 +207,7 @@ export default function AddStudent() {
 
 
                                     {/* statue_stage of student */}
-                                    <select style={{ width: "", backgroundColor: '#212529' }} name="stage_status" onChange={handlInput} value={studentInput.stage_status} className='btn btn-secondary form-control'>
+                                    <select style={{ width: "", backgroundColor: '#212529', color: 'white' }} name="stage_status" onChange={handlInput} value={studentInput.stage_status} className='btn btn-secondary form-control'>
                                         <option >Le statut de stage</option>
                                         {
                                             Stage_Status.map((item) => {

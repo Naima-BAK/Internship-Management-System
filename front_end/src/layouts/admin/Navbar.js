@@ -5,8 +5,10 @@ import swal from 'sweetalert';
 import { Dropdown } from "react-bootstrap";
 import Logo from '../../components/admin/settings/Logo';
 import Swal from 'sweetalert2';
+import Notification from './Notification';
 
 function Navbar() {
+
 
     const navigate = useNavigate();
 
@@ -21,7 +23,6 @@ function Navbar() {
                 navigate('/login');
             }
         });
-
     }
 
     const [colors, setColors] = useState([]);
@@ -42,22 +43,25 @@ function Navbar() {
     } else {
         AuthButtons = (
             <ul className="navbar-nav" >
+                {/* 
                 <li className="nav-item">
                     <Dropdown>
                         <Dropdown.Toggle variant={colors.navbarbackground} id="dropdown-basic">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={colors.navbarbutton} className="bi bi-bell" viewBox="0 0 16 16">
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
-                            <span style={{ color: colors.navbarcolor }}>5</span>
+                            <span style={{ color: colors.navbarcolor }}>{unreadCount}</span>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                             <Dropdown.Item eventKey=""></Dropdown.Item>
-                            <Link to="/admin/setting"> <Dropdown.Item eventKey="option1">
-                                Paramètres
-
-                            </Dropdown.Item></Link>
-                            <Dropdown.Item eventKey="option2">Profile</Dropdown.Item>
+                            {notification.map(notify => {
+                                return (
+                                    <>
+                                        <Dropdown.Item eventKey={notify.id}> {notify.notification}</Dropdown.Item>
+                                    </>
+                                )
+                            })}
 
                             <Dropdown.Divider />
 
@@ -65,7 +69,9 @@ function Navbar() {
 
                     </Dropdown>
 
-                </li>
+                </li> */}
+
+                <Notification colors={colors} />
                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 <li className="nav-item">
                     <Dropdown>
@@ -85,7 +91,7 @@ function Navbar() {
 
                     </Dropdown>
                 </li>
-            </ul>
+            </ul >
         );
     }
 
@@ -94,13 +100,15 @@ function Navbar() {
 
             <Link className="navbar-brand ps-3" to="/admin" style={{ color: colors.sidebarecolor }}>
                 Admin dahboard
+
             </Link>
             &nbsp;&nbsp;&nbsp;
             <Link className="navbar-brand ps-3" to="/admin">
                 <Logo />
+
             </Link>
             {/* this is the button for hide and show sidebar */}
-            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button>
+            {/* <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button> */}
 
             {/*search  button */}
             <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">

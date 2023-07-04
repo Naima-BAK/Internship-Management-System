@@ -72,7 +72,7 @@ function EditInternship() {
                         <br />
 
                         <b style={mystyle}>
-                            Modifier une entreprise</ b>
+                            Modifier un stage</ b>
                     </ center>
                 </ h5>
 
@@ -146,9 +146,9 @@ function EditInternship() {
 
                         <br />
 
-                        <Link to={`/admin/EditLogo/${internshipInput.id}`}>
+                        {/* <Link to={`/admin/EditLogo/${internshipInput.id}`}>
                             <button style={{ marginLeft: '950px' }} type="button" className="btn btn-block btn-primary">Modifier le logo</ button>
-                        </Link>
+                        </Link> */}
                         <button type="submit" className="btn btn-block btn-primary float-end"> Mettre à jour </ button>
 
 

@@ -4,6 +4,7 @@ import '../../../../assets/admin/css/setting/model.css';
 import { BsPenFill } from 'react-icons/bs';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Logo from '../Logo';
 export default function UpdateFavcon({ setting }) {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -38,6 +39,7 @@ export default function UpdateFavcon({ setting }) {
 
         fontFamily: 'Bangers, cursive',
         fontWeight: 'bold',
+        color: 'white',
         fontSize: '25px'
     }
     return (
@@ -52,8 +54,8 @@ export default function UpdateFavcon({ setting }) {
                 </Modal.Header>
                 <form onSubmit={updateWebSiteFavicon}>
                     <Modal.Body>
+                        <Logo />
 
-                        <img width={100} src={`../../../../website_favicon/${setting.website_favicon}`} className="logo" alt="logo" />
                         <br />
                         <br />
                         <input

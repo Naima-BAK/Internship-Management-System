@@ -9,7 +9,7 @@ function Messages({ messages, currentUser, selectedUser }) {
             <div className="py-2 px-4 border-bottom d-none d-lg-block">
                 <div className="d-flex align-items-center py-1">
                     <div className="position-relative">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" className="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40" />
+                        <img src={`../../../profile/${selectedUser.image}`} className="rounded-circle mr-1" alt="user" width="40" height="40" />
                     </div>
                     <div className="flex-grow-1 pl-3">
                         <strong>{selectedUser.name}</strong>
@@ -34,7 +34,7 @@ function Messages({ messages, currentUser, selectedUser }) {
                                 {message.sender_id == currentUser ? (
                                     <div className="chat-message-right pb-4" key={message.id}>
                                         <div>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" className="rounded-circle mr-1" alt="Chris Wood" width="40" height="40" />
+                                            <img src={`../../../profile/${localStorage.getItem('auth_image')}`} className="rounded-circle mr-1" alt="user" width="40" height="40" />
                                             <div className="text-muted small text-nowrap mt-2">{moment(message.created_at).fromNow()}</div>
                                         </div>
                                         <div className="flex-shrink-1 rounded py-2 px-3 mr-3" style={{ backgroundColor: 'd7f5fc' }}>
@@ -45,7 +45,7 @@ function Messages({ messages, currentUser, selectedUser }) {
                                 ) : (
                                     <div className="chat-message-left pb-4" key={message.id}>
                                         <div>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" className="rounded-circle mr-1" alt="Chris Wood" width="40" height="40" />
+                                            <img src={`../../../profile/${selectedUser.image}`} className="rounded-circle mr-1" alt="user" width="40" height="40" />
                                             <div className="text-muted small text-nowrap mt-2">{moment(message.created_at).fromNow()}</div>
                                         </div>
                                         <div className="flex-shrink-1 rounded py-2 px-3 mr-3" style={{ backgroundColor: '#e8fadf ' }}>

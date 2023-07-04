@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Notification;
+use App\Models\AdminNotification;
+use App\Models\NotificationStudent;
 
 class MessageController extends Controller
 {
@@ -49,7 +52,45 @@ class MessageController extends Controller
         $message->message = $request->input('message');
         $message->whoR = $request->input('sender_id').''.$request->input('receiver_id');
         $message->save();
-        return response()->json($message);
+         $user = User::find($request->input('sender_id'));
+         $receiver= User::find($request->input('receiver_id'));
+         $role = User::find($receiver->id);
+
+         if($role->role_as == 2){
+             $notification = AdminNotification::create(
+            [
+                    'type' => "Message",
+                       'notification' =>" Vous avez reçu un message de".$user->name,
+                    'user_name' =>$user->name,
+                     'user_email' =>'',
+                     'icon'=>'',
+                     'user_id'=>$receiver->id
+           
+            ]);
+         }else  if($role->role_as == 3){
+                  $notification = Notification::create(
+               [
+                'type' => "Message",
+                   'notification' =>" Vous avez reçu un message de".$user->name,
+                'user_name' =>$receiver->name,
+                 'user_id'=>$receiver->id
+       
+                  ]);
+         }else{
+                $notification = NotificationStudent::create(
+                [
+                 'type' => "Message",
+                    'notification' =>" Vous avez reçu un message de".$user->name,
+                 'user_name' =>$receiver->name,
+                  'user_id'=>$receiver->id
+        
+               ]);
+         }
+
+        
+
+       
+                return response()->json($message);
     }
 
     public function conversations(Request $request)
@@ -57,4 +98,5 @@ class MessageController extends Controller
         $user = $request->onUserSelect;
         return $user;
     }
+    
 }

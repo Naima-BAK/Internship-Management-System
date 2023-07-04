@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Models\Internship;
 use App\Http\Models\Message;
+use App\Http\Models\Doc;
+use App\Http\Models\Rapport;
 
 class User extends Authenticatable
 {
@@ -38,6 +40,14 @@ class User extends Authenticatable
     public function sentMessages()
 {
     return $this->hasMany(Message::class, 'sender_id');
+}
+public function doc()
+{
+    return $this->hasMany(Doc::class);
+}
+public function rapport()
+{
+    return $this->hasMany(Rapport::class);
 }
 
 public function receivedMessages()

@@ -164,7 +164,7 @@ function EditStudent() {
                             <div className="input-group input-group-merge">
 
                                 {/* statue_stage of student */}
-                                <select style={{ width: "", backgroundColor: '#212529' }} name="stage_status" onChange={handlInput} value={studentInput.stage_status} className='btn btn-secondary form-control'>
+                                <select style={{ width: "", backgroundColor: '#212529', color: 'white' }} name="stage_status" onChange={handlInput} value={studentInput.stage_status} className='btn btn-secondary form-control'>
                                     <option >Le statut de stage</option>
                                     {
                                         Stage_Status.map((item) => {

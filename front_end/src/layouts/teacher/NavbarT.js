@@ -7,12 +7,13 @@ import Logo from '../../components/admin/settings/Logo';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import Notification from './Notification';
 
 function NavbarT() {
 
     const navigate = useNavigate();
     const [colors, setColors] = useState([]);
-    const id = 1;
+    const id = 3;
     useEffect(() => {
         axios.get(`/api/view_colors/${id}`)
             .then(res => {
@@ -45,7 +46,7 @@ function NavbarT() {
     } else {
         AuthButtons = (
             <ul className="navbar-nav">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <Dropdown>
                         <Dropdown.Toggle variant={colors.navbarbackground} id="dropdown-basic">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={colors.navbarbutton} className="bi bi-bell" viewBox="0 0 16 16">
@@ -68,7 +69,8 @@ function NavbarT() {
 
                     </Dropdown>
 
-                </li>
+                </li> */}
+                <Notification colors={colors} />
                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 <li className="nav-item">
                     <Dropdown>
@@ -103,7 +105,7 @@ function NavbarT() {
                 <Logo />
             </Link>
 
-            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button>
+            {/* <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" to="#!"><i className="fas fa-bars"></i></button> */}
 
             <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div className="input-group">

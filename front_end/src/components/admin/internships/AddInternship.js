@@ -42,7 +42,6 @@ function AddInternship() {
 
     }, []);
 
-
     const submitInternship = (e) => {
         e.preventDefault();
         const data = {
@@ -53,20 +52,54 @@ function AddInternship() {
             end_date: internshipInput.end_date,
             university_supervisor: internshipInput.university_supervisor,
             internship_supervisor: internshipInput.internship_supervisor,
-
         }
         console.log(data);
         axios.post('api/add_internship', data).then(res => {
             if (res.data.status === 200) {
                 Swal.fire("Success", res.data.message, "success");
+                resetForm();
             }
             else if (res.data.status === 400) {
                 setInternship({ ...internshipInput, errorsList: res.data.errors });
             }
-        })
+        });
 
+        const resetForm = () => {
+            setInternship({
+                theme: '',
+                user_id: '',
+                company_id: '',
+                university_supervisor_id: '',
+                internship_supervisor: '',
+                start_date: '',
+                end_date: '',
+                errorsList: [],
+            });
+        };
+    };
+    // const submitInternship = (e) => {
+    //     e.preventDefault();
+    //     const data = {
+    //         theme: internshipInput.theme,
+    //         user_id: internshipInput.user_id,
+    //         company_id: internshipInput.company_id,
+    //         start_date: internshipInput.start_date,
+    //         end_date: internshipInput.end_date,
+    //         university_supervisor: internshipInput.university_supervisor,
+    //         internship_supervisor: internshipInput.internship_supervisor,
 
-    }
+    //     }
+    //     console.log(data);
+    //     axios.post('api/add_internship', data).then(res => {
+    //         if (res.data.status === 200) {
+    //             Swal.fire("Success", res.data.message, "success");
+
+    //         }
+    //         else if (res.data.status === 400) {
+    //             setInternship({ ...internshipInput, errorsList: res.data.errors });
+    //         }
+    //     })
+    // }
 
     // style css :
     const mystyle = {
@@ -88,7 +121,7 @@ function AddInternship() {
                         <br />
 
                         <b style={mystyle}>
-                            Ajouter u, stage</ b>
+                            Ajouter un stage</ b>
                     </ center>
                 </ h5>
 

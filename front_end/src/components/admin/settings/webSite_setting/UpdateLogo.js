@@ -8,6 +8,7 @@ export default function UpdateLogo({ setting }) {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
+
     const [selectedFile, setSelectedFile] = React.useState(null);
     const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
@@ -36,7 +37,7 @@ export default function UpdateLogo({ setting }) {
 
         fontFamily: 'Bangers, cursive',
         fontWeight: 'bold',
-        color: 'blue',
+        color: 'white',
         fontSize: '25px'
     }
     return (

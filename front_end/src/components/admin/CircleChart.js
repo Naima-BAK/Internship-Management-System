@@ -1,15 +1,27 @@
+import axios from "axios";
 import React, { useRef, useEffect, useState } from "react";
 
 export default function PieChart() {
+
     const canvasRef = useRef(null);
+    const [chartData, setChartData] = useState([]);
 
-    const chartData = [
-        { id: 1, label: "Apples", value: 10 },
-        { id: 3, label: "Bananas", value: 15 },
-    ];
-
-    const width = 200;
-    const height = 200;
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get('/api/student_teacher');
+            if (result.status === 200) {
+                const teachers = result.data.student;
+                const students = result.data.teacher;
+                setChartData([
+                    { id: 1, label: "Enseignant", value: teachers },
+                    { id: 3, label: "Etudiant", value: students },
+                ]);
+            }
+        };
+        fetchData();
+    }, []);
+    const width = 400;
+    const height = 300;
     const radius = Math.min(width, height) / 2;
 
     const [selectedItem, setSelectedItem] = useState(null);

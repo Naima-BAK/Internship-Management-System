@@ -56,13 +56,28 @@ function ListCompanies() {
         axios.post('api/add_company', data).then(res => {
             if (res.data.status === 200) {
                 Swal.fire("Success", res.data.message, "success");
+                resetForm();
             }
             else if (res.data.status === 400) {
                 setCompany({ ...companyInput, errorsList: res.data.errors });
             }
         });
+        const resetForm = () => {
+            setCompany({
+                name: '',
+                email: '',
+                activity: '',
+                phone: '',
+                website: '',
+                address: '',
+                city: '',
+                country: '',
+                errorsList: [],
+            });
+        };
 
     }
+
 
     // ----------------------------------------------------------
     // -------------------Function delete : delete company from database ----------------------------------------
@@ -230,14 +245,13 @@ function ListCompanies() {
                 <div className="modal-dialog">
 
                     <div className="modal-content">
-                        <form onSubmit={submitCompany} id='Company_FORM'>
+                        <form onSubmit={submitCompany} id='COMPANY_FORM'>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Nouvelle entreprise</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <div className="modal-body">
-                                {/* <form onSubmit={submitCompany} id='Company_FORM'> */}
                                 <div className="mb-3">
                                     <label className="col-form-label">Nom de l'entreprise</label>
                                     <input type="text" className="form-control" onChange={handlInput} value={companyInput.name} name="name" id="name" placeholder="Entrer le nom" />

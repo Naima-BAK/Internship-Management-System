@@ -6,6 +6,8 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import '../style.css';
 import logo from '../logo.png';
+import Footer from '../../../layouts/admin/Footer';
+
 function Login() {
 
     const navigate = useNavigate();
@@ -38,9 +40,6 @@ function Login() {
                     localStorage.setItem('auth_email', res.data.email);
                     localStorage.setItem('auth_image', res.data.image);
                     localStorage.setItem('devices', JSON.stringify(res.data.devices));
-
-
-
                     swal("Success", res.data.message, "success");
                     if (res.data.role === 'admin') {
                         navigate('/admin/dashboard');
@@ -62,9 +61,6 @@ function Login() {
 
             });
         });
-
-
-
     };
 
     return (
@@ -109,6 +105,7 @@ function Login() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 } export default Login;

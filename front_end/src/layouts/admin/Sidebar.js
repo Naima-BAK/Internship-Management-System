@@ -218,8 +218,9 @@ function Sidebar() {
                             <div className="sb-nav-link-icon">
                                 <FaComments size={20} fill={colors.sidebaricon} />
                             </div>
-                            Chat part
+                            Contact users
                         </Link>
+
                         {/*  <Link className="nav-link" to="tables.html">
                         <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
                         Tables

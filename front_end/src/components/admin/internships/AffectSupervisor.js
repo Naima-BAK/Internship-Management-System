@@ -10,9 +10,9 @@ function AffectSupervisor() {
     const [error, setError] = useState([]);
     const { id } = useParams();
     const [internshipInput, setInternship] = useState([]);
-    const [teacher_it, setTeacher_it] = useState([]);
-    const [teacher_jr, setTeacher_jr] = useState([]);
-    const [teacher_agro, setTeacher_agro] = useState([]);
+    const [teachers, setTeachers] = useState([]);
+    // const [teacher_jr, setTeacher_jr] = useState([]);
+    // const [teacher_agro, setTeacher_agro] = useState([]);
     // const [teacher_gc, setTeacher_gc] = useState([]);
 
     const handlInput = (e) => {
@@ -27,10 +27,8 @@ function AffectSupervisor() {
         axios.get(`/api/affect_supervisor/${id}`).then(res => {
             if (res.data.status === 200) {
                 setInternship(res.data.internship);
-                setTeacher_it(res.data.teacher_it);
-                setTeacher_jr(res.data.teacher_jr);
-                setTeacher_agro(res.data.teacher_agro);
-                // setTeacher_gc(res.data.teacher_gc);
+                setTeachers(res.data.teachers);
+
 
             } else if (res.data.status === 404) {
                 Swal.fire("Error", res.data.message, "error");
@@ -103,20 +101,20 @@ function AffectSupervisor() {
                                     justifyContent: 'space-between',
                                     alignItems: 'center'
                                 }}>
-                                    <optgroup label="IT">
-                                        {
-                                            teacher_it.map((it) => {
+                                    {/* <optgroup label="IT"> */}
+                                    {
+                                        teachers.map((teacher) => {
 
-                                                return (
-                                                    <option value={it.name} key={it.id}>{it.name}</option>
-                                                )
-                                            })
-                                        }
-                                    </optgroup>
+                                            return (
+                                                <option value={teacher.name} key={teacher.id}>{teacher.name}</option>
+                                            )
+                                        })
+                                    }
+                                    {/* </optgroup> */}
 
 
 
-                                    <optgroup label="Journalisme">
+                                    {/* <optgroup label="Journalisme">
                                         {
                                             teacher_agro.map((agro) => {
 
@@ -138,7 +136,7 @@ function AffectSupervisor() {
                                                 )
                                             })
                                         }
-                                    </optgroup>
+                                    </optgroup> */}
                                 </select>
                                 <small className='text-danger'>{error.university_supervisor}</ small>
 

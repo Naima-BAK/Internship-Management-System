@@ -38,7 +38,7 @@ export default function ShowInternship() {
 
                                 <div className="user-profile" style={{ marginTop: '70px' }}>
                                     <div className="user-avatar">
-                                        <img width={100} src={`../../../../images/${internshipInput.company_logo}`} alt="Maxwell Admin" />
+                                        <img width={100} src={`../../../../companies_logo/${internshipInput.company_logo}`} alt="Maxwell Admin" />
                                     </div>
                                     <h5 className="user-name">{internshipInput.company_name}</h5>
                                     {/* <div className='col-2 ms-5'>

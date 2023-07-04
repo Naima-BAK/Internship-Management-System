@@ -14,17 +14,20 @@ use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\ColorController;
+use App\Http\Controllers\API\AdminNotificationController;
+use App\Http\Controllers\API\DocController;
+use App\Http\Controllers\API\RapportController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('view_setting/{id}',[SettingController::class,'index']);
 
 // -----------------------------Authentification-----------------------------
 // register & login route :
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
-// logout route :
 Route::middleware(['auth:sanctum'])->group(function(){ 
 Route::post('logout',[AuthController::class,'logout']);
 });
@@ -33,7 +36,6 @@ Route::post('logout',[AuthController::class,'logout']);
 Route::middleware('auth:sanctum')->group(function () {
 
     // for all users
-    Route::get('/users',[AuthController::class,'index']);
  Route::post('/messages', [MessageController::class,'store']); 
  Route::get('/messages', [MessageController::class,'index']);
  Route::post('upload_profile_image',[AuthController::class,'upload_profile_image']);
@@ -44,15 +46,40 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('view_emailsStudent',[AuthController::class,'getEmailsStudent']);
     Route::post('update_colors_student',[ColorController::class,'update_colors_student']);
     Route::get('view_colors_student/{id}',[ColorController::class,'index_student']);
+    Route::get('/index_get_supervisor',[AuthController::class,'index_get_supervisor']);
+    
 
  // for teacher 
     Route::get('view_emailsTeacher',[AuthController::class,'getEmailsTeacher']);
     Route::post('update_colors_teacher',[ColorController::class,'update_colors_teacher']);
     Route::get('view_colors_teacher/{id}',[ColorController::class,'index_teacher']);
+    
+    Route::get('/index_get_students',[AuthController::class,'index_get_students']);
+    Route::get('getStudens_supervisor',[InternshipController::class,'getStudens_supervisor']);
 
+//docs test : tablle doscs/Doc/DocController :
+//admin
+Route::post('/documentsTostudent', [DocController::class, 'store']);
+Route::post('/documentsToAllstudent', [DocController::class, 'storeDocForAll']);
 
+//student and admin
+Route::get('/documents_student_to_admin', [DocController::class, 'index_student_to_Admin']);
+Route::get('/documents', [DocController::class, 'index_Admin_to_student']);
 
+//student  doc
+Route::post('/senDocToAdmin', [DocController::class, 'senDocToAdmin']);
+Route::post('senDocToTeacher', [RapportController::class, 'senDocToTeacher']);
+Route::get('/index_student_to_teacher', [RapportController::class, 'index_student_to_teacher']);
+Route::get('Rapports', [RapportController::class, 'Rapports']);
+Route::get('getSupervisor', [InternshipController::class, 'getSupervisor']);
+//notifications :
+    Route::get('notifications_teacher',[AdminNotificationController::class,'notifications_teacher']);
+    Route::get('notifications_student',[AdminNotificationController::class,'notifications_student']);
 
+//teacher doc
+Route::post('Doc_from_teacher', [RapportController::class, 'Doc_from_teacher']);
+Route::get('Rapport_student', [RapportController::class, 'Rapport_student']);
+Route::get('Rapports_teacher', [RapportController::class, 'Rapports_teacher']);
 
 });
 
@@ -127,7 +154,7 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function ()
     Route::post('upload_confirmation_one',[DocumentController::class,'upload_confirmation_one']);
     
     //settings :
-    Route::get('view_setting/{id}',[SettingController::class,'index']);
+    // Route::get('view_setting/{id}',[SettingController::class,'index']);
     Route::put('update_website_name',[SettingController::class,'update_website_name']);
     Route::put('update_contactData',[SettingController::class,'update_contactData']);
     Route::put('update_SocialNetworksLinks',[SettingController::class,'update_SocialNetworksLinks']);
@@ -136,6 +163,15 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function ()
     Route::get('view_emails_admin',[AuthController::class,'getEmails']);
     Route::get('view_colors/{id}',[ColorController::class,'index']);
     Route::post('update_colors',[ColorController::class,'update_colors']);
+    
+    //notification
+    Route::get('view_admin_notification',[AdminNotificationController::class,'index']);
+//messagerie :
+Route::get('/users',[AuthController::class,'index']);
+//dashboard :
+Route::get('/student_status', [StudentController::class,'student_status']);
+Route::get('student_teacher', [StudentController::class,'student_teacher']);
+
 
 
 });

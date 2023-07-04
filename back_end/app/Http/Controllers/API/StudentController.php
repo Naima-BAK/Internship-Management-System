@@ -169,4 +169,32 @@ class StudentController extends Controller
                 ]);
         
     }
+
+
+    public function student_status(Request $request)
+     {
+        $student_with = User::where('role_as', 1)->where('stage_status', 'Avec stage')->count();
+        $student_without = DB::table('users')->where('role_as', 1)->where('stage_status','Sans stage')->count();     
+        $student_project = DB::table('users')->where('role_as', 1)->where('stage_status','Projet académique')->count();     
+
+         return response()->json([
+             'status'=>200,
+             'student_with'=>$student_with,
+             'student_without'=>$student_without,
+             'student_project'=>$student_project,
+
+         ]);
+     }
+     public function student_teacher(Request $request)
+     {
+        $student = User::where('role_as', 1)->count();
+        $teacher = DB::table('users')->where('role_as', 3)->count();     
+
+         return response()->json([
+             'status'=>200,
+             'student'=>$student,
+             'teacher'=>$teacher,
+
+         ]);
+     }
 }

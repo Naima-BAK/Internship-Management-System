@@ -1,7 +1,6 @@
-your password
 
-Hi {{ $name }}
+Bonjour {{ $name }},
 {{ $body }}
-{{$your_pass}}
-reset your password
+
+Modifier votre password
 http://localhost:3000/teacher/UpdatePassword

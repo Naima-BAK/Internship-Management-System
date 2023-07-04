@@ -1,49 +1,72 @@
+import axios from "axios";
 import React, { useRef, useEffect } from "react";
+import { useState } from "react";
 
-export default function BarChart() {
+
+const BarChart = () => {
+
+
     const canvasRef = useRef(null);
-
-    const chartData = [
-        { id: 1, label: "Apples", value: 10 },
-        { id: 2, label: "Oranges", value: 20 },
-        { id: 3, label: "Bananas", value: 15 },
-    ];
-
-    const width = 200;
-    const height = 200;
+    const [chartData, setChartData] = useState([]);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
+        const fetchData = async () => {
+            const result = await axios.get('/api/student_status');
+            if (result.status === 200) {
+                const studentWith = result.data.student_with;
+                const studentWithout = result.data.student_without;
+                const studentProject = result.data.student_project;
 
-        // Calculate the maximum value in the chartData array
-        const maxDataValue = Math.max(...chartData.map((item) => item.value));
+                setChartData([
+                    { label: "Avec stage", value: studentWith, color: "#87CEEB" },
+                    { label: "Sans stage", value: studentWithout, color: "#B0E0E6" },
+                    { label: "Projet académique", value: studentProject, color: "blue" }
+                ]);
+            }
+        };
+        fetchData();
+    }, []);
+    const width = 400;
+    const height = 300;
 
-        // Calculate the width of each bar
-        const barWidth = width / chartData.length;
+    useEffect(() => {
+        if (canvasRef.current) {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext("2d");
+            const maxBarHeight = height - 20;
+            const barWidth = width / chartData.length;
+            let maxBarValue = 0;
 
-        // Set the font and text alignment for the y-axis labels
-        ctx.font = "12px Arial";
-        ctx.textAlign = "center";
+            // Find the maximum bar value to scale the bars
+            chartData.forEach((item) => {
+                if (item.value > maxBarValue) {
+                    maxBarValue = item.value;
+                }
+            });
 
-        // Loop through the chartData array and draw each bar
-        chartData.forEach((item, index) => {
-            // Calculate the height of the bar based on the data value
-            const barHeight = (item.value / maxDataValue) * height;
+            chartData.forEach((item, index) => {
+                const barHeight = (item.value / maxBarValue) * maxBarHeight;
+                const x = index * barWidth + barWidth / 2;
+                const y = height - barHeight - 20;
 
-            // Calculate the x and y coordinates of the top-left corner of the bar
-            const x = index * barWidth;
-            const y = height - barHeight;
+                // Draw the bar
+                ctx.fillStyle = item.color;
+                ctx.fillRect(index * barWidth, y, barWidth, barHeight);
 
-            // Draw the bar
-            ctx.fillStyle = "blue";
-            ctx.fillRect(x, y, barWidth, barHeight);
+                // Draw the label
+                ctx.font = "12px Arial";
+                ctx.fillStyle = "black";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
+                ctx.letterSpacing = 1;
+                ctx.fillText(item.label, x, y + barHeight / 2);
 
-            // Draw the y-axis label
-            ctx.fillStyle = "red";
-            ctx.fillText(item.value, x + barWidth / 2, y - 5);
-        });
-    }, [chartData]);
+                ctx.fillText(item.value, x, height - 5);
+            });
+        }
+    }, [chartData, width, height]);
 
     return <canvas ref={canvasRef} width={width} height={height} />;
-}
+};
+
+export default BarChart;

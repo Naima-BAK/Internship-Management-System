@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\NotificationStudent;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 
 use Mail;
 class InternshipController extends Controller
@@ -231,18 +234,13 @@ class InternshipController extends Controller
              $internship->student_name = $user->name;
              $internship->student_sector = $user->sector;
              
-             $teacher_it = DB::table('users')->where('role_as', 3)->where('job', 'like','%IT%')->get();
-             $teacher_jr = User::where('role_as', 3)->where('job', 'like','%Journalisme%')->get();
-             $teacher_agro = User::where('role_as', 3)->where('job', 'like','%agro%')->get();
-             $teacher_gc = User::where('role_as', 3)->where('job', 'like','%Génie civil%')->get();
+             $teachers = DB::table('users')->where('role_as', 3)->get();
+             
 
                return response()->json([
                    'status'=>200,
                    'internship'=>$internship,
-                   'teacher_it'=>$teacher_it,
-                   'teacher_jr'=>$teacher_jr,
-                   'teacher_agro'=>$teacher_agro,
-                   'teacher_gc'=>$teacher_gc,
+                   'teachers'=>$teachers
                ]);           
            }
            else
@@ -254,24 +252,25 @@ class InternshipController extends Controller
            }
        }
 
-       public function affect_teacher(Request $request, $id){
+       public function affect_teacher(Request $request, $id)
+    {
               $validator = Validator::make($request->all(),[          
                   'university_supervisor' => 'required',
                 ],
                 [
                    'university_supervisor.required'=>"Le champ encadrant est obligatoire.",
                 ]
-            );
+               );
       
-          if($validator->fails())
-          {
+             if($validator->fails())
+             {
               return response()->json([
                   'status'=>422,
                   'errors'=>$validator->getMessageBag(),
               ]);
-          }
-          else
-          {
+             }
+             else
+             {
               $internship = Internship::find($id);
               if($internship)
               {
@@ -279,22 +278,38 @@ class InternshipController extends Controller
 
                 $internship->university_supervisor = $request->university_supervisor; 
                 $internship->save();
+             // ----------------
+             $user_name = $user->name;//name of receiver
+             $email = $user->email;//mail of receiver
+             $teacher = User::where('name','like','%'.$request->university_supervisor.'%')->get();
 
-        // ----------------
-        $user_name = $user->name;//name of receiver
-        $email = $user->email;//mail of receiver
+             $data = array(
+                 "name"=>$user_name,
+                 "body"=>"Bonjour ".$user_name.",
+                 Nous sommes heureux de vous informer que ".$request->university_supervisor." sera votre 
+                 encadrant. Nous sommes convaincus que vous bénéficierez de son expérience 
+                 et de son expertise pour mener à bien votre parcours universitaire. Voici quelques informations sur votre encadrant : ",
+                 "nom" =>"Nom de l'enseignant : ".$request->university_supervisor,
+             );
 
-        $data = array(
-        "name"=>$user_name,
-        "body"=>"Vous pouvez contactez votre encadrant ",
-        "your_pass" =>$request->university_supervisor
-        );
+             Mail::send(['text' => 'mail2'], $data, 
+             function($msg) use($email, $user_name){
+                 $msg->to($email, $user_name)->subject('Encadrant de stage');
+                 $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
+             });
 
-        Mail::send(['text' => 'mail2'], $data, 
-        function($msg) use($email, $user_name){
-            $msg->to($email, $user_name)->subject('Encadrant de stage');
-            $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
-        });
+          
+              //add notification for student :
+                $notification = NotificationStudent::create([
+                    'type' => "Encadrement",
+                       'notification' =>" Votre encadrant est ".$request->university_supervisor,
+                    'user_name' =>$user->name,
+                     'user_id'=>  $internship->user_id
+                      ]);
+
+                      //add notification for teacher :
+              
+               
         
                   return response()->json([
                       'status'=>200,
@@ -308,8 +323,44 @@ class InternshipController extends Controller
                       'message'=>'stage non trouvé!'
                   ]);
               }
-          }
-        }
+            }
+    }
+
+      
+        public function getSupervisor(Request $request)
+        {
+
+            
+          $internships = Internship::where('user_id', $request->student)->get();
+          $users = User::join('internships as i1', 'users.name', '=', 'i1.university_supervisor')
+                        
+                            ->where('users.role_as', 3)
+                            ->get(['users.*']);
+
+
+                  return response()->json([
+                     'status'=>200,
+                     'teacherData'=>$users,
+                  ]); 
+        
+       }
+
+       public function  getStudens_supervisor(Request $request)
+       {
+        $teacher = User::find($request->teacher);
+        $users = User::join('internships', 'users.id', '=', 'internships.user_id')
+                        ->where('internships.university_supervisor', $teacher->name)
+                        ->where('users.role_as', 1)
+                        ->get(['users.*']);      
+       
+
+
+                  return response()->json([
+                     'status'=>200,
+                     'studentsData'=>$users,
+                  ]); 
+        
+       }
            
 
 }

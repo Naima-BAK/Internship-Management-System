@@ -161,7 +161,7 @@ function ListTeachers() {
                                 </div>
                             </div>
 
-                            &emsp;&emsp;&emsp;&emsp;
+                            {/* &emsp;&emsp;&emsp;&emsp;
 
 
                             <div className="div3">
@@ -182,7 +182,7 @@ function ListTeachers() {
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
 
 

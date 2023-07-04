@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\Sanctum;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Internship;
+
 use App\Models\Email;
+use App\Models\AdminNotification;
+use App\Models\NotificationStudent;
+use App\Models\Notification;
 
 use Mail;
 
@@ -23,6 +28,34 @@ class AuthController extends Controller
     {
         $users = DB::table('users')->get();
         return response()->json($users);
+    }
+
+    
+    public function index_get_students(Request $request)
+    {
+
+        $teacher = User::find($request->teacher);
+        $users = User::join('internships', 'users.id', '=', 'internships.user_id')
+                        ->where('internships.university_supervisor', $teacher->name)
+                        ->where('users.role_as', 1)
+                        ->get(['users.*']);
+
+                        $userToAdd = User::find(14);
+                        $users->push($userToAdd);
+        return response()->json($users);
+    }
+
+    public function index_get_supervisor(Request $request)
+    {
+
+        $internships = Internship::where('user_id', $request->student)->get();
+        $users = User::join('internships as i1', 'users.name', '=', 'i1.university_supervisor')
+                        
+                            ->where('users.role_as', 3)
+                            ->get(['users.*']);
+        $userToAdd = User::find(14);
+        $users->push($userToAdd);
+                            return response()->json($users);
     }
 
     public function register(Request $req)
@@ -138,6 +171,7 @@ class AuthController extends Controller
         }
     } 
 
+
     public function logout(){
         auth()->user()->tokens()->delete();
         return response()->json([
@@ -196,16 +230,21 @@ class AuthController extends Controller
                 $email = $req->email;//mail of dustudent
 
                 $data = array(
-                "name"=>$user_name,
-                "body"=>"here is your password for the trainee management platform",
-                "your_pass" => $req->password
+                 
+                        "name"=>$user_name,
+                        "body"=>"Nous sommes heureux de vous informer que vous pouvez désormais accéder à l'application Internship MS en utilisant les identifiants suivants :
+   
+                           utilisateur :".$email."
+                           Mot de passe : ".$req->password,
+                       
+                   
                 );
 
                 //data : information to (send name of receiver and the body of email).
                 //'mail' : name of view
                 Mail::send(['text' => 'mail'], $data, 
                 function($msg) use($email, $user_name){
-                    $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+                    $msg->to($email, $user_name)->subject("Accès à l'application");
                     $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
                 });
                 // -----------------
@@ -213,19 +252,58 @@ class AuthController extends Controller
 
                //add email history :
                $body = $data['body'];
-               $pass = $data['your_pass'];
                $emailhistory = Email::create([
                 'user_name' => $user_name,
                 'user_email' =>$email,
-                'body' => $body . ' ' . $pass,
+                'body' => $body,
                 'subject' => 'Internship-Management-System app password',   
                 'selected_user' => $role_as     
               ]);
+
+               //admin notification : ajout d'un etudiant
+              $admin_notification = AdminNotification::create(
+                [
+                     'type' => "L'ajout d'un nouveau étudiant",
+                     'notification' =>"Vous avez ajouter l'étudiant ".$user_name,
+                     'user_name' => $user_name,
+                      'user_email' =>$email,
+                      'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                      <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                      <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+                    </svg>'
+    
+                ]);
+
+  
+
+              //envoie d'un email
+               $admin_notification = AdminNotification::create(
+                [
+                    'type' => "L'envoie des emails",
+                    'notification' =>"Vous avez envoyez  un password générer via email à ".$user_name,
+                    'user_name' => $user_name,
+                    'user_email' =>$email,
+                    'icon' => ''
+                
+                ]);
+
+
+                $idbb = 14;
+                 //add notification for student :
+                    $notification = NotificationStudent::create(
+                    [
+                        'type' => "Consultez votre boite gmail",
+                        'notification' =>" Vous avez reçu un email",
+                        'user_name' =>$user_name,                       
+                         'user_id'=>$idbb
+               
+                    ]);
+
                return response()->json([
-                'status' => 200,
-                'username' => $user->name,
-                'token' =>$token,
-                'message' => 'l\'étudiant est ajouter avec succès',
+                   'status' => 200,
+                   'username' => $user->name,
+                   'token' =>$token,
+                   'message' => 'l\'étudiant est ajouter avec succès',
                ]);
                
             }
@@ -275,8 +353,11 @@ class AuthController extends Controller
 
                 $data = array(
                      "name"=>$user_name,
-                     "body"=>"here is your password for the trainee management platform",
-                     "your_pass" => $req->password
+                     "body"=>"Nous sommes heureux de vous informer que vous pouvez désormais accéder à l'application Internship MS en utilisant les identifiants suivants :
+
+                        utilisateur :".$email."
+                        Mot de passe : ".$req->password,
+                    
                 );
 
                  //data : information to (send name of receiver and the body of email).
@@ -285,7 +366,7 @@ class AuthController extends Controller
                  Mail::send(['text' => 'mail_password'], $data, 
 
                  function($msg) use($email, $user_name){
-                       $msg->to($email, $user_name)->subject('Internship-Management-System app password');
+                       $msg->to($email, $user_name)->subject("Accès à l'application");
                        $msg->from('n.bakenchich@gmail.com','IMS Administration');//source mail
                   });
                  // -----------------
@@ -294,21 +375,54 @@ class AuthController extends Controller
 
                 //add email history :
                 $body = $data['body'];
-                $pass = $data['your_pass'];
-                $emailhistory = Email::create([
+      $emailhistory = Email::create([
                  'user_name' => $user_name,
                  'user_email' =>$email,
-                 'body' => $body . ' ' . $pass,
+                 'body' => $body,
                  'subject' => 'Internship-Management-System app password',     
-                 'selected_user' => $role_as     
+                 'selected_user' => $roleas     
    
                ]);
+                //admin notification
+              $admin_notification = AdminNotification::create([
+                'type' => "L'ajout d'un nouveau enseignant",
+                'notification' =>"Vous avez ajouter l'enseignant ".$user_name,
+                'user_name' => $user_name,
+                'user_email' =>$email,
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+              </svg>'
+                
+              ]);
+               $admin_notification = AdminNotification::create([
+                'type' => "L'envoie des emails",
+                'notification' =>"Vous avez envoyez  un password générer via email à ".$user_name,
+                'user_name' => $user_name,
+                'user_email' =>$email,
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-envelope-plus-fill" viewBox="0 0 16 16">
+                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/>
+                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+              </svg>'
+                
+
+              ]);
+              $idbb = 14;
+              //add notification for teacher :
+                $notification = Notification::create(
+                    [
+                        'type' => "Consultez votre boite gmail",
+                        'notification' =>" Vous avez reçu un email",
+                        'user_name' =>$user_name,                       
+                         'user_id'=>$idbb
+               
+                    ]);
 
                return response()->json([
                 'status' => 200,
                 'username' => $user->name,
                 'token' =>$token,
-                'message' => 'l\enseignant est ajouter avec succès',
+                'message' => "l'enseignant est ajouter avec succès",
                ]);              
             }
     }
@@ -329,11 +443,14 @@ class AuthController extends Controller
                      $image->move($path, $filename);
               
                      $user->image = $filename;
-                     $user->save();
+                     $user->save(); 
+                     
+                   
                      return response()->json([
                          'status'=>200,
                          'message'=>"profile mise à jour avec succès",
                      ]);
+                    
                 }
             }          
                 return response()->json([
@@ -373,11 +490,21 @@ class AuthController extends Controller
             {
                 $admin->name = $request->input('name');
                 $admin->email = $request->input('email');            
-                $admin->save();
+                $admin->save(); 
+                
+                //admin notification
+                $admin_notification = AdminNotification::create([
+                    'type' => "Paramètres de  profile",
+                    'notification' =>"Vous avez modifier votre données de profile",
+                    'user_name' => $admin->name,
+                    'user_email' =>$admin->email,
+                    
+                  ]);
                 return response()->json([
                     'status'=>200,
                     'message'=>"Vos données sont mises à jour avec succès",
                 ]);
+              
             }
             else
             {
@@ -416,11 +543,24 @@ class AuthController extends Controller
          
          if($user)
          {
-             $user->delete();
+             $user->delete(); 
+              $admin_notification = AdminNotification::create([
+                'type' => "Suppression d'un utilisateur",
+                'notification' =>"Vous avez supprimer l'utilisateur numéro".$user->id,
+                'user_name' => $user->name,
+                'user_email' =>$user->email,
+                'icon' =>' <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-fill-x" viewBox="0 0 16 16">
+                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z"/>
+              </svg>'
+                
+              ]);
              return response()->json([
                  'status'=>200,
                  'message'=>'votre compte est supprimée avec succès',
              ]);
+             
+    
          }
          else
          {

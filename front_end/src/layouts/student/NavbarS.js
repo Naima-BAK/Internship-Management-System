@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import { Dropdown } from "react-bootstrap";
 import Logo from '../../components/admin/settings/Logo';
 import Swal from 'sweetalert2';
+import Notifications from './Notifications';
 
 function NavbarS() {
 
@@ -41,7 +42,7 @@ function NavbarS() {
     } else {
         AuthButtons = (
             <ul className="navbar-nav">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <Dropdown>
                         <Dropdown.Toggle variant={colors.navbarbackground} id="dropdown-basic">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={colors.navbarbutton} className="bi bi-bell" viewBox="0 0 16 16">
@@ -64,7 +65,8 @@ function NavbarS() {
 
                     </Dropdown>
 
-                </li>
+                </li> */}
+                <Notifications colors={colors} />
                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                 <li className="nav-item">
                     <Dropdown>

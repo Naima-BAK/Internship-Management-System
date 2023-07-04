@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\AdminNotification;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\File;
@@ -84,6 +85,17 @@ class CompanyController extends Controller
                  $companys->address = $req->address;
                  $companys->save();
 
+                 $admin_notification = AdminNotification::create([
+                    'type' => "L'ajout d'une nouvelle entreprise ",
+                    'notification' =>"Vous avez ajouté l'entreprise ".$req->name, 
+                    'user_name'=>'',
+                    'user_email'=>'',
+                    'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-building-fill-add" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
+                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.493 4.493 0 0 0 12.5 8a4.493 4.493 0 0 0-3.59 1.787A.498.498 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.476 4.476 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1V1Zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5Zm3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                  </svg>'
+                   
+                  ]);
                  return response()->json([
                     'status'=>200,
                     'message'=>'Entreprise ajoutée avec succès',
@@ -181,6 +193,18 @@ class CompanyController extends Controller
            if($company)
            {
                $company->delete();
+                //admin notification :
+            $admin_notification = AdminNotification::create([
+                'type' => "Suppression d'une entreprise ",
+                'notification' =>"Vous avez supprimé l'entreprise numéro".$company->id, 
+                'user_name'=>$company->name,
+                'user_email' => '',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1Z"/>
+                <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+              </svg>'
+              ]);
                return response()->json([
                    'status'=>200,
                    'message'=>'Entreprise supprimée avec succès',
@@ -196,44 +220,4 @@ class CompanyController extends Controller
            
     }
 
-     //this function is my first test for updating logo of company but it fails.
-    // public function edit_logo(Request $request, $id)
-    // {
-       
-       
-         
-    //         if($request->file())
-    //         {                            
-    //             $file = $request->file('image');
-    //             $extension = $file->getClientOriginalExtension();
-    //             $filename = time() .'.'.$extension;
-    //             $file->move('companies/',$filename);
-    //             // $company = Company::find($id);
-    //             // $company->logo = 'companies/'.$filename;
-    //             // $company->save();
-            
-    //             // $company = Company::updateOrCreate(
-    //             //     ['id' => $id],
-    //             //     ['logo' => 'companies/'.$filename]
-    //             // );
-
-    //             Company::where('active', 1)
-    //                     ->where('id', $id)
-    //                     ->update(['logo' => 'companies/'.$filename]);
-
-    //         return response()->json([
-    //             'status'=>200,
-    //             'company'=>$company
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'status'=>404,
-    //             'message'=>'Entreprise non trouvé!'
-    //         ]);
-    //     }
-    
-    
-    // }
 }
