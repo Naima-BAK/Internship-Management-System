@@ -23,7 +23,7 @@ function Footer() {
                 <div className="d-flex align-items-center justify-content-between small" >
                     <div className="text-muted">
                         {/* &nbsp;&nbsp;Bakenchich Naima */}
-                        Copyright &copy; {setting.website_name} App 2023
+                        <Link to="#"> Copyright &copy; {setting.website_name} App 2023</Link>
                     </div>
                     <div>
                         <Link to="#">Privacy Policy</Link>

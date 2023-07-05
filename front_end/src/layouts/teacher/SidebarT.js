@@ -9,6 +9,8 @@ import { FaComments } from 'react-icons/fa';
 import { AiFillFileAdd } from 'react-icons/ai';
 import { MdDescription } from 'react-icons/md';
 import { BsList } from 'react-icons/bs';
+import { FaUserGraduate, FaChalkboardTeacher, FaBuilding } from 'react-icons/fa';
+
 function SidebarT() {
 
     const [colors, setColors] = useState([]);
@@ -71,8 +73,29 @@ function SidebarT() {
                         </nav>
                     </div>
 
-                    <div className="sb-sidenav-menu-heading">Contact</div>
+                    <div className="sb-sidenav-menu-heading">users</div>
 
+                    <Link className="nav-link" to="/teacher/users/students" style={{ marginBottom: '10px', color: colors.sidebarecolor }}>
+                        <div className="sb-nav-link-icon">
+                            <FaUserGraduate size={20} fill={colors.sidebaricon} />
+                        </div>
+                        Les étudiant
+                    </Link>
+
+
+                    <Link className="nav-link" to="/teacher/users/teachers" style={{ marginBottom: '10px', color: colors.sidebarecolor }}>
+                        <div className="sb-nav-link-icon">
+                            <FaChalkboardTeacher size={20} fill={colors.sidebaricon} />
+                        </div>
+                        Les enseignants
+                    </Link>
+
+                    <Link className="nav-link" to="/teacher/users/companies" style={{ marginBottom: '10px', color: colors.sidebarecolor }}>
+                        <div className="sb-nav-link-icon">
+                            <FaBuilding size={20} fill={colors.sidebaricon} />
+                        </div>
+                        Les entreprises
+                    </Link>
 
                 </div>
             </div>

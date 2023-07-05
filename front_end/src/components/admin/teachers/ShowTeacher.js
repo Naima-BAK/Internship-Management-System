@@ -36,13 +36,13 @@ export default function ShowTeacher() {
                             <div className="account-settings">
                                 <div className="user-profile">
                                     <div className="user-avatar">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" />
+
+                                        <img src={`../../../profile/${teacherInput.image}`} alt="Maxwell Admin" />
                                     </div>
                                     <h5 className="user-name">{teacherInput.name}</h5>
                                 </div>
                                 <div className="about">
                                     <h5>About</h5>
-                                    <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
                                 </div>
                             </div>
                         </div>

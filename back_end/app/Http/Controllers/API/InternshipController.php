@@ -43,6 +43,7 @@ class InternshipController extends Controller
             $internship->student_name = $user->name;
             $internship->company_name = $company->name;
             $internship->company_logo = $company->logo;
+            $internship->image = $user->image;
               return response()->json([
                   'status'=>200,
                   'internship'=>$internship,
@@ -332,15 +333,9 @@ class InternshipController extends Controller
 
             
           $internships = Internship::where('user_id', $request->student)->get();
-          $users = User::join('internships as i1', 'users.name', '=', 'i1.university_supervisor')
-                        
-                            ->where('users.role_as', 3)
-                            ->get(['users.*']);
-
-
                   return response()->json([
                      'status'=>200,
-                     'teacherData'=>$users,
+                     'internships'=>$internships,
                   ]); 
         
        }

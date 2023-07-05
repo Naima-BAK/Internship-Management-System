@@ -47,7 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('update_colors_student',[ColorController::class,'update_colors_student']);
     Route::get('view_colors_student/{id}',[ColorController::class,'index_student']);
     Route::get('/index_get_supervisor',[AuthController::class,'index_get_supervisor']);
-    
+    Route::get('view_teachers',[TeacherController::class,'index']);
+
 
  // for teacher 
     Route::get('view_emailsTeacher',[AuthController::class,'getEmailsTeacher']);

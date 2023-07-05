@@ -127,7 +127,7 @@ function ListInternship() {
                     <h5 className='mb-3 mb-md-0' style={{ backgroundColor: ' white !important' }}>
                         <b>
                             <span style={{ backgroundColor: '#e8fadf !important', fontSize: '22px' }}>
-                                La liste des étudiants
+                                La liste des stages
                             </span>
                         </b>
 

@@ -33,15 +33,14 @@ class AuthController extends Controller
     
     public function index_get_students(Request $request)
     {
-
-        $teacher = User::find($request->teacher);
-        $users = User::join('internships', 'users.id', '=', 'internships.user_id')
-                        ->where('internships.university_supervisor', $teacher->name)
-                        ->where('users.role_as', 1)
-                        ->get(['users.*']);
+        $teacherUser = User::find($request->teacher);
+        $internships = Internship::where('university_supervisor', $teacherUser->name)->get();
+        $userIds = $internships->pluck('user_id');
+        $users = User::whereIn('id', $userIds)->get();
 
                         $userToAdd = User::find(14);
                         $users->push($userToAdd);
+                       
         return response()->json($users);
     }
 
@@ -389,10 +388,7 @@ class AuthController extends Controller
                 'notification' =>"Vous avez ajouter l'enseignant ".$user_name,
                 'user_name' => $user_name,
                 'user_email' =>$email,
-                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
-              </svg>'
+                'icon' => ''
                 
               ]);
                $admin_notification = AdminNotification::create([
@@ -400,10 +396,7 @@ class AuthController extends Controller
                 'notification' =>"Vous avez envoyez  un password générer via email à ".$user_name,
                 'user_name' => $user_name,
                 'user_email' =>$email,
-                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-envelope-plus-fill" viewBox="0 0 16 16">
-                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/>
-                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
-              </svg>'
+                'icon' => ''
                 
 
               ]);
@@ -492,14 +485,7 @@ class AuthController extends Controller
                 $admin->email = $request->input('email');            
                 $admin->save(); 
                 
-                //admin notification
-                $admin_notification = AdminNotification::create([
-                    'type' => "Paramètres de  profile",
-                    'notification' =>"Vous avez modifier votre données de profile",
-                    'user_name' => $admin->name,
-                    'user_email' =>$admin->email,
-                    
-                  ]);
+               
                 return response()->json([
                     'status'=>200,
                     'message'=>"Vos données sont mises à jour avec succès",
@@ -549,10 +535,7 @@ class AuthController extends Controller
                 'notification' =>"Vous avez supprimer l'utilisateur numéro".$user->id,
                 'user_name' => $user->name,
                 'user_email' =>$user->email,
-                'icon' =>' <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-fill-x" viewBox="0 0 16 16">
-                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
-                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z"/>
-              </svg>'
+                'icon' =>''
                 
               ]);
              return response()->json([

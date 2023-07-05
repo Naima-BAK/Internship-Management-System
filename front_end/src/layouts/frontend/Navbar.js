@@ -40,7 +40,7 @@ function Navbar() {
     if (!localStorage.getItem('auth_token')) {
         AuthButtons = (
             <ul className="navbar-nav">
-                <li className="nav-item">
+                <li className="nav-item" style={{ marginTop: '20px' }}>
                     <Link className="nav-link" to="/login"><b>Login</b></Link>
                 </li>
             </ul>
@@ -75,17 +75,17 @@ function Navbar() {
             <Link className="navbar-brand" to="/">
                 <img className='img' width={120} src={logo} alt="logo" />
             </Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
-            </button>
+            </button> */}
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto">
-                    <li className="nav-item active">
+                    <li className="nav-item active" style={{ marginTop: '20px' }}>
                         <Link className="nav-link" to="/"><b>Home</b> <span className="sr-only"></span></Link>
                     </li>
 
-                    <li className="nav-item active">
+                    <li className="nav-item active" style={{ marginTop: '20px' }}>
                         <Link className="nav-link" to="/Contact"><b>Contact</b> <span className="sr-only"></span></Link>
                     </li>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

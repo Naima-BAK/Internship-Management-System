@@ -69,12 +69,13 @@ function EditCompany() {
                 {/* Title */}
                 <h5 className="card-title mt-4 px-2">
                     <center>
-                        <img width={100} height={100} src={batiment} alt="view" />
+                        <img width={100} height={100} src={`../../../../companies_logo/${companyInput.logo}`} alt="Maxwell Admin" />
+
 
                         <br />
 
                         <b style={mystyle}>
-                            Modifier une entreprise</ b>
+                            Modifier l'entreprise {companyInput.nam}</ b>
                     </ center>
                 </ h5>
 
@@ -156,9 +157,9 @@ function EditCompany() {
                         <br />
 
                         <Link to={`/admin/EditLogo/${companyInput.id}`}>
-                            <button style={{ marginLeft: '800px' }} type="button" className="btn btn-block btn-primary">Modifier le logo</ button>
+                            <button type="button" className="btn btn-block btn-primary float-end">Modifier le logo</ button>
                         </Link>
-                        <button type="submit" className="btn btn-block btn-primary float-end"> Mettre à jour </ button>
+                        <button type="submit" className="btn btn-block btn-info"> Mettre à jour </ button>
 
 
 

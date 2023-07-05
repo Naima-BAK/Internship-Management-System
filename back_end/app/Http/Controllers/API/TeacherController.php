@@ -91,6 +91,10 @@ class TeacherController extends Controller
                 $teacher->email = $request->input('email');
                 $teacher->job = $request->input('job');
                 $teacher->save();
+
+                // $internship = Internship::where('university_supervisor',$teacher->name)->first();
+                // $internship->university_supervisor = $request->input('name');
+                // $internship->save()
                 return response()->json([
                     'status'=>200,
                     'message'=>"Enseignant mise à jour avec succès",

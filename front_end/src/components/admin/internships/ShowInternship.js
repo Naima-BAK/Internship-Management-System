@@ -52,7 +52,7 @@ export default function ShowInternship() {
                                     <br />
 
                                     <div className="user-avatar">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" />
+                                        <img src={`../../../profile/${internshipInput.image}`} alt="Maxwell Admin" />
                                     </div>
                                     <h5 className="user-name">{internshipInput.student_name}   </h5>
                                     {/* <div className='col-2 ms-5'>

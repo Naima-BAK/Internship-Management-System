@@ -41,7 +41,7 @@ function UsersList({ users, currentUser, onUserSelect }) {
 
 
                 <li key={user.id} className="list-group-item list-group-item-action border-0" style={{ marginLeft: '15px' }}>
-                    <div className="badge bg-success float-right">5</div>
+                    {/* <div className="badge bg-success float-right">5</div> */}
                     <button className="d-flex align-items-start" onClick={() => onUserSelect(user)}>
                         <img src={`../../../profile/${user.image}`} className="rounded-circle mr-1" alt="user" width="40" height="40" />
 

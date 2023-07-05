@@ -46,7 +46,7 @@ function EditStudent() {
         e.preventDefault();
 
         const data = studentInput;
-        axios.get(`/api/update_student/${id}`, data).then(res => {
+        axios.put(`/api/update_student/${id}`, data).then(res => {
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
                 setError([]);

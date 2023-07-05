@@ -23,6 +23,7 @@ function SendDocTostudent() {
     }
     const [error, setError] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -30,7 +31,7 @@ function SendDocTostudent() {
         formData.append('description', description);
         formData.append('file', file);
         formData.append('user_id', parseInt(id));
-        formData.append('sent_by', localStorage.getItem('auth_id'));
+        formData.append('sent_by', parseInt(localStorage.getItem('auth_id')));
 
         axios.post('/api/documentsTostudent', formData, {
             headers: {
@@ -38,7 +39,6 @@ function SendDocTostudent() {
             }
         })
             .then(response => {
-                // console.log(response.data);
                 if (response.data.status === 200)
                     Swal.fire("Success", response.data.message, "success");
                 else if (response.data.status === 400)

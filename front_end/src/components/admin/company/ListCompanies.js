@@ -22,6 +22,7 @@ function ListCompanies() {
         country: '',
         errorsList: [],
     });
+    const [search, setSearch] = useState([]);
 
     const handlInput = (e) => {
         e.persist();
@@ -32,11 +33,17 @@ function ListCompanies() {
         axios.get('/api/view_company').then(res => {
             if (res.data.status === 200) {
                 setCompany_list(res.data.company);
+                setSearch(res.data.company);
             }
 
         })
 
     }, []);
+
+    const searchByNameCompany = (e) => {
+        setSearch(company_list.filter(f => f.name.toLowerCase().includes(e.target.value)));
+    }
+
     // add data to companies table :----------------------------
     const submitCompany = (e) => {
 
@@ -105,7 +112,7 @@ function ListCompanies() {
     var viewCompany_HTMLTABLE = [];
     viewCompany_HTMLTABLE =
         // La méthode map() vous permet d'exécuter une fonction sur chaque élément du tableau, renvoyant un nouveau tableau comme résultat.
-        company_list.map((item) => {
+        search.map((item) => {
             return (
                 <div key={item.id} className="mx-0 row border-bottom border-200">
                     <div className='py-3 col-1 text-start'>{item.id}</div>
@@ -170,25 +177,7 @@ function ListCompanies() {
                             <div className="div1" style={stylediv1}>
 
 
-                                <div className="div2">
-                                    <div className="mb-3">
-                                        <div className="input-group input-group-merge">
 
-
-                                            <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                                                <div className="input-group">
-                                                    <input className="form-control" type="text" placeholder="chercher par id" style={{ width: '300px' }} />
-                                                    <button className="btn btn-black bg-black" type="submit">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-search" viewBox="0 0 16 16">
-                                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -201,7 +190,7 @@ function ListCompanies() {
 
                                             <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                                                 <div className="input-group">
-                                                    <input className="form-control" type="text" placeholder="chercher par nom" style={{ width: '300px' }} />
+                                                    <input className="form-control" type="text" onChange={searchByNameCompany} placeholder="chercher par nom" style={{ width: '300px' }} />
                                                     <button className="btn btn-black bg-black" type="submit">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-search" viewBox="0 0 16 16">
                                                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />

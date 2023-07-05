@@ -29,6 +29,13 @@ import AffectSupervisor from "./components/admin/internships/AffectSupervisor";
 
 import ListDocument from "./components/admin/documents/ListDocument";
 
+import Teachers_student from './components/Teachers';
+import Students_student from './components/Students';
+import Companies_student from './components/Companies';
+
+import Teachers_teacher from './components/Teachers';
+import Students_teacher from './components/Students';
+import Companies_teacher from './components/Companies'
 
 
 
@@ -204,6 +211,10 @@ function App() {
             <Route exact path="/student/ListRapport/:id" element={<ListRapports />} />
             <Route exact path="/student/AddRapport/:id" element={<AddRapport />} />
             <Route exact path="/student/NotifictationList" element={<NotificationListS />} />
+            <Route exact path="/student/users/teachers" element={<Teachers_student />} />
+            <Route exact path="/student/users/students" element={<Students_student />} />
+            <Route exact path="/student/users/companies" element={<Companies_student />} />
+
 
 
             <Route index element={<Navigate to="/student/dashboard" />} />
@@ -223,7 +234,9 @@ function App() {
 
             <Route exact path="/teacher/ListRapport/:id" element={<ListRapportsT />} />
             <Route exact path="/teacher/AddRapport/:id" element={<AddRapportT />} />
-
+            <Route exact path="/teacher/users/teachers" element={<Teachers_teacher />} />
+            <Route exact path="/teacher/users/students" element={<Students_teacher />} />
+            <Route exact path="/teacher/users/companies" element={<Companies_teacher />} />
             <Route index element={<Navigate to="/teacher/dashboard" />} />
           </Route>
           {/* ------------------------------------------------------------------------------------------ */}

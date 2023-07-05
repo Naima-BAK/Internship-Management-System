@@ -28,22 +28,40 @@ function DashboardS() {
             }
         })
     }, []);
+    const [teacher_list, setTeacher_list] = useState([]);
 
-    const [supervisor, setSupervisor] = useState([]);
+    useEffect(() => {
+        axios.get('/api/view_teacher').then(res => {
+            if (res.data.status === 200) {
+                setTeacher_list(res.data.teacher);
+            }
+
+        })
+
+    }, []);
 
     const id = parseInt(localStorage.getItem('auth_id'));
+
+    const [supervisor, setSupervisor] = useState([]);
 
     useEffect(() => {
         axios.get(`/api/getSupervisor?student=${id}`)
             .then(res => {
-                if (res.data.status === 200)
-                    setSupervisor(res.data.teacherData);
+                if (res.data.status === 200) {
+                    const supervisorData = res.data.internships;
+                    setSupervisor(supervisorData);
+
+                    // Filter teacher_list array based on supervisor name
+                    const teachersFiltered = teacher_list.filter(teacher => teacher.name === supervisorData[0].university_supervisor);
+                    setSupervisor(teachersFiltered);
+                }
             })
             .catch(error => {
                 console.log(error);
             });
-    }, [id]);
+    }, [id, teacher_list]);
 
+    console.log(Array.isArray(supervisor));
 
     return (
         <>
@@ -119,7 +137,6 @@ function DashboardS() {
             <div className="row">
                 <div className="col-md-6">
                     <Card style={{ backgroundColor: 'white', marginTop: '30px', height: '350px', marginLeft: '10px' }} >
-
                         {supervisor ?
                             (supervisor.map((s, i) => {
                                 return (

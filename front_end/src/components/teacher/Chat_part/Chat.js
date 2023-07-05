@@ -22,8 +22,10 @@ function Chat() {
     useEffect(() => {
         axios.get(`/api/index_get_students?teacher=${currentUser}`).then(response => {
             setUsers(response.data);
+            console.log(users);
         });
     }, []);
+
 
     //get messages between selectedUser and currentUser :
     useEffect(() => {

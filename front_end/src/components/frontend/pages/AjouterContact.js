@@ -1,5 +1,4 @@
 import React from "react";
-import './contact.css';
 export default function AjouterContact() {
 
     return (
@@ -8,9 +7,11 @@ export default function AjouterContact() {
         <form
             style={{
                 padding: "30px",
-                width: "100%",
+                width: "80%",
+                marginLeft: '100px',
                 marginTop: "30px",
                 background: "#fff",
+
                 boxShadow: "0 0 30px rgba(0, 0, 0, 0.08)",
             }}
             action="contact.php"
